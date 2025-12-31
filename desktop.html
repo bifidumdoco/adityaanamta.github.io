@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Putra Anamta - Portfolio OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* Windows 10 Wallpaper */
+        #desktop {
+            background: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1920') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Glassmorphism for Taskbar and Start Menu */
+        .glass-dark {
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Window Styling */
+        .window {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.2s, transform 0.2s;
+            /* No transition for width/height/top/left during drag */
+            min-width: 300px;
+            min-height: 200px;
+        }
+
+        .window.maximized {
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: calc(100% - 48px) !important;
+            /* Minus taskbar height */
+            transform: none !important;
+            border-radius: 0 !important;
+        }
+
+        /* Resize Handles - 4 Corners */
+        .resizer-handle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            z-index: 20;
+            background: transparent;
+            /* Invisible grab area */
+        }
+
+        /* Specific Corners */
+        .resizer-tl {
+            top: -5px;
+            left: -5px;
+            cursor: nw-resize;
+        }
+
+        .resizer-tr {
+            top: -5px;
+            right: -5px;
+            cursor: ne-resize;
+        }
+
+        .resizer-bl {
+            bottom: -5px;
+            left: -5px;
+            cursor: sw-resize;
+        }
+
+        .resizer-br {
+            bottom: -5px;
+            right: -5px;
+            cursor: se-resize;
+        }
+
+        /* Visual Aid for Bottom-Right (classic grip) */
+        .resizer-br::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            border-bottom: 2px solid #a0a0a0;
+            border-right: 2px solid #a0a0a0;
+        }
+
+        .taskbar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .taskbar-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid #60cdff;
+        }
+
+        /* Desktop Icon Hover */
+        .desktop-icon:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Dragging/Resizing classes */
+        .dragging {
+            opacity: 0.9;
+            transition: none;
+        }
+
+        .resizing {
+            transition: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body class="h-screen w-screen overflow-hidden text-white">
+
+    <!-- Desktop Environment -->
+    <div id="desktop" class="relative w-full h-full pb-12">
+
+        <!-- Desktop Icons 
+             Changed grid to flow-col with 5 rows. 
+             This causes the 6th item (Game) to wrap to the top of the 2nd column 
+             (Right of "About Me") 
+        -->
+        <div class="absolute top-4 left-4 grid grid-flow-col grid-rows-5 gap-4 w-auto">
+
+            <!-- 1. About Me (Row 1, Col 1) -->
+            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
+                onclick="openWindow('about')">
+                <img src="https://img.icons8.com/color/96/000000/user-male-circle--v1.png" alt="About"
+                    class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">About Me</span>
+            </div>
+
+            <!-- 2. Experience (Row 2, Col 1) -->
+            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
+                onclick="openWindow('experience')">
+                <img src="https://img.icons8.com/fluency/96/000000/briefcase.png" alt="Experience"
+                    class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">Experience</span>
+            </div>
+
+            <!-- 3. Projects (Row 3, Col 1) -->
+            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
+                onclick="openWindow('projects')">
+                <img src="https://img.icons8.com/fluency/96/000000/folder-invoices--v1.png" alt="Projects"
+                    class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">Projects</span>
+            </div>
+
+            <!-- 4. Contact (Row 4, Col 1) -->
+            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
+                onclick="openWindow('contact')">
+                <img src="https://img.icons8.com/fluency/96/000000/mail.png" alt="Contact"
+                    class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">Contact Me</span>
+            </div>
+
+            <!-- 5. Recycle Bin (Row 5, Col 1) -->
+            <div
+                class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200">
+                <img src="https://img.icons8.com/fluency/96/000000/recycle-bin.png" alt="Recycle Bin"
+                    class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">Recycle Bin</span>
+            </div>
+
+            <!-- 6. Game Shortcut (Wraps to Row 1, Col 2 -> Right of About Me) -->
+            <!-- Direct link to separate file as requested -->
+            <a href="game.html"
+                class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200">
+                <img src="images/cowboy_5861623.png" alt="Western World" class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">Aditya's<br>Western World</span>
+            </a>
+
+            <!-- 7. World of Navy Shortcut (Wraps to Row 2, Col 2 -> Right of Experience) -->
+            <a href="worldofnavy/index.html"
+                class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200">
+                <img src="images/M.jpeg" alt="World of Navy" class="w-12 h-12 mb-1 drop-shadow-md">
+                <span class="text-xs text-center text-white drop-shadow-md">World of<br>Navy</span>
+            </a>
+
+        </div>
+
+        <!-- ================= WINDOWS ================= -->
+
+        <!-- About Window -->
+        <div id="window-about" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
+            style="width: 500px; height: 600px; top: 10%; left: 30%; z-index: 10;">
+            <!-- Title Bar -->
+            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
+                onmousedown="startDrag(event, 'window-about')">
+                <div class="flex items-center text-sm pl-2">
+                    <span class="mr-2 text-gray-500"><i class="fas fa-user"></i></span>
+                    About Me
+                </div>
+                <div class="flex h-full">
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center transition-colors"
+                        onclick="minimizeWindow('window-about')"><i class="fas fa-minus text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center transition-colors"
+                        onclick="toggleMaximize('window-about')"><i class="far fa-square text-xs"></i></button>
+                    <button
+                        class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors"
+                        onclick="closeWindow('window-about')"><i class="fas fa-times text-sm"></i></button>
+                </div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-1 overflow-auto p-8 bg-gray-50">
+                <div class="flex items-center mb-6">
+                    <!-- Profile Picture Section (Static Image) -->
+                    <div class="mr-6 shrink-0">
+                        <div
+                            class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-lg">
+                            <!-- ========================================================================= -->
+                            <!-- TODO: REPLACE THE URL BELOW WITH THE PATH TO YOUR ACTUAL PHOTO           -->
+                            <!-- Example: src="images/my-photo.jpg"                                      -->
+                            <!-- ========================================================================= -->
+                            <img src="images/Screenshot_20231129-194832_Gallery-1.jpg" alt="Profile Photo"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Aditya Putra Anamta</h1>
+                        <p class="text-blue-600 font-semibold">Digital Business Student | Creative & Tech Specialist</p>
+                        <p class="text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt mr-1"></i> Jakarta,
+                            Indonesia</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-sm leading-relaxed text-gray-700">
+                    <!-- CV Summary -->
+                    <p class="font-medium text-gray-800">
+                        Digital Business student (5th Semester) with a technical background in Software Engineering. I
+                        combine design skills with code to build functional brands and web products. Currently running
+                        an automation agency and a clothing brand while managing corporate projects for a multi-industry
+                        group. Practical experience in UI/UX, front-end development, and project management.
+                    </p>
+
+                    <!-- Resume Link -->
+                    <div class="mt-2 mb-4">
+                        <a href="https://drive.google.com/file/d/1ELvIhIhyI4wz5CDlTdjP87TczcdRCIIN/view?usp=drive_link"
+                            target="_blank"
+                            class="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center">
+                            <i class="fas fa-file-pdf mr-2"></i> See my resume here
+                        </a>
+                    </div>
+
+                    <!-- Space for Image (Moved here between 1st and 2nd paragraph) -->
+                    <div class="w-full bg-gray-200 rounded-lg overflow-hidden my-4 relative group">
+                        <img src="images/profile_showcase.png" class="w-full h-auto object-cover block"
+                            alt="Showcase Image">
+                    </div>
+
+                    <!-- Interest / Origin Story -->
+                    <p>
+                        My journey into technology began during my Vocational High School years, specializing in
+                        Software Engineering (Java, SQL). This technical foundation sparked a curiosity that evolved
+                        into a passion for bridging the gap between creativity and automation. Today, as a founder of
+                        Cakra Labs, I leverage cutting-edge AI tools to redefine digital workflows.
+                    </p>
+
+                    <!-- Core Skills -->
+                    <div class="bg-blue-50 p-4 rounded border border-blue-100 mt-4">
+                        <h3 class="font-bold text-blue-800 mb-2">Core Skills</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <!-- Web & App Development -->
+                            <span
+                                class="px-2 py-1 bg-white border border-blue-200 text-blue-700 rounded text-xs font-semibold">Three.js</span>
+                            <span
+                                class="px-2 py-1 bg-white border border-blue-200 text-blue-700 rounded text-xs font-semibold">React.js</span>
+                            <span
+                                class="px-2 py-1 bg-white border border-blue-200 text-blue-700 rounded text-xs font-semibold">Next.js</span>
+                            <span
+                                class="px-2 py-1 bg-white border border-blue-200 text-blue-700 rounded text-xs">HTML5/CSS3</span>
+                            <span
+                                class="px-2 py-1 bg-white border border-blue-200 text-blue-700 rounded text-xs">Tailwind
+                                CSS</span>
+
+                            <!-- Design & Creative AI -->
+                            <span
+                                class="px-2 py-1 bg-white border border-purple-200 text-purple-700 rounded text-xs">Midjourney</span>
+                            <span
+                                class="px-2 py-1 bg-white border border-gray-200 text-gray-700 rounded text-xs">Figma</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-gray-700 rounded text-xs">Adobe
+                                Illustrator</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Resize Handles (4 Corners) -->
+            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-about', 'nw')"></div>
+            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-about', 'ne')"></div>
+            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-about', 'sw')"></div>
+            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-about', 'se')"></div>
+        </div>
+
+        <!-- Experience Window -->
+        <div id="window-experience" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
+            style="width: 600px; height: 650px; top: 15%; left: 35%; z-index: 10;">
+            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
+                onmousedown="startDrag(event, 'window-experience')">
+                <div class="flex items-center text-sm pl-2">
+                    <span class="mr-2 text-gray-500"><i class="fas fa-briefcase"></i></span>
+                    Experience.txt
+                </div>
+                <div class="flex h-full">
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
+                        onclick="minimizeWindow('window-experience')"><i class="fas fa-minus text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
+                        onclick="toggleMaximize('window-experience')"><i class="far fa-square text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center"
+                        onclick="closeWindow('window-experience')"><i class="fas fa-times text-sm"></i></button>
+                </div>
+            </div>
+            <div class="content flex-1 overflow-auto p-0 font-mono text-sm bg-white">
+                <div class="p-6 space-y-8">
+
+                    <!-- Item 1 -->
+                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
+                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-blue-500 border-2 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Founder & Lead Creative</h3>
+                        <p class="text-blue-600 font-semibold mb-1">Cakra Labs (Creative AI Automation Agency)</p>
+                        <p class="text-gray-400 text-xs mb-3">2024 - Present</p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Founded agency combining manual design with AI tools.</li>
+                            <li>Built agency website and client prototypes using HTML/CSS.</li>
+                            <li>Managed digital strategy for B2B clients.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
+                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Project Manager & MarComm</h3>
+                        <p class="text-blue-600 font-semibold mb-1">PT. Syauqia Berkah Makmur (SBM Group)</p>
+                        <p class="text-gray-400 text-xs mb-3">2024 - 2025</p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Managed marketing across Laundry, Property, Banking, and Education units.</li>
+                            <li>Designed corporate website (ptsbmgroup.github.io).</li>
+                            <li>Handled visual communication and copywriting.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
+                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Founder & Owner</h3>
+                        <p class="text-blue-600 font-semibold mb-1">Bifidum.co (formerly Kalemia.co)</p>
+                        <p class="text-gray-400 text-xs mb-3">2021 - Present</p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Automotive fashion brand.</li>
+                            <li>Produced high-precision vector art and vehicle decals.</li>
+                            <li>Managed end-to-end operations from design to sales.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
+                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Communication Department</h3>
+                        <p class="text-blue-600 font-semibold mb-1">BEM Cyber University</p>
+                        <p class="text-gray-400 text-xs mb-3">2024 - 2025</p>
+                        <p class="text-gray-600">Designer for Student Executive Board, creating posters and social media
+                            assets.</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Resize Handles (4 Corners) -->
+            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-experience', 'nw')"></div>
+            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-experience', 'ne')"></div>
+            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-experience', 'sw')"></div>
+            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-experience', 'se')"></div>
+        </div>
+
+        <!-- Projects Window (File Explorer Style) -->
+        <div id="window-projects" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
+            style="width: 800px; height: 500px; top: 12%; left: 20%; z-index: 10;">
+
+            <!-- Explorer Ribbon/Top Bar -->
+            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
+                onmousedown="startDrag(event, 'window-projects')">
+                <div class="flex items-center text-sm pl-2">
+                    <span class="mr-2 text-yellow-500"><i class="fas fa-folder-open"></i></span>
+                    File Explorer
+                </div>
+                <div class="flex h-full">
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
+                        onclick="minimizeWindow('window-projects')"><i class="fas fa-minus text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
+                        onclick="toggleMaximize('window-projects')"><i class="far fa-square text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center"
+                        onclick="closeWindow('window-projects')"><i class="fas fa-times text-sm"></i></button>
+                </div>
+            </div>
+
+            <!-- Address Bar -->
+            <div class="bg-white border-b border-gray-200 p-2 flex items-center space-x-2">
+                <div class="flex space-x-2 text-gray-400">
+                    <button class="hover:bg-gray-100 p-1 rounded" onclick="navigateProjects('root')"><i
+                            class="fas fa-arrow-left"></i></button>
+                    <button class="hover:bg-gray-100 p-1 rounded"><i class="fas fa-arrow-up"></i></button>
+                </div>
+                <div
+                    class="flex-1 border border-gray-300 rounded px-2 py-1 text-sm flex items-center bg-white hover:border-gray-400">
+                    <i class="fas fa-laptop text-gray-500 mr-2"></i>
+                    <span id="project-breadcrumb" class="text-gray-700">This PC > Projects</span>
+                </div>
+                <div class="border border-gray-300 rounded px-2 py-1 text-sm w-48 text-gray-400 bg-white">
+                    Search Projects
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex flex-1 overflow-hidden bg-white">
+                <!-- Sidebar -->
+                <div class="w-48 border-r border-gray-200 p-2 text-sm hidden md:block overflow-y-auto">
+                    <div class="text-gray-500 text-xs font-bold mb-2 uppercase tracking-wide">Quick Access</div>
+                    <div class="pl-2 py-1 hover:bg-blue-50 rounded cursor-pointer text-gray-700 flex items-center"
+                        onclick="navigateProjects('root')"><i class="fas fa-star text-yellow-400 mr-2"></i> Quick access
+                    </div>
+                    <div class="pl-2 py-1 hover:bg-blue-50 rounded cursor-pointer text-gray-700 flex items-center"><i
+                            class="fas fa-desktop text-blue-400 mr-2"></i> Desktop</div>
+                    <div class="pl-2 py-1 hover:bg-blue-50 rounded cursor-pointer text-gray-700 flex items-center"><i
+                            class="fas fa-download text-blue-400 mr-2"></i> Downloads</div>
+
+                    <div class="text-gray-500 text-xs font-bold mt-4 mb-2 uppercase tracking-wide">This PC</div>
+                    <div class="pl-2 py-1 bg-blue-100 rounded cursor-pointer text-gray-800 flex items-center"
+                        onclick="navigateProjects('root')"><i class="fas fa-folder text-yellow-500 mr-2"></i> Projects
+                    </div>
+                    <div class="pl-6 py-1 hover:bg-gray-100 rounded cursor-pointer text-gray-700 flex items-center"
+                        onclick="navigateProjects('websites')"><i class="fas fa-globe text-blue-500 mr-2"></i> Websites
+                    </div>
+                    <div class="pl-6 py-1 hover:bg-gray-100 rounded cursor-pointer text-gray-700 flex items-center"
+                        onclick="navigateProjects('graphic')"><i class="fas fa-image text-purple-500 mr-2"></i> Graphic
+                        Design</div>
+                </div>
+
+                <!-- Main View -->
+                <div id="project-view-root" class="flex-1 p-4 overflow-y-auto">
+                    <div class="text-gray-500 text-xs mb-2 border-b border-gray-200 pb-1">Folders (2)</div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Folder 1 -->
+                        <div class="group flex flex-col items-center p-4 hover:bg-blue-50 border border-transparent hover:border-blue-100 rounded cursor-pointer"
+                            onclick="navigateProjects('websites')">
+                            <img src="images/web.png" class="w-16 h-16 mb-2 group-hover:opacity-90">
+                            <span class="text-sm text-center text-gray-700 group-hover:text-blue-600">Websites</span>
+                            <span class="text-xs text-gray-400">4 items</span>
+                        </div>
+                        <!-- Folder 2 -->
+                        <div class="group flex flex-col items-center p-4 hover:bg-blue-50 border border-transparent hover:border-blue-100 rounded cursor-pointer"
+                            onclick="navigateProjects('graphic')">
+                            <img src="https://img.icons8.com/fluency/96/000000/image.png"
+                                class="w-16 h-16 mb-2 group-hover:opacity-90">
+                            <span class="text-sm text-center text-gray-700 group-hover:text-blue-600">Graphic
+                                Design</span>
+                            <span class="text-xs text-gray-400">Gallery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Websites View (Hidden by default) -->
+                <div id="project-view-websites" class="flex-1 p-4 overflow-y-auto hidden">
+                    <div class="text-gray-500 text-xs mb-2 border-b border-gray-200 pb-1">HTML Documents (4)</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+
+                        <!-- Link Card 1 -->
+                        <a href="https://myuang.vercel.app" target="_blank"
+                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
+                            <div
+                                class="w-12 h-12 bg-blue-600 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800">myuang.vercel.app</h4>
+                                <p class="text-xs text-gray-500 mt-1">Financial tracking web application.</p>
+                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
+                                        class="fas fa-external-link-alt ml-1"></i></p>
+                            </div>
+                        </a>
+
+                        <!-- Link Card 2 -->
+                        <a href="https://cakralabs.me" target="_blank"
+                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
+                            <div
+                                class="w-12 h-12 bg-gray-900 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800">Cakralabs.me</h4>
+                                <p class="text-xs text-gray-500 mt-1">Creative AI Automation Agency portfolio.</p>
+                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
+                                        class="fas fa-external-link-alt ml-1"></i></p>
+                            </div>
+                        </a>
+
+                        <!-- Link Card 3 -->
+                        <a href="https://evpowering.vercel.app" target="_blank"
+                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
+                            <div
+                                class="w-12 h-12 bg-green-500 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
+                                <i class="fas fa-charging-station"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800">evpowering.vercel.app</h4>
+                                <p class="text-xs text-gray-500 mt-1">EV charging solutions landing page.</p>
+                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
+                                        class="fas fa-external-link-alt ml-1"></i></p>
+                            </div>
+                        </a>
+
+                        <!-- Link Card 4 -->
+                        <a href="https://rotiklasik.vercel.app" target="_blank"
+                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
+                            <div
+                                class="w-12 h-12 bg-yellow-600 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
+                                <i class="fas fa-bread-slice"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800">rotiklasik.vercel.app</h4>
+                                <p class="text-xs text-gray-500 mt-1">Bakery brand showcase website.</p>
+                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
+                                        class="fas fa-external-link-alt ml-1"></i></p>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Graphic Design View (Hidden by default) -->
+                <div id="project-view-graphic" class="flex-1 p-4 overflow-y-auto hidden">
+                    <div class="text-gray-500 text-xs mb-2 border-b border-gray-200 pb-1">Image Gallery (10 items)</div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <!-- Item 1 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/cakra labs pembukaan slide 1.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Cakra Labs Slide 1">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 1</div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/cakra labs pembukaan slide 2.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Cakra Labs Slide 2">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 2</div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/cakra labs slide pembukaan 3.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Cakra Labs Slide 3">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 3</div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/cakralabs pembukaan slide 4.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Cakra Labs Slide 4">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 4</div>
+                        </div>
+                        <!-- Item 5 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/cakra lab pembukaan slide 5.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Cakra Labs Slide 5">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 5</div>
+                        </div>
+                        <!-- Item 6 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/Biyan Final.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Biyan Final">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Biyan Final</div>
+                        </div>
+                        <!-- Item 7 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/DTM Merc 190E Klasse 1 - Feed 1 Promotion.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="DTM Merc Promotion">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">DTM Merc Promotion</div>
+                        </div>
+                        <!-- Item 8 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/ON TSHIRT BASTOS Back.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Bastos Tshirt Back">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Bastos Tshirt</div>
+                        </div>
+                        <!-- Item 9 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/Starlet bagas final with kalemia ng.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Starlet Bagas">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Starlet Design</div>
+                        </div>
+                        <!-- Item 10 -->
+                        <div
+                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
+                            <div
+                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
+                                <img src="images/project decal mas haikal rocky final.png"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    alt="Rocky Decal">
+                            </div>
+                            <div class="text-xs text-center text-gray-600 truncate">Rocky Decal</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Resize Handles (4 Corners) -->
+            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-projects', 'nw')"></div>
+            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-projects', 'ne')"></div>
+            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-projects', 'sw')"></div>
+            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-projects', 'se')"></div>
+        </div>
+
+        <!-- Contact Window -->
+        <div id="window-contact" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
+            style="width: 400px; height: 350px; top: 20%; left: 40%; z-index: 10;">
+            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
+                onmousedown="startDrag(event, 'window-contact')">
+                <div class="flex items-center text-sm pl-2">
+                    <span class="mr-2 text-blue-500"><i class="fas fa-envelope"></i></span>
+                    Contact Me
+                </div>
+                <div class="flex h-full">
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
+                        onclick="minimizeWindow('window-contact')"><i class="fas fa-minus text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
+                        onclick="toggleMaximize('window-contact')"><i class="far fa-square text-xs"></i></button>
+                    <button class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center"
+                        onclick="closeWindow('window-contact')"><i class="fas fa-times text-sm"></i></button>
+                </div>
+            </div>
+            <div class="content flex-1 p-6 bg-gray-50 flex flex-col justify-center items-center text-center">
+                <img src="https://img.icons8.com/fluency/96/000000/address-book.png" class="w-16 h-16 mb-4">
+                <h2 class="text-xl font-bold text-gray-800 mb-6">Let's Connect</h2>
+
+                <div class="w-full space-y-3">
+                    <a href="mailto:adityawealthyopt2281@gmail.com"
+                        class="block w-full bg-white border border-gray-200 p-3 rounded shadow-sm hover:border-blue-400 transition-colors flex items-center">
+                        <i class="fas fa-envelope text-red-500 mr-3 text-lg"></i>
+                        <span class="text-sm font-medium truncate">adityawealthyopt2281@gmail.com</span>
+                    </a>
+
+                    <a href="https://wa.me/6285880574423" target="_blank"
+                        class="block w-full bg-white border border-gray-200 p-3 rounded shadow-sm hover:border-green-400 transition-colors flex items-center">
+                        <i class="fab fa-whatsapp text-green-500 mr-3 text-lg"></i>
+                        <span class="text-sm font-medium">Chat on WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Resize Handles (4 Corners) -->
+            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-contact', 'nw')"></div>
+            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-contact', 'ne')"></div>
+            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-contact', 'sw')"></div>
+            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-contact', 'se')"></div>
+        </div>
+
+    </div>
+
+    <!-- Start Menu (Hidden) -->
+    <div id="start-menu"
+        class="fixed bottom-12 left-0 w-80 h-96 glass-dark text-white rounded-tr-lg hidden flex-col z-50 border-t border-r border-gray-700 shadow-2xl transform transition-transform duration-100 origin-bottom-left scale-95 opacity-0">
+        <!-- Sidebar -->
+        <div class="flex h-full">
+            <div class="w-12 flex flex-col items-center justify-end pb-4 space-y-4 text-gray-400">
+                <button class="hover:text-white"><i class="fas fa-cog"></i></button>
+                <button class="hover:text-white"><i class="fas fa-power-off"></i></button>
+            </div>
+            <!-- Apps List -->
+            <div class="flex-1 p-4 overflow-y-auto">
+                <div class="text-xs text-gray-400 mb-2 font-bold">Pinned</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
+                        onclick="openWindow('about'); toggleStartMenu()">
+                        <i class="fas fa-user-circle text-2xl mb-1 text-blue-400"></i>
+                        <div class="text-xs">About</div>
+                    </div>
+                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
+                        onclick="openWindow('projects'); toggleStartMenu()">
+                        <i class="fas fa-folder-open text-2xl mb-1 text-yellow-400"></i>
+                        <div class="text-xs">Projects</div>
+                    </div>
+                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
+                        onclick="window.open('https://github.com', '_blank')">
+                        <i class="fab fa-github text-2xl mb-1 text-white"></i>
+                        <div class="text-xs">GitHub</div>
+                    </div>
+                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
+                        onclick="openWindow('contact'); toggleStartMenu()">
+                        <i class="fas fa-envelope text-2xl mb-1 text-blue-300"></i>
+                        <div class="text-xs">Mail</div>
+                    </div>
+                </div>
+
+                <div class="text-xs text-gray-400 mt-4 mb-2 font-bold">Recent</div>
+                <div class="space-y-1">
+                    <div class="flex items-center p-2 hover:bg-white hover:bg-opacity-10 rounded cursor-pointer"
+                        onclick="openWindow('experience'); toggleStartMenu()">
+                        <i class="fas fa-file-alt text-blue-400 mr-3"></i>
+                        <span class="text-sm">Experience.txt</span>
+                    </div>
+                    <div class="flex items-center p-2 hover:bg-white hover:bg-opacity-10 rounded cursor-pointer"
+                        onclick="openWindow('projects'); toggleStartMenu()">
+                        <i class="fas fa-image text-purple-400 mr-3"></i>
+                        <span class="text-sm">Graphic Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar"
+        class="fixed bottom-0 left-0 w-full h-12 glass-dark flex items-center justify-between px-0 z-50 border-t border-gray-700">
+
+        <div class="flex items-center h-full">
+            <!-- Start Button -->
+            <button
+                class="h-full w-12 hover:bg-white hover:bg-opacity-10 flex items-center justify-center transition-colors"
+                onclick="toggleStartMenu()">
+                <i class="fab fa-windows text-white text-xl"></i>
+            </button>
+
+            <!-- Search Placeholder -->
+            <div
+                class="h-8 ml-2 w-64 bg-white bg-opacity-10 rounded-sm flex items-center px-3 text-gray-400 text-sm hidden md:flex hover:bg-opacity-20 transition-colors">
+                <i class="fas fa-search mr-3"></i>
+                <span>Type here to search</span>
+            </div>
+
+            <!-- Task View Icon -->
+            <button
+                class="h-full w-12 ml-1 hover:bg-white hover:bg-opacity-10 flex items-center justify-center transition-colors hidden sm:flex">
+                <i class="fas fa-tasks text-white text-sm"></i>
+            </button>
+
+            <!-- Active Apps Section -->
+            <div class="flex items-center ml-2 h-full" id="taskbar-apps">
+                <!-- App items will be injected here by JS -->
+            </div>
+        </div>
+
+        <!-- System Tray -->
+        <div class="flex items-center h-full pr-4 text-xs text-white space-x-4">
+            <div class="hidden sm:flex space-x-2">
+                <i class="fas fa-chevron-up hover:bg-white hover:bg-opacity-10 p-1 rounded"></i>
+                <i class="fas fa-wifi hover:bg-white hover:bg-opacity-10 p-1 rounded"></i>
+                <i class="fas fa-volume-up hover:bg-white hover:bg-opacity-10 p-1 rounded"></i>
+            </div>
+            <div
+                class="text-right cursor-default hover:bg-white hover:bg-opacity-10 px-2 py-1 rounded transition-colors">
+                <div id="clock-time" class="font-medium">12:00 PM</div>
+                <div id="clock-date" class="text-gray-300">10/24/2025</div>
+            </div>
+            <div class="w-1 h-full border-l border-gray-600 ml-2"></div>
+        </div>
+    </div>
+
+    <script>
+        // === CLOCK ===
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const dateString = now.toLocaleDateString([], { month: '2-digit', day: '2-digit', year: 'numeric' });
+            document.getElementById('clock-time').textContent = timeString;
+            document.getElementById('clock-date').textContent = dateString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // === WINDOW MANAGEMENT ===
+        let maxZIndex = 20;
+        const openWindows = new Set(); // Track open windows
+
+        function bringToFront(windowId) {
+            const win = document.getElementById(windowId);
+            maxZIndex++;
+            win.style.zIndex = maxZIndex;
+            updateTaskbarActive(windowId);
+        }
+
+        function openWindow(appId) {
+            const windowId = 'window-' + appId;
+            const win = document.getElementById(windowId);
+
+            if (win.classList.contains('hidden')) {
+                // Open new
+                win.classList.remove('hidden');
+                win.classList.add('flex'); // Ensure flex display
+
+                // Center slightly random
+                if (!openWindows.has(appId)) {
+                    const offset = openWindows.size * 20;
+                    win.style.top = (10 + Math.random() * 5) + '%';
+                    win.style.left = (20 + Math.random() * 5) + '%';
+                }
+
+                openWindows.add(appId);
+                renderTaskbar();
+            }
+
+            bringToFront(windowId);
+
+            // Special reset for projects to show root
+            if (appId === 'projects') {
+                // Optional: reset view? navigateProjects('root');
+            }
+        }
+
+        function closeWindow(windowId) {
+            const win = document.getElementById(windowId);
+            win.classList.add('hidden');
+            win.classList.remove('flex');
+
+            const appId = windowId.replace('window-', '');
+            openWindows.delete(appId);
+            renderTaskbar();
+        }
+
+        function minimizeWindow(windowId) {
+            const win = document.getElementById(windowId);
+            win.classList.add('hidden');
+            win.classList.remove('flex');
+            // Don't remove from openWindows set, just hide
+            // Taskbar entry remains, clicking it will restore
+            updateTaskbarActive(null); // No active window
+        }
+
+        function toggleMaximize(windowId) {
+            const win = document.getElementById(windowId);
+            win.classList.toggle('maximized');
+        }
+
+        // === TASKBAR ===
+        function renderTaskbar() {
+            const container = document.getElementById('taskbar-apps');
+            container.innerHTML = '';
+
+            openWindows.forEach(appId => {
+                const iconMap = {
+                    'about': 'user-male-circle--v1.png',
+                    'experience': 'briefcase.png',
+                    'projects': 'folder-invoices--v1.png',
+                    'contact': 'mail.png'
+                };
+
+                const item = document.createElement('div');
+                item.className = 'taskbar-item h-full w-12 flex items-center justify-center cursor-pointer transition-colors';
+                item.onclick = () => {
+                    const winId = 'window-' + appId;
+                    const win = document.getElementById(winId);
+                    if (win.classList.contains('hidden')) {
+                        win.classList.remove('hidden');
+                        win.classList.add('flex');
+                        bringToFront(winId);
+                    } else {
+                        // If visible and on top, minimize. If not on top, bring to front.
+                        if (win.style.zIndex == maxZIndex) {
+                            minimizeWindow(winId);
+                        } else {
+                            bringToFront(winId);
+                        }
+                    }
+                };
+
+                // Simple icon lookup (simplified)
+                const iconSrc = `https://img.icons8.com/fluency/48/000000/${iconMap[appId] || 'application.png'}`;
+
+                item.innerHTML = `<img src="${iconSrc}" class="w-6 h-6">`;
+                container.appendChild(item);
+            });
+        }
+
+        function updateTaskbarActive(activeWindowId) {
+            const items = document.querySelectorAll('.taskbar-item');
+            items.forEach(item => item.classList.remove('active'));
+
+            if (!activeWindowId) return;
+
+            const appId = activeWindowId.replace('window-', '');
+            // Find index logic or re-render (Simplified: just visual feedback needed)
+            // For this lightweight version, re-rendering might be overkill for active state highlighting
+            // We'll rely on the visual toggle of the window itself
+        }
+
+        // === START MENU ===
+        function toggleStartMenu() {
+            const menu = document.getElementById('start-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-95');
+                }, 10);
+            } else {
+                menu.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                }, 100);
+            }
+        }
+
+        // Close start menu when clicking desktop
+        document.getElementById('desktop').addEventListener('click', (e) => {
+            if (e.target.id === 'desktop') {
+                const menu = document.getElementById('start-menu');
+                if (!menu.classList.contains('hidden')) toggleStartMenu();
+            }
+        });
+
+        // === PROJECT NAV (FILE EXPLORER LOGIC) ===
+        function navigateProjects(view) {
+            // Hide all views
+            document.getElementById('project-view-root').classList.add('hidden');
+            document.getElementById('project-view-websites').classList.add('hidden');
+            document.getElementById('project-view-graphic').classList.add('hidden');
+
+            // Show requested view
+            const viewId = 'project-view-' + view;
+            const el = document.getElementById(viewId);
+            if (el) el.classList.remove('hidden');
+
+            // Update breadcrumb
+            const breadcrumb = document.getElementById('project-breadcrumb');
+            if (view === 'root') breadcrumb.textContent = 'This PC > Projects';
+            else if (view === 'websites') breadcrumb.textContent = 'This PC > Projects > Websites';
+            else if (view === 'graphic') breadcrumb.textContent = 'This PC > Projects > Graphic Design';
+        }
+
+        // === DRAG & RESIZE LOGIC ===
+        let isDragging = false;
+        let isResizing = false;
+
+        let currentWindow = null;
+        let resizeDirection = ''; // 'nw', 'ne', 'sw', 'se'
+
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        let initialLeft = 0;
+        let initialTop = 0;
+        let initialWidth = 0;
+        let initialHeight = 0;
+        let initialMouseX = 0;
+        let initialMouseY = 0;
+
+        // --- Dragging ---
+        function startDrag(e, windowId) {
+            if (e.target.closest('button')) return; // Don't drag if clicking buttons
+
+            const win = document.getElementById(windowId);
+            if (win.classList.contains('maximized')) return; // Can't drag maximized
+
+            isDragging = true;
+            currentWindow = win;
+
+            bringToFront(windowId);
+
+            const rect = win.getBoundingClientRect();
+            dragOffsetX = e.clientX - rect.left;
+            dragOffsetY = e.clientY - rect.top;
+
+            win.classList.add('dragging');
+        }
+
+        // --- Resizing ---
+        function startResize(e, windowId, direction) {
+            e.stopPropagation(); // Stop event bubbling to dragging
+            const win = document.getElementById(windowId);
+            if (win.classList.contains('maximized')) return;
+
+            isResizing = true;
+            currentWindow = win;
+            resizeDirection = direction;
+
+            bringToFront(windowId);
+
+            const rect = win.getBoundingClientRect();
+            initialLeft = rect.left;
+            initialTop = rect.top;
+            initialWidth = rect.width;
+            initialHeight = rect.height;
+            initialMouseX = e.clientX;
+            initialMouseY = e.clientY;
+
+            win.classList.add('resizing');
+        }
+
+        // --- Global Mouse Move ---
+        document.addEventListener('mousemove', (e) => {
+            if (!currentWindow) return;
+
+            const taskbarHeight = 48;
+
+            if (isDragging) {
+                e.preventDefault();
+                let x = e.clientX - dragOffsetX;
+                let y = e.clientY - dragOffsetY;
+
+                // === BOUNDARY CHECKS FOR DRAG ===
+                const winWidth = currentWindow.offsetWidth;
+
+                // 1. Top Boundary: Cannot go above 0
+                if (y < 0) y = 0;
+
+                // 2. Bottom Boundary: Keep 30px of titlebar visible
+                if (y > window.innerHeight - taskbarHeight - 30) {
+                    y = window.innerHeight - taskbarHeight - 30;
+                }
+
+                // 3. Left/Right Boundary
+                if (x + winWidth < 50) x = 50 - winWidth;
+                if (x > window.innerWidth - 50) x = window.innerWidth - 50;
+
+                currentWindow.style.left = x + 'px';
+                currentWindow.style.top = y + 'px';
+                currentWindow.style.transform = 'none';
+            }
+            else if (isResizing) {
+                e.preventDefault();
+                const deltaX = e.clientX - initialMouseX;
+                const deltaY = e.clientY - initialMouseY;
+
+                let newWidth = initialWidth;
+                let newHeight = initialHeight;
+                let newLeft = initialLeft;
+                let newTop = initialTop;
+
+                // --- Logic based on Corner ---
+
+                // East (Right) - Changing width
+                if (resizeDirection.includes('e')) {
+                    newWidth = initialWidth + deltaX;
+                }
+
+                // South (Bottom) - Changing height
+                if (resizeDirection.includes('s')) {
+                    newHeight = initialHeight + deltaY;
+                }
+
+                // West (Left) - Changing width & left position
+                if (resizeDirection.includes('w')) {
+                    newWidth = initialWidth - deltaX;
+                    newLeft = initialLeft + deltaX;
+                }
+
+                // North (Top) - Changing height & top position
+                if (resizeDirection.includes('n')) {
+                    newHeight = initialHeight - deltaY;
+                    newTop = initialTop + deltaY;
+                }
+
+                // --- Min Size Checks ---
+                if (newWidth < 300) {
+                    // Prevent moving left if we hit min width on West side
+                    if (resizeDirection.includes('w')) newLeft = initialLeft + (initialWidth - 300);
+                    newWidth = 300;
+                }
+                if (newHeight < 200) {
+                    // Prevent moving top if we hit min height on North side
+                    if (resizeDirection.includes('n')) newTop = initialTop + (initialHeight - 200);
+                    newHeight = 200;
+                }
+
+                // --- Boundary Checks for Resize ---
+                // Prevent Top from going off screen
+                if (newTop < 0) {
+                    newHeight = newHeight + newTop; // shrinking height instead of moving up
+                    newTop = 0;
+                }
+
+                currentWindow.style.width = newWidth + 'px';
+                currentWindow.style.height = newHeight + 'px';
+                currentWindow.style.left = newLeft + 'px';
+                currentWindow.style.top = newTop + 'px';
+                currentWindow.style.transform = 'none';
+            }
+        });
+
+        // --- Global Mouse Up ---
+        document.addEventListener('mouseup', () => {
+            if (currentWindow) {
+                currentWindow.classList.remove('dragging');
+                currentWindow.classList.remove('resizing');
+            }
+            isDragging = false;
+            isResizing = false;
+            currentWindow = null;
+        });
+
+    </script>
+</body>
+
+</html>

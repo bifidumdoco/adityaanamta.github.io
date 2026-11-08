@@ -225,15 +225,25 @@ class Game {
         if (this.menuMusic && this.menuMusic.isPlaying) this.menuMusic.stop();
         if (this.engineSound) this.engineSound.play();
 
-        // Request Lock
-        document.body.requestPointerLock();
+        document.body.classList.add('in-game');
 
-        // Ensure manual click also locks if user unlocks via ESC
-        document.addEventListener('click', () => {
-            if (this.isPlaying) {
-                document.body.requestPointerLock();
-            }
-        });
+        // Pointer lock only makes sense with a mouse. Touch uses on-screen controls.
+        const isTouch = window.matchMedia('(pointer: coarse)').matches ||
+            navigator.maxTouchPoints > 0 ||
+            window.location.search.indexOf('touch=1') > -1;
+
+        if (!isTouch) {
+            document.body.requestPointerLock();
+
+            // Ensure manual click also locks if user unlocks via ESC
+            document.addEventListener('click', () => {
+                if (this.isPlaying) {
+                    document.body.requestPointerLock();
+                }
+            });
+        } else {
+            document.body.classList.add('touch-mode');
+        }
 
         // Create Ships (3v3)
         this.spawnShips();

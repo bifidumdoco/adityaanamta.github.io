@@ -41,10 +41,14 @@
         <div id="instructions-screen" style="display:none;">
             <h2>Captain's Manual</h2>
             <div class="instruct-content">
-                <p><strong>W / S</strong> : Engine Throttle (Forward/Reverse)</p>
-                <p><strong>A / D</strong> : Rudder (Turn Left/Right)</p>
-                <p><strong>Mouse</strong> : Look Around & Aim</p>
-                <p><strong>Left Click / Space</strong> : Fire Main Battery</p>
+                <p class="keyboard-only"><strong>W / S</strong> : Engine Throttle (Forward/Reverse)</p>
+                <p class="keyboard-only"><strong>A / D</strong> : Rudder (Turn Left/Right)</p>
+                <p class="keyboard-only"><strong>Mouse</strong> : Look Around &amp; Aim</p>
+                <p class="keyboard-only"><strong>Left Click / Space</strong> : Fire Main Battery</p>
+                <p class="touch-only"><strong>Joystick</strong> : Throttle &amp; Rudder</p>
+                <p class="touch-only"><strong>Drag</strong> : Look Around &amp; Aim</p>
+                <p class="touch-only"><strong>FIRE</strong> : Fire Main Battery</p>
+                <p class="touch-only"><strong>Pinch</strong> : Zoom</p>
                 <p><strong>Goal</strong> : Sink all enemy ships!</p>
                 <p><em>Tip: Islands block projectiles. Use them as cover!</em></p>
             </div>
@@ -79,6 +83,14 @@
                 <div class="status-row">Speed: <span id="speed-display">0</span> kts</div>
             </div>
             <div id="crosshair">+</div>
+        </div>
+
+        <!-- 5b. TOUCH CONTROLS -->
+        <div id="touch-controls">
+            <div id="touch-stick">
+                <span id="touch-knob"></span>
+            </div>
+            <button id="touch-fire" type="button">FIRE</button>
         </div>
 
         <!-- 6. GAME OVER -->

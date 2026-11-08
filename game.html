@@ -294,6 +294,80 @@
             font-size: 20px;
             margin-top: 5px;
         }
+
+        /* ---------------------------------------------------- touch controls */
+        .touch-hint {
+            display: none;
+        }
+
+        body.touch-mode .desktop-hint {
+            display: none;
+        }
+
+        body.touch-mode .touch-hint {
+            display: block;
+        }
+
+        #touch-controls {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            display: none;
+            pointer-events: none;
+        }
+
+        body.touch-mode.game-active #touch-controls {
+            display: block;
+        }
+
+        #touch-stick {
+            position: absolute;
+            left: 22px;
+            bottom: 26px;
+            width: 132px;
+            height: 132px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .28);
+            border: 1px solid rgba(255, 255, 255, .35);
+            pointer-events: auto;
+            touch-action: none;
+        }
+
+        #touch-knob {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .38);
+            border: 1px solid rgba(255, 255, 255, .65);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        #touch-action {
+            position: absolute;
+            right: 24px;
+            bottom: 34px;
+            width: 94px;
+            height: 94px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, .45);
+            background: rgba(139, 69, 19, .55);
+            color: #fff;
+            font: 600 12px/1 'Segoe UI', sans-serif;
+            letter-spacing: .12em;
+            pointer-events: auto;
+            touch-action: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+        }
+
+        #touch-action:active {
+            background: rgba(210, 180, 140, .75);
+            color: #3e1f08;
+        }
     </style>
 </head>
 
@@ -302,7 +376,8 @@
     <div id="start-screen">
         <h1>ADITYA'S WESTERN WORLD</h1>
         <p>Explore an interactive cowboy world to discover Aditya Putra Anamta's profile.</p>
-        <p style="font-size: 18px; color: #ffe4b5;">(WASD = Walk | Press W 2x = Sprint | Mouse = Look)</p>
+        <p class="desktop-hint" style="font-size: 18px; color: #ffe4b5;">(WASD = Walk | Press W 2x = Sprint | Mouse = Look)</p>
+        <p class="touch-hint" style="font-size: 18px; color: #ffe4b5;">(Joystick = Walk &amp; Sprint | Drag = Look | ACTION = Interact)</p>
         <button class="btn" id="start-btn">START ADVENTURE</button>
     </div>
 
@@ -331,6 +406,14 @@
             <div id="modal-content">Content...</div>
             <button id="next-action-btn">NEXT</button>
         </div>
+    </div>
+
+    <!-- Touch controls (only visible on touch devices) -->
+    <div id="touch-controls">
+        <div id="touch-stick">
+            <span id="touch-knob"></span>
+        </div>
+        <button id="touch-action" type="button">ACTION</button>
     </div>
 
     <!-- Three.js Library -->
@@ -576,6 +659,12 @@
         let isModalOpen = false;
         let isGameStarted = false;
         let currentStage = 1;
+
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches ||
+            navigator.maxTouchPoints > 0 ||
+            window.location.search.indexOf('touch=1') > -1;
+        let touchMode = false;
+        if (isTouchDevice) document.body.classList.add('touch-mode');
         const objectiveText = document.getElementById('objective-text');
 
         // --- INIT ---
@@ -610,9 +699,15 @@
             // UI Listeners
             document.getElementById('start-btn').addEventListener('click', () => {
                 document.getElementById('start-screen').style.display = 'none';
-                controls.lock();
                 isGameStarted = true;
                 audioManager.init();
+
+                if (isTouchDevice) {
+                    touchMode = true;
+                    document.body.classList.add('game-active');
+                } else {
+                    controls.lock();
+                }
             });
             document.getElementById('resume-btn').addEventListener('click', () => {
                 // Do NOT hide pause screen manually here. Let the 'lock' event handler do it.
@@ -639,6 +734,8 @@
             raycaster = new THREE.Raycaster();
 
             createWorld();
+
+            initTouchControls();
 
             window.addEventListener('resize', onWindowResize);
             animate();
@@ -1347,6 +1444,107 @@
         }
         function onMouseDown() { if (controls.isLocked) checkInteraction(); }
 
+        // --- TOUCH CONTROLS ---
+        function initTouchControls() {
+            if (!isTouchDevice) return;
+
+            const stick = document.getElementById('touch-stick');
+            const knob = document.getElementById('touch-knob');
+            const action = document.getElementById('touch-action');
+            if (!stick || !knob || !action) return;
+
+            const radius = 44;
+            let stickId = null;
+
+            const applyStick = (event) => {
+                if (!touchMode || isModalOpen) return;
+                const rect = stick.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                let dx = event.clientX - cx;
+                let dy = event.clientY - cy;
+                const length = Math.hypot(dx, dy) || 1;
+                const clamped = Math.min(length, radius);
+                dx = (dx / length) * clamped;
+                dy = (dy / length) * clamped;
+
+                knob.style.transform =
+                    'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + dy + 'px))';
+
+                const nx = dx / radius;
+                const ny = dy / radius;
+                moveLeft = nx < -0.22;
+                moveRight = nx > 0.22;
+                moveForward = ny < -0.22;
+                moveBackward = ny > 0.22;
+                isRunning = ny < -0.88;
+            };
+
+            stick.addEventListener('pointerdown', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                stickId = event.pointerId;
+                try { stick.setPointerCapture(event.pointerId); } catch (err) { /* synthetic pointer */ }
+                applyStick(event);
+            });
+
+            stick.addEventListener('pointermove', (event) => {
+                if (event.pointerId === stickId) applyStick(event);
+            });
+
+            const releaseStick = (event) => {
+                if (event.pointerId !== stickId) return;
+                stickId = null;
+                knob.style.transform = 'translate(-50%, -50%)';
+                moveForward = moveBackward = moveLeft = moveRight = false;
+                isRunning = false;
+            };
+            stick.addEventListener('pointerup', releaseStick);
+            stick.addEventListener('pointercancel', releaseStick);
+
+            action.addEventListener('pointerdown', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (touchMode && !isModalOpen) checkInteraction();
+            });
+
+            let lookId = null;
+            let lastX = 0;
+            let lastY = 0;
+
+            document.body.addEventListener('pointerdown', (event) => {
+                if (event.target.closest('#touch-controls')) return;
+                if (!touchMode || isModalOpen) return;
+                lookId = event.pointerId;
+                lastX = event.clientX;
+                lastY = event.clientY;
+            });
+
+            document.body.addEventListener('pointermove', (event) => {
+                if (event.pointerId !== lookId) return;
+                const dx = event.clientX - lastX;
+                const dy = event.clientY - lastY;
+                lastX = event.clientX;
+                lastY = event.clientY;
+                applyLookDelta(dx, dy);
+            });
+
+            const releaseLook = (event) => {
+                if (event.pointerId === lookId) lookId = null;
+            };
+            document.body.addEventListener('pointerup', releaseLook);
+            document.body.addEventListener('pointercancel', releaseLook);
+        }
+
+        function applyLookDelta(dx, dy) {
+            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+            euler.setFromQuaternion(camera.quaternion);
+            euler.y -= dx * 0.0035;
+            euler.x -= dy * 0.0035;
+            euler.x = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, euler.x));
+            camera.quaternion.setFromEuler(euler);
+        }
+
         function checkInteraction() {
             if (isModalOpen) return;
             raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
@@ -1413,7 +1611,7 @@
             const time = performance.now();
             const delta = Math.min((time - prevTime) / 1000, 0.1); // Cap delta to prevent physics explosion
 
-            if (controls.isLocked) {
+            if (controls.isLocked || touchMode) {
                 const targetSpeed = isRunning ? RUN_SPEED : BASE_SPEED;
                 const targetFOV = isRunning ? RUN_FOV : BASE_FOV;
                 if (camera.fov !== targetFOV) {
@@ -1452,7 +1650,7 @@
                 const prompt = document.getElementById('interaction-prompt');
                 if (intersects.length > 0 && intersects[0].distance < 4) {
                     prompt.style.display = 'block';
-                    prompt.innerText = "Press SPACE/CLICK: " + (intersects[0].object.userData.type === 'npc' ? 'Talk' : 'Look');
+                    prompt.innerText = (touchMode ? "Tap ACTION: " : "Press SPACE/CLICK: ") + (intersects[0].object.userData.type === 'npc' ? 'Talk' : 'Look');
                 } else prompt.style.display = 'none';
             }
 

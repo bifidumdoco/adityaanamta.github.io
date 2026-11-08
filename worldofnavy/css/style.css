@@ -230,3 +230,82 @@ button:hover {
     color: #ffdc00;
     font-size: 48px;
 }
+/* --------------------------------------------------------------------------
+   Touch controls
+   -------------------------------------------------------------------------- */
+.touch-only { display: none; }
+
+body.touch-mode .keyboard-only { display: none; }
+body.touch-mode .touch-only { display: block; }
+
+#touch-controls {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: none;
+    pointer-events: none;
+}
+
+body.touch-mode.in-game #touch-controls { display: block; }
+
+#touch-stick {
+    position: absolute;
+    left: 22px;
+    bottom: 26px;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .28);
+    backdrop-filter: blur(4px);
+    pointer-events: auto;
+    touch-action: none;
+}
+
+#touch-knob {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .34);
+    border: 1px solid rgba(255, 255, 255, .6);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+#touch-fire {
+    position: absolute;
+    right: 24px;
+    bottom: 34px;
+    width: 94px;
+    height: 94px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .38);
+    background: rgba(190, 45, 45, .38);
+    color: #fff;
+    font: 600 13px/1 'Segoe UI', sans-serif;
+    letter-spacing: .14em;
+    pointer-events: auto;
+    touch-action: none;
+}
+
+#touch-fire.active {
+    background: rgba(230, 60, 60, .72);
+    transform: scale(.96);
+}
+
+/* Keep the HUD clear of the touch controls */
+body.touch-mode #player-status {
+    bottom: 186px;
+    width: 230px;
+    padding: 10px 12px;
+}
+
+body.touch-mode #player-status .status-row {
+    font-size: 14px;
+    margin-bottom: 6px;
+}

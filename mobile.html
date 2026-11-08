@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#101010">
+    <title>Aditya Putra Anamta — Mobile Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="mobile/app.css">
+</head>
+
+<body>
+
+    <div id="phone-bezel">
+        <div id="screen">
+
+            <!-- ======================= STATUS BAR ======================= -->
+            <div id="status-bar">
+                <span id="clock">12:00</span>
+                <span class="flex items-center gap-2 text-xs">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </span>
+            </div>
+
+            <!-- ======================= SEARCH ======================= -->
+            <button id="search-bar" data-open="app-projects" aria-label="Open files">
+                <i class="fab fa-google text-xl mr-3"
+                    style="background: conic-gradient(from 0deg, #ea4335 0deg 90deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg 360deg); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                <span class="flex-1"></span>
+                <i class="fas fa-magic text-white/70 mr-4"></i>
+                <i class="fas fa-microphone text-white/70 mr-4"></i>
+                <i class="fas fa-camera text-white/70"></i>
+            </button>
+
+            <!-- ======================= CLOCK WIDGET ======================= -->
+            <div id="hero-clock">
+                <div id="widget-date">—</div>
+                <div id="widget-time">00.00</div>
+            </div>
+
+            <!-- ======================= APP GRID ======================= -->
+            <div id="apps-grid">
+                <button class="app-icon" data-open="app-about">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#FF512F 0%,#DD2476 100%)">
+                        <i class="fas fa-user"></i></span>
+                    <span class="app-label">About</span>
+                </button>
+
+                <button class="app-icon" data-open="app-experience">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#1D976C 0%,#93F9B9 100%)">
+                        <i class="fas fa-briefcase"></i></span>
+                    <span class="app-label">Work</span>
+                </button>
+
+                <button class="app-icon" data-open="app-projects">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#8E2DE2 0%,#4A00E0 100%)">
+                        <i class="fas fa-folder-open"></i></span>
+                    <span class="app-label">Files</span>
+                </button>
+
+                <button class="app-icon" data-open="app-contact">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#F7971E 0%,#FFD200 100%)">
+                        <i class="fas fa-paper-plane"></i></span>
+                    <span class="app-label">Contact</span>
+                </button>
+
+                <a class="app-icon" href="game.html">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#8B4513 0%,#D2691E 100%)">
+                        <i class="fas fa-hat-cowboy"></i></span>
+                    <span class="app-label">Westcoast</span>
+                </a>
+
+                <a class="app-icon" href="worldofnavy/play.html">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#001f3f 0%,#0074D9 100%)">
+                        <i class="fas fa-anchor"></i></span>
+                    <span class="app-label">WoN</span>
+                </a>
+
+                <a class="app-icon" href="https://drive.google.com/file/d/1sSdM1iGMYrdMkZ7Ih7baob9H2BcVGsQ7/view"
+                    target="_blank" rel="noopener">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#0f172a 0%,#334155 100%)">
+                        <i class="fas fa-file-pdf"></i></span>
+                    <span class="app-label">CV</span>
+                </a>
+            </div>
+
+            <!-- ======================= DOCK ======================= -->
+            <div id="dock">
+                <button class="app-icon" data-open="app-projects">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#8E2DE2 0%,#4A00E0 100%);width:62px;height:62px">
+                        <i class="fas fa-folder-open"></i></span>
+                </button>
+                <a class="app-icon" href="index.html" target="_blank" rel="noopener">
+                    <span class="icon-bg" style="background:linear-gradient(135deg,#1c92d2 0%,#7dd3fc 100%);width:62px;height:62px">
+                        <i class="fas fa-compass"></i></span>
+                </a>
+            </div>
+
+            <!-- ======================= NAVIGATION ======================= -->
+            <div id="nav-buttons">
+                <button id="nav-menu" aria-label="Files"><i class="fas fa-bars"></i></button>
+                <button id="nav-home" aria-label="Home"><i class="far fa-circle"></i></button>
+                <button id="nav-back" aria-label="Back"><i class="fas fa-chevron-left"></i></button>
+            </div>
+
+            <!-- ======================= ABOUT ======================= -->
+            <section id="app-about" class="app-window">
+                <div class="m3-header">
+                    <button class="m3-header__back" data-close="app-about"><i class="fas fa-arrow-left"></i></button>
+                    <span class="m3-header__title">About Me</span>
+                </div>
+                <div class="m3-content">
+                    <div class="flex items-center gap-4 px-1 py-4">
+                        <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-blue-500 shadow-lg shrink-0">
+                            <img src="images/Screenshot_20231129-194832_Gallery-1.jpg" class="w-full h-full object-cover"
+                                alt="Aditya Putra Anamta">
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-slate-900 leading-tight">Aditya Putra Anamta</h1>
+                            <p class="text-blue-600 text-[11.5px] font-semibold mt-1 leading-snug">
+                                R&amp;D Product · Branding &amp; Visual Content · AI Developer
+                            </p>
+                            <p class="text-slate-500 text-[11px] mt-1">
+                                <i class="fas fa-map-marker-alt mr-1"></i> Jakarta, Indonesia
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="px-1 mb-4 flex flex-col gap-1.5">
+                        <a href="https://drive.google.com/file/d/1sSdM1iGMYrdMkZ7Ih7baob9H2BcVGsQ7/view" target="_blank"
+                            rel="noopener" class="text-blue-600 text-xs font-medium">
+                            <i class="fas fa-file-pdf mr-2"></i>View my CV
+                        </a>
+                        <a href="https://drive.google.com/file/d/1koQ3Tf-AcQ2OCqW92afu2XCMUfJ3-yYd/view" target="_blank"
+                            rel="noopener" class="text-blue-600 text-xs font-medium">
+                            <i class="fas fa-file-lines mr-2"></i>Paper portfolio
+                        </a>
+                    </div>
+
+                    <p class="text-[12px] text-slate-600 leading-relaxed text-justify px-1 mb-4">
+                        A professional with extensive experience in product development, branding, and visual
+                        content, supported by expertise in AI technology. Accustomed to handling work from
+                        upstream to downstream: researching and improving product quality, selecting raw
+                        materials, designing packaging, through to preparing launch campaigns. On the technology
+                        side, capable of designing and building AI-based solutions — from games, video, and
+                        visuals to websites and business systems — as well as mastering a wide range of current
+                        AI platforms to speed up work processes without compromising quality. Founder of Cakra
+                        Labs (AI-based creative agency) and Bifidum.co (automotive fashion brand).
+                    </p>
+
+                    <div class="w-full rounded-xl overflow-hidden mb-5 shadow border border-gray-200">
+                        <img src="images/profile_showcase.png" class="w-full h-auto" alt="Selected work">
+                    </div>
+
+                    <div class="section-title" style="margin-top:0">Main Projects</div>
+                    <div class="m3-card" style="cursor:default">
+                        <p class="text-[12px] leading-relaxed text-slate-600 mb-3">
+                            <strong class="text-slate-900">Bifidum.co</strong> (instagram.com/bifidum.co): Led the
+                            rebranding from Kalemia.co into an automotive fashion brand, starting from forming the
+                            brand identity, designing vector art and vehicle decals, managing vendors, through to
+                            the digital store, promotional content, and sales to the automotive community.
+                        </p>
+                        <p class="text-[12px] leading-relaxed text-slate-600">
+                            <strong class="text-slate-900">Cakra Labs</strong>: Designed the agency website and the
+                            “Digital Alchemy” workflow that combines AI with manual design, created client
+                            prototypes (FinShield and Cerahi Usaha), handled digital strategy and B2B documentation,
+                            and ran the NURTURE FOR GROWTH psychology clinic marketing project covering
+                            promotional videos, content plan, editing, and website development.
+                        </p>
+                    </div>
+
+                    <div class="section-title" style="margin-top:0">Product Research &amp; Development</div>
+                    <div class="chips">
+                        <span class="chip">New product development</span>
+                        <span class="chip">Customer complaint analysis</span>
+                        <span class="chip">Raw material selection</span>
+                        <span class="chip">Packaging strategy</span>
+                        <span class="chip">Market trend analysis</span>
+                    </div>
+
+                    <div class="section-title">Business &amp; Digital Marketing</div>
+                    <div class="chips">
+                        <span class="chip">Brand identity</span>
+                        <span class="chip">Growth marketing</span>
+                        <span class="chip">Content planning</span>
+                        <span class="chip">Project management</span>
+                        <span class="chip">Product management</span>
+                        <span class="chip">Business analytics</span>
+                    </div>
+
+                    <div class="section-title">Design &amp; Content Production</div>
+                    <div class="chips">
+                        <span class="chip">Graphic design</span>
+                        <span class="chip">Vector illustration</span>
+                        <span class="chip">Video editing</span>
+                        <span class="chip">Motion graphics</span>
+                        <span class="chip">UI/UX</span>
+                    </div>
+
+                    <div class="section-title">Technology &amp; Automation</div>
+                    <div class="chips">
+                        <span class="chip">AI-assisted development</span>
+                        <span class="chip">Multi-model LLM</span>
+                        <span class="chip">AI agents</span>
+                        <span class="chip">MCP integration</span>
+                        <span class="chip">Prompt engineering</span>
+                        <span class="chip">Workflow automation</span>
+                        <span class="chip">Web game development</span>
+                        <span class="chip">3D asset creation</span>
+                        <span class="chip">Next.js</span>
+                        <span class="chip">React</span>
+                        <span class="chip">TailwindCSS</span>
+                        <span class="chip">Three.js / WebGL</span>
+                    </div>
+
+                    <div class="section-title">Tools</div>
+                    <div class="chips">
+                        <span class="chip">OpenCode</span>
+                        <span class="chip">Blender (MCP)</span>
+                        <span class="chip">DaVinci Resolve</span>
+                        <span class="chip">Illustrator</span>
+                        <span class="chip">Photoshop</span>
+                        <span class="chip">CorelDRAW</span>
+                        <span class="chip">Affinity</span>
+                        <span class="chip">Canva</span>
+                        <span class="chip">Figma</span>
+                        <span class="chip">Git</span>
+                        <span class="chip">VS Code</span>
+                    </div>
+
+                    <div class="section-title">Languages</div>
+                    <div class="chips">
+                        <span class="chip">Indonesian — native</span>
+                        <span class="chip">English — professional</span>
+                    </div>
+
+                    <div class="h-6"></div>
+                </div>
+            </section>
+
+            <!-- ======================= EXPERIENCE ======================= -->
+            <section id="app-experience" class="app-window">
+                <div class="m3-header">
+                    <button class="m3-header__back" data-close="app-experience"><i class="fas fa-arrow-left"></i></button>
+                    <span class="m3-header__title">Experience</span>
+                </div>
+                <div class="m3-content pt-3">
+
+                    <div class="section-title" style="margin-top:0">Work</div>
+
+                    <div class="timeline is-current">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">Sep 2026 — Present</span>
+                        <h3 class="timeline__role">Marketing Project Lead</h3>
+                        <p class="timeline__org">Cakra Labs for NURTURE FOR GROWTH</p>
+                        <ul>
+                            <li>Holds the overall marketing project for the NURTURE FOR GROWTH psychology clinic under Cakra Labs.</li>
+                            <li>Produces promotional videos and handles the entire editing process for the clinic's publication needs.</li>
+                            <li>Prepares content plans as direction and schedule for social media content.</li>
+                            <li>Develops the clinic's website as a means of information and service for prospective clients.</li>
+                            <li>Designs and develops marketing strategies to strengthen the clinic's image and reach.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">Jul 2026 — Aug 2026</span>
+                        <h3 class="timeline__role">Promo Video Editor</h3>
+                        <p class="timeline__org">Langit Pictures Indonesia</p>
+                        <ul>
+                            <li>Edits promotional material for the film <em>Takkan Kubiarkan Kau Menangis</em> for publication and social media needs.</li>
+                            <li>Works with the film's production deadline until the promotional project is completed in August 2026.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">Apr 2026 — Jul 2026</span>
+                        <h3 class="timeline__role">R&amp;D Lead</h3>
+                        <p class="timeline__org">PT Shalee Berkah Jaya (Ranuna)</p>
+                        <ul>
+                            <li>Appointed as R&amp;D Lead after two months working as a Graphic Designer, then transferred to become a direct employee of PT Shalee Berkah Jaya.</li>
+                            <li>Researches Ranuna products (dates, Middle Eastern nuts, and other healthy food products): analyzing customer complaints, formulating product improvements, and proposing changes to storage methods and processes for perishable products.</li>
+                            <li>Identifies new product opportunities and participates in developing them, covering raw material selection, packaging design, and promotional campaign concepts.</li>
+                            <li>Directly handles the design and editing of promotional material for the products I develop, thus carrying out both R&amp;D and marketing roles.</li>
+                            <li>Builds an internal web system to record the in and out of raw materials and sales, which also becomes the data basis for product research.</li>
+                            <li>Also supports raw material delivery and sales operations.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">Feb 2026 — Apr 2026</span>
+                        <h3 class="timeline__role">Graphic Designer &amp; Video Editor</h3>
+                        <p class="timeline__org">PT Shalee Berkah Jaya (Ranuna)</p>
+                        <ul>
+                            <li>Creates graphic designs and edits brand and product promotional videos for social media, including motion graphics and company profile videos.</li>
+                            <li>Takes initiative beyond the main duties by building a web system for recording raw materials and sales, as well as helping with delivery and sales. This contribution underlies my promotion.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2024 — Present</span>
+                        <h3 class="timeline__role">Founder &amp; Lead Creative</h3>
+                        <p class="timeline__org">Cakra Labs</p>
+                        <ul>
+                            <li>Founded an agency that combines manual design with AI tools so production is faster and still precise.</li>
+                            <li>Built the agency website as well as prototypes for clients (FinShield and Cerahi Usaha) using HTML/CSS.</li>
+                            <li>Handles digital strategy and documentation for B2B clients.</li>
+                            <li>Created the “Digital Alchemy” workflow to shorten visual asset production time.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2021 — Present</span>
+                        <h3 class="timeline__role">Founder &amp; Owner</h3>
+                        <p class="timeline__org">Bifidum.co (formerly Kalemia.co)</p>
+                        <ul>
+                            <li>Rebranded Kalemia.co into Bifidum.co, expanding the business from digital art to an automotive fashion brand.</li>
+                            <li>Produces vector art and vehicle decals for the automotive enthusiast community.</li>
+                            <li>Manages all operations: product design, vendor sourcing, social media marketing, through to sales.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2024 — 2025</span>
+                        <h3 class="timeline__role">Project Manager &amp; MarComm</h3>
+                        <p class="timeline__org">PT Syauqia Berkah Makmur (SBM Group)</p>
+                        <ul>
+                            <li>Managed marketing projects for four business units: Laundry, Property, Banking Agent (BRILink), and Education.</li>
+                            <li>Designed and maintained the company website (ptsbmgroup.github.io) as an information center for investors and customers.</li>
+                            <li>Handled visual communication, covering copywriting, editing, and promotional material design.</li>
+                            <li>Coordinated with the operational team so campaigns stayed in line with business targets.</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-title">Organization</div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2024 — 2025</span>
+                        <h3 class="timeline__role">Communication and Information Department Staff</h3>
+                        <p class="timeline__org">BEM Cyber University</p>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2024 — 2025</span>
+                        <h3 class="timeline__role">Graphic Designer (Volunteer)</h3>
+                        <p class="timeline__org">Lentera Cakrawala Nusantara</p>
+                    </div>
+
+                    <div class="section-title">Education</div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2023 — Present</span>
+                        <h3 class="timeline__role">Bachelor of Digital Business</h3>
+                        <p class="timeline__org">Cyber University, Jakarta</p>
+                        <ul>
+                            <li>Recipient of the “Cakap Digital” scholarship for digital talent and academic potential.</li>
+                            <li>Relevant courses: E-Commerce, Financial Technology, Digital Marketing, Business Analytics.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2025</span>
+                        <h3 class="timeline__role">Student Exchange &amp; Fintech Immersion</h3>
+                        <p class="timeline__org">Universiti Teknologi PETRONAS, Malaysia</p>
+                        <ul>
+                            <li>Selected participant of the Fintech Immersion program; studied regional financial technology trends and cross-cultural design systems.</li>
+                            <li>Initially invited as a UI/UX tools trainer before joining the program in full.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline">
+                        <span class="timeline__dot"></span>
+                        <span class="timeline__date">2020 — 2023</span>
+                        <h3 class="timeline__role">Software Engineering</h3>
+                        <p class="timeline__org">SMK Citra Negara, Depok</p>
+                        <ul>
+                            <li>Software Engineering major: Java, SQL, web development basics (HTML/CSS/PHP).</li>
+                        </ul>
+                    </div>
+
+                    <div class="h-6"></div>
+                </div>
+            </section>
+
+            <!-- ======================= FILES / PROJECTS ======================= -->
+            <section id="app-projects" class="app-window">
+                <div class="m3-header">
+                    <button class="m3-header__back" id="files-back"><i class="fas fa-arrow-left"></i></button>
+                    <span class="m3-header__title" id="files-title">Files</span>
+                </div>
+                <div class="m3-content" id="files-content"></div>
+            </section>
+
+            <!-- ======================= CONTACT ======================= -->
+            <section id="app-contact" class="app-window">
+                <div class="m3-header">
+                    <button class="m3-header__back" data-close="app-contact"><i class="fas fa-arrow-left"></i></button>
+                    <span class="m3-header__title">Contact</span>
+                </div>
+                <div class="m3-content">
+                    <div class="flex flex-col items-center justify-center pt-6 pb-4">
+                        <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mb-3 text-emerald-600 text-2xl">
+                            <i class="fas fa-address-book"></i>
+                        </div>
+                        <h2 class="text-lg font-semibold text-slate-900">Let's connect</h2>
+                        <p class="text-slate-500 text-xs mt-1">Open to product, branding, and creative-tech work.</p>
+                    </div>
+
+                    <a href="mailto:adityawealthyopt2281@gmail.com" class="m3-card flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-red-100 text-red-500 flex items-center justify-center">
+                            <i class="fas fa-envelope"></i></span>
+                        <span><span class="text-slate-900 text-[13px] font-medium">Email</span><br>
+                            <span class="text-[11px] text-slate-500">adityawealthyopt2281@gmail.com</span></span>
+                    </a>
+
+                    <a href="https://wa.me/6288973924636" target="_blank" rel="noopener" class="m3-card flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                            <i class="fab fa-whatsapp"></i></span>
+                        <span><span class="text-slate-900 text-[13px] font-medium">WhatsApp</span><br>
+                            <span class="text-[11px] text-slate-500">+62 889-7392-4636</span></span>
+                    </a>
+
+                    <a href="https://www.instagram.com/bifidum.co?igsh=aGwzZGE1NzhwejY0" target="_blank" rel="noopener"
+                        class="m3-card flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center">
+                            <i class="fab fa-instagram"></i></span>
+                        <span><span class="text-slate-900 text-[13px] font-medium">Instagram</span><br>
+                            <span class="text-[11px] text-slate-500">@bifidum.co</span></span>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/adityaptranamta" target="_blank" rel="noopener"
+                        class="m3-card flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                            <i class="fab fa-linkedin"></i></span>
+                        <span><span class="text-slate-900 text-[13px] font-medium">LinkedIn</span><br>
+                            <span class="text-[11px] text-slate-500">Aditya Putra Anamta</span></span>
+                    </a>
+
+                    <a href="https://drive.google.com/file/d/1sSdM1iGMYrdMkZ7Ih7baob9H2BcVGsQ7/view" target="_blank"
+                        rel="noopener" class="m3-card flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center">
+                            <i class="fas fa-file-pdf"></i></span>
+                        <span><span class="text-slate-900 text-[13px] font-medium">Curriculum Vitae</span><br>
+                            <span class="text-[11px] text-slate-500">Updated October 2026</span></span>
+                    </a>
+
+                    <div class="h-6"></div>
+                </div>
+            </section>
+
+            <!-- ======================= MEDIA VIEWER ======================= -->
+            <div id="media-viewer" class="media-viewer" aria-hidden="true">
+                <div class="media-viewer__bar">
+                    <button class="media-viewer__button" id="viewer-close" aria-label="Close">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                    <div class="media-viewer__heading">
+                        <span id="viewer-title">Preview</span>
+                        <span id="viewer-sub"></span>
+                    </div>
+                </div>
+
+                <div class="media-viewer__stage" id="viewer-stage"></div>
+
+                <div class="media-viewer__bar media-viewer__bar--bottom">
+                    <button class="media-viewer__button" id="viewer-prev" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="viewer-count" class="media-viewer__count"></span>
+                    <button class="media-viewer__button" id="viewer-next" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="assets/gallery-data.js"></script>
+    <script src="mobile/app.js"></script>
+</body>
+
+</html>

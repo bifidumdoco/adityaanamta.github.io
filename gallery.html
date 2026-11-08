@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya's Gallery | Visuals Beyond Syntax</title>
+
+    <!-- Tailwind CSS (Via CDN untuk kemudahan tanpa build tool) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons (Versi Script untuk HTML) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        charcoal: '#121212',
+                        surface: '#1E1E1E',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        body {
+            background-color: #121212;
+            color: #F3F4F6;
+            cursor: none;
+            /* Hide default cursor */
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        /* Hide Scrollbar for Nav */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-white selection:text-black">
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"
+        class="fixed w-4 h-4 bg-white rounded-full hidden md:block top-0 left-0 -translate-x-1/2 -translate-y-1/2">
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 px-6 md:px-12 lg:px-24 border-b border-zinc-900">
+        <!-- Back Button -->
+        <a href="index.html"
+            class="absolute top-8 left-6 md:left-12 z-30 flex items-center gap-3 group cursor-pointer no-underline">
+            <div
+                class="w-10 h-10 rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur-md flex items-center justify-center transition-all duration-500 group-hover:bg-white group-hover:border-white">
+                <i data-lucide="arrow-left"
+                    class="w-4 h-4 text-zinc-400 group-hover:text-black transition-colors duration-500"></i>
+            </div>
+            <span
+                class="text-zinc-500 text-xs tracking-[0.2em] uppercase opacity-60 group-hover:opacity-100 group-hover:text-white transition-all duration-500 hidden md:block">
+                Main Portfolio
+            </span>
+        </a>
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <!-- UPDATED: Nama diperbesar sesuai request (text-base -> text-xl -> text-2xl) -->
+            <p class="text-zinc-500 text-base md:text-xl lg:text-2xl tracking-[0.3em] uppercase animate-pulse">
+                Aditya Putra Anamta
+            </p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-medium tracking-tight leading-[0.9]">
+                Visuals Beyond <br /> <span class="italic text-zinc-400">Syntax.</span>
+            </h1>
+            <p class="text-zinc-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed font-light">
+                The curated works of a Creative Technologist. A departure from the logic of code into the emotion of
+                design. Welcome to the archive.
+            </p>
+        </div>
+    </header>
+
+    <!-- Navigation / Filter -->
+    <nav
+        class="sticky top-0 z-40 bg-[#121212]/80 backdrop-blur-md border-b border-zinc-900 py-6 px-6 overflow-x-auto no-scrollbar">
+        <div id="filter-container" class="flex justify-center min-w-max gap-8 md:gap-12">
+            <!-- Buttons will be injected here by JS -->
+        </div>
+    </nav>
+
+    <!-- Main Gallery -->
+    <main class="px-6 md:px-12 lg:px-24 py-16 min-h-screen">
+        <!-- Category Description -->
+        <div id="category-header" class="mb-16 text-center transition-all duration-500">
+            <h2 id="cat-title" class="text-2xl font-serif italic text-zinc-200 mb-2"></h2>
+            <p id="cat-desc" class="text-zinc-500 text-sm max-w-lg mx-auto"></p>
+        </div>
+
+        <!-- Gallery Grid (Masonry) -->
+        <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            <!-- Items will be injected here by JS -->
+        </div>
+
+        <div id="empty-state" class="hidden text-center py-20 text-zinc-600">
+            <p>No artifacts found in this collection.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 py-12 text-center text-zinc-500 text-xs">
+        <p class="uppercase tracking-widest mb-4">Designed & Curated by Aditya Putra Anamta</p>
+        <div class="flex justify-center gap-6">
+            <a href="mailto:adityawealthyopt2281@gmail.com" class="hover:text-white transition-colors">Email</a>
+            <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+            <a href="index.html" class="hover:text-white transition-colors">Tech Portfolio</a>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox"
+        class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-sm p-4 flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <button id="close-lightbox"
+            class="absolute top-6 right-6 text-zinc-400 hover:text-white transition-colors p-2 rounded-full bg-black/50 hover:bg-black/80">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+
+        <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8 items-end">
+            <!-- Media Container -->
+            <div id="lightbox-media"
+                class="lg:col-span-2 relative bg-zinc-900 rounded-sm overflow-hidden shadow-2xl border border-zinc-800 flex items-center justify-center">
+                <!-- Content injected via JS -->
+            </div>
+
+            <!-- Info Container -->
+            <div class="lg:col-span-1 text-white space-y-6 pb-4">
+                <div>
+                    <span id="lb-category"
+                        class="inline-block px-2 py-1 border border-zinc-700 text-zinc-400 text-[10px] tracking-[0.2em] uppercase mb-4">
+                        Archive
+                    </span>
+                    <h2 id="lb-title" class="text-3xl lg:text-4xl font-serif font-light leading-tight mb-2">
+                        Title
+                    </h2>
+                    <p id="lb-role" class="text-zinc-500 text-sm font-mono">Role</p>
+                </div>
+                <div class="h-px w-12 bg-zinc-700"></div>
+                <p id="lb-context" class="text-zinc-300 font-light leading-relaxed text-sm lg:text-base">
+                    Context
+                </p>
+                <a id="lb-link" href="#" target="_blank"
+                    class="hidden inline-flex items-center gap-2 text-white border-b border-white pb-1 hover:text-zinc-300 hover:border-zinc-300 transition-colors mt-4 text-sm uppercase tracking-wider">
+                    Watch Full Video <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script src="assets/gallery-data.js"></script>
+    <script>
+        // --- DATA PORTFOLIO ---
+        // Item metadata is generated into assets/gallery-data.js by _tools/build_assets.py.
+
+        const DATA = window.GALLERY_DATA || { collections: [], items: [] };
+        const COLLECTION_INDEX = {};
+        DATA.collections.forEach(c => { COLLECTION_INDEX[c.id] = c; });
+
+        const portfolioItems = DATA.items.map(item => {
+            const meta = COLLECTION_INDEX[item.collection] || {};
+            return {
+                id: item.id,
+                category: item.category,
+                title: item.title,
+                client: meta.name || item.collection,
+                role: meta.role || '',
+                context: meta.context || '',
+                src: item.src,
+                thumb: item.thumb,
+                preview: item.preview || item.src,
+                type: item.type,
+            };
+        });
+
+        const CATEGORIES = [
+            { id: 'all', label: 'All Collection', desc: 'A complete archive of visual explorations.' },
+            { id: 'commercial', label: 'Commercial Narratives', desc: 'Strategic visuals designed to convert. Ads, Posters & Banners.' },
+            { id: 'packaging', label: 'Packaging & Form', desc: 'Shelf-ready structure: dielines, pouches, boxes, and mockups.' },
+            { id: 'illustration', label: 'The Artist\'s Hand', desc: 'High-precision vector art and rebellious designs.' },
+            { id: 'identity', label: 'Identity Systems', desc: 'Minimalist, memorable symbols carrying brand vision.' },
+            { id: 'motion', label: 'Motion & Cinema', desc: 'Stories in motion. Editing, pacing, and visual storytelling.' },
+        ];
+
+        // --- APP STATE ---
+        let currentFilter = 'all';
+
+        // --- DOM ELEMENTS ---
+        const galleryGrid = document.getElementById('gallery-grid');
+        const filterContainer = document.getElementById('filter-container');
+        const catTitle = document.getElementById('cat-title');
+        const catDesc = document.getElementById('cat-desc');
+        const emptyState = document.getElementById('empty-state');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxMedia = document.getElementById('lightbox-media');
+
+        // --- INITIALIZATION ---
+        function init() {
+            renderFilters();
+            renderGallery();
+            setupCursor();
+            lucide.createIcons(); // Initialize Icons
+        }
+
+        // --- RENDER FILTERS ---
+        function renderFilters() {
+            filterContainer.innerHTML = CATEGORIES.map(cat => `
+                <button 
+                    onclick="setFilter('${cat.id}')"
+                    class="text-xs uppercase tracking-[0.15em] transition-all duration-300 relative py-2 ${currentFilter === cat.id ? 'text-white' : 'text-zinc-600 hover:text-zinc-400'}"
+                >
+                    ${cat.label}
+                    ${currentFilter === cat.id ? '<span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></span>' : ''}
+                </button>
+            `).join('');
+
+            const activeCat = CATEGORIES.find(c => c.id === currentFilter);
+            catTitle.innerText = activeCat.label;
+            catDesc.innerText = activeCat.desc;
+        }
+
+        // --- SET FILTER FUNCTION ---
+        window.setFilter = (filterId) => {
+            currentFilter = filterId;
+            renderFilters();
+
+            // Simple Fade Out Effect
+            galleryGrid.style.opacity = '0';
+            setTimeout(() => {
+                renderGallery();
+                galleryGrid.style.opacity = '1';
+            }, 300);
+        };
+
+        // --- RENDER GALLERY ---
+        function renderGallery() {
+            let items = currentFilter === 'all'
+                ? portfolioItems
+                : portfolioItems.filter(item => item.category === currentFilter);
+
+            // SHUFFLE / RANDOMIZE ORDER (Abstract Feel)
+            items = items.sort(() => Math.random() - 0.5);
+
+            if (items.length === 0) {
+                galleryGrid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            galleryGrid.innerHTML = items.map((item, index) => {
+                // Randomize Spacing (Abstract Feel)
+                const margins = ['mb-12', 'mb-20', 'mb-32', 'mb-8', 'mt-12'];
+                const randomMargin = margins[Math.floor(Math.random() * margins.length)];
+
+                // Randomize Width/Alignment (Subtle "Messy" Feel)
+                const aligns = ['ml-auto', 'mr-auto', 'ml-4', 'mr-4'];
+                const widths = ['w-full', 'w-[90%]', 'w-[85%]'];
+                const randomAlign = aligns[Math.floor(Math.random() * aligns.length)];
+                const randomWidth = widths[Math.floor(Math.random() * widths.length)];
+
+                const wrapperClass = `${randomMargin} ${randomWidth} ${randomAlign}`;
+                const delay = index * 50;
+
+                if (item.category === 'motion') {
+                    return createVideoCardHTML(item, wrapperClass, delay);
+                } else {
+                    return createImageCardHTML(item, wrapperClass, delay);
+                }
+            }).join('');
+
+            attachHoverListeners();
+            lucide.createIcons();
+        }
+
+        // --- HTML TEMPLATES ---
+        function createVideoCardHTML(item, wrapperClass, delay) {
+            // Preview clip on the grid keeps the page light; the full cut opens in the lightbox.
+            return `
+            <div 
+                class="relative group cursor-pointer overflow-hidden rounded-sm break-inside-avoid fade-in ${wrapperClass}"
+                style="animation-delay: ${delay}ms"
+                onclick="openLightbox('${item.id}')"
+                onmouseenter="playVideo(this)"
+                onmouseleave="pauseVideo(this)"
+            >
+                <div class="relative w-full bg-zinc-900">
+                    <video
+                        src="${item.preview}"
+                        poster="${item.thumb}"
+                        muted loop playsinline preload="metadata"
+                        class="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:filter-none grayscale brightness-75"
+                    ></video>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0 opacity-50">
+                        <i data-lucide="play" class="w-12 h-12 text-white fill-white"></i>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent transform transition-transform duration-300 translate-y-full group-hover:translate-y-0">
+                        <p class="text-zinc-400 text-[10px] uppercase tracking-[0.25em] mb-1">${item.client}</p>
+                        <p class="text-white font-serif text-lg break-words line-clamp-2">${item.title}</p>
+                        <p class="text-zinc-500 text-[10px] uppercase tracking-widest mt-1">Click to Watch</p>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function createImageCardHTML(item, wrapperClass, delay) {
+            return `
+            <div 
+                class="relative group cursor-none break-inside-avoid overflow-hidden rounded-sm fade-in ${wrapperClass}"
+                style="animation-delay: ${delay}ms"
+                onclick="openLightbox('${item.id}')"
+            >
+                <div class="relative w-full bg-zinc-900">
+                    <img 
+                        src="${item.thumb}" 
+                        alt="${item.title}"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-110 opacity-90 group-hover:opacity-100"
+                    />
+                    
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <p class="text-zinc-300 text-xs font-sans tracking-widest mb-1 uppercase">${item.client}</p>
+                        <h3 class="text-white font-serif text-xl italic break-words">${item.title}</h3>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // --- VIDEO HOVER LOGIC ---
+        window.playVideo = (el) => {
+            const vid = el.querySelector('video');
+            if (vid) vid.play().catch(e => console.log(e));
+        };
+        window.pauseVideo = (el) => {
+            const vid = el.querySelector('video');
+            if (vid) {
+                vid.pause();
+                vid.currentTime = 0;
+            }
+        };
+
+        // --- LIGHTBOX LOGIC ---
+        window.openLightbox = (id) => {
+            const item = portfolioItems.find(i => i.id === id);
+            if (!item) return;
+
+            const category = CATEGORIES.find(c => c.id === item.category);
+
+            // Name what the piece is, and who it was made for.
+            document.getElementById('lb-category').innerText = `Archive: ${category ? category.label : item.category}`;
+            document.getElementById('lb-title').innerText = item.title;
+            document.getElementById('lb-role').innerText = item.role ? `${item.client} \u00B7 ${item.role}` : item.client;
+            document.getElementById('lb-context').innerText = item.context;
+
+            const linkBtn = document.getElementById('lb-link');
+            linkBtn.classList.add('hidden');
+            linkBtn.classList.remove('inline-flex');
+
+            // Update Media
+            lightboxMedia.innerHTML = '';
+            if (item.category === 'motion') {
+                lightboxMedia.innerHTML = `
+                    <div class="relative w-full aspect-video">
+                        <video src="${item.src}" poster="${item.thumb}" controls autoplay playsinline class="w-full h-full object-contain"></video>
+                    </div>`;
+            } else {
+                lightboxMedia.innerHTML = `<img src="${item.src}" class="w-full h-auto max-h-[80vh] object-contain">`;
+            }
+
+            // Show Modal
+            lightbox.classList.remove('hidden');
+            // Small delay to allow display:block to apply before changing opacity for transition
+            requestAnimationFrame(() => {
+                lightbox.classList.remove('opacity-0');
+            });
+            document.body.style.overflow = 'hidden'; // Disable scroll
+            lucide.createIcons();
+        };
+
+        document.getElementById('close-lightbox').onclick = closeLightbox;
+
+        function closeLightbox() {
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxMedia.innerHTML = ''; // Stop video
+                document.body.style.overflow = 'auto'; // Enable scroll
+            }, 300);
+        }
+
+        // --- CUSTOM CURSOR LOGIC ---
+        function setupCursor() {
+            const cursor = document.getElementById('custom-cursor');
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            });
+
+            // Add hover effect to interactive elements
+            // Note: Since elements are dynamic, we might want to use event delegation or just simple CSS hover states for the cursor
+            // For simplicity, we keep the dot cursor.
+        }
+
+        function attachHoverListeners() {
+            // Re-scan for interactive elements if we want cursor hover effects later
+        }
+
+        // --- START ---
+        init();
+
+    </script>
+</body>
+
+</html>

@@ -4,1255 +4,568 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aditya Putra Anamta - Portfolio OS</title>
+    <title>Aditya Putra Anamta — Portfolio OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
-            user-select: none;
-        }
-
-        /* Windows 10 Wallpaper */
-        #desktop {
-            background: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1920') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* Glassmorphism for Taskbar and Start Menu */
-        .glass-dark {
-            background: rgba(15, 15, 15, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .glass-light {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Window Styling */
-        .window {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            transition: opacity 0.2s, transform 0.2s;
-            /* No transition for width/height/top/left during drag */
-            min-width: 300px;
-            min-height: 200px;
-        }
-
-        .window.maximized {
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: calc(100% - 48px) !important;
-            /* Minus taskbar height */
-            transform: none !important;
-            border-radius: 0 !important;
-        }
-
-        /* Resize Handles - 4 Corners */
-        .resizer-handle {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            z-index: 20;
-            background: transparent;
-            /* Invisible grab area */
-        }
-
-        /* Specific Corners */
-        .resizer-tl {
-            top: -5px;
-            left: -5px;
-            cursor: nw-resize;
-        }
-
-        .resizer-tr {
-            top: -5px;
-            right: -5px;
-            cursor: ne-resize;
-        }
-
-        .resizer-bl {
-            bottom: -5px;
-            left: -5px;
-            cursor: sw-resize;
-        }
-
-        .resizer-br {
-            bottom: -5px;
-            right: -5px;
-            cursor: se-resize;
-        }
-
-        /* Visual Aid for Bottom-Right (classic grip) */
-        .resizer-br::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 8px;
-            height: 8px;
-            border-bottom: 2px solid #a0a0a0;
-            border-right: 2px solid #a0a0a0;
-        }
-
-        .taskbar-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .taskbar-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-bottom: 2px solid #60cdff;
-        }
-
-        /* Desktop Icon Hover */
-        .desktop-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
-        }
-
-        /* Dragging/Resizing classes */
-        .dragging {
-            opacity: 0.9;
-            transition: none;
-        }
-
-        .resizing {
-            transition: none;
-            user-select: none;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/desktop.css">
 </head>
 
-<body class="h-screen w-screen overflow-hidden text-white">
+<body>
 
-    <!-- Desktop Environment -->
-    <div id="desktop" class="relative w-full h-full pb-12">
+    <!-- ============================ DESKTOP ============================ -->
+    <div id="desktop">
+        <div id="desktop-icons"></div>
 
-        <!-- Desktop Icons 
-             Changed grid to flow-col with 5 rows. 
-             This causes the 6th item (Game) to wrap to the top of the 2nd column 
-             (Right of "About Me") 
-        -->
-        <div class="absolute top-4 left-4 grid grid-flow-col grid-rows-5 gap-4 w-auto">
-
-            <!-- 1. About Me (Row 1, Col 1) -->
-            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
-                onclick="openWindow('about')">
-                <img src="https://img.icons8.com/color/96/000000/user-male-circle--v1.png" alt="About"
-                    class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">About Me</span>
-            </div>
-
-            <!-- 2. Experience (Row 2, Col 1) -->
-            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
-                onclick="openWindow('experience')">
-                <img src="https://img.icons8.com/fluency/96/000000/briefcase.png" alt="Experience"
-                    class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">Experience</span>
-            </div>
-
-            <!-- 3. Projects (Row 3, Col 1) -->
-            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
-                onclick="openWindow('projects')">
-                <img src="https://img.icons8.com/fluency/96/000000/folder-invoices--v1.png" alt="Projects"
-                    class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">Projects</span>
-            </div>
-
-            <!-- 4. Contact (Row 4, Col 1) -->
-            <div class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200"
-                onclick="openWindow('contact')">
-                <img src="https://img.icons8.com/fluency/96/000000/mail.png" alt="Contact"
-                    class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">Contact Me</span>
-            </div>
-
-            <!-- 5. Recycle Bin (Row 5, Col 1) -->
-            <div
-                class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200">
-                <img src="https://img.icons8.com/fluency/96/000000/recycle-bin.png" alt="Recycle Bin"
-                    class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">Recycle Bin</span>
-            </div>
-
-            <!-- 6. Game Shortcut (Wraps to Row 1, Col 2 -> Right of About Me) -->
-            <!-- Direct link to separate file as requested -->
-            <a href="game.html"
-                class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200">
-                <img src="images/cowboy_5861623.png" alt="Western World" class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">Aditya's<br>Western World</span>
-            </a>
-
-            <!-- 7. World of Navy Shortcut (Wraps to Row 2, Col 2 -> Right of Experience) -->
-            <a href="worldofnavy/index.html"
-                class="desktop-icon flex flex-col items-center p-2 rounded cursor-pointer transition-colors duration-200">
-                <img src="images/M.jpeg" alt="World of Navy" class="w-12 h-12 mb-1 drop-shadow-md">
-                <span class="text-xs text-center text-white drop-shadow-md">World of<br>Navy</span>
-            </a>
-
-        </div>
-
-        <!-- ================= WINDOWS ================= -->
-
-        <!-- About Window -->
-        <div id="window-about" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
-            style="width: 500px; height: 600px; top: 10%; left: 30%; z-index: 10;">
-            <!-- Title Bar -->
-            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
-                onmousedown="startDrag(event, 'window-about')">
-                <div class="flex items-center text-sm pl-2">
-                    <span class="mr-2 text-gray-500"><i class="fas fa-user"></i></span>
-                    About Me
-                </div>
-                <div class="flex h-full">
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center transition-colors"
-                        onclick="minimizeWindow('window-about')"><i class="fas fa-minus text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center transition-colors"
-                        onclick="toggleMaximize('window-about')"><i class="far fa-square text-xs"></i></button>
-                    <button
-                        class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors"
-                        onclick="closeWindow('window-about')"><i class="fas fa-times text-sm"></i></button>
+        <!-- ======================= ABOUT ======================= -->
+        <section id="window-about" class="window" style="width: 540px; height: 620px; top: 70px; left: 320px; z-index: 10;">
+            <div class="title-bar" data-drag="about">
+                <span class="title-bar__label"><i class="fas fa-user text-blue-500"></i> About Me</span>
+                <div class="title-bar__buttons">
+                    <button data-minimize="about" title="Minimize"><i class="fas fa-minus"></i></button>
+                    <button data-maximize="about" title="Maximize"><i class="far fa-square"></i></button>
+                    <button data-close="about" title="Close"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-            <!-- Content -->
-            <div class="content flex-1 overflow-auto p-8 bg-gray-50">
-                <div class="flex items-center mb-6">
-                    <!-- Profile Picture Section (Static Image) -->
-                    <div class="mr-6 shrink-0">
-                        <div
-                            class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-lg">
-                            <!-- ========================================================================= -->
-                            <!-- TODO: REPLACE THE URL BELOW WITH THE PATH TO YOUR ACTUAL PHOTO           -->
-                            <!-- Example: src="images/my-photo.jpg"                                      -->
-                            <!-- ========================================================================= -->
-                            <img src="images/Screenshot_20231129-194832_Gallery-1.jpg" alt="Profile Photo"
-                                class="w-full h-full object-cover">
-                        </div>
+
+            <div class="window__content p-7">
+                <div class="flex items-center gap-5 mb-6">
+                    <div class="w-[92px] h-[92px] rounded-full overflow-hidden border-4 border-white shadow-lg shrink-0">
+                        <img src="images/Screenshot_20231129-194832_Gallery-1.jpg" alt="Aditya Putra Anamta"
+                            class="w-full h-full object-cover">
                     </div>
-
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-800">Aditya Putra Anamta</h1>
-                        <p class="text-blue-600 font-semibold">Digital Business Student | Creative & Tech Specialist</p>
-                        <p class="text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt mr-1"></i> Jakarta,
-                            Indonesia</p>
+                        <h1 class="text-xl font-bold text-gray-900 leading-tight">Aditya Putra Anamta</h1>
+                        <p class="text-blue-600 font-semibold text-[13px] mt-1 leading-snug">
+                            R&amp;D Product · Branding &amp; Visual Content · AI Developer
+                        </p>
+                        <p class="text-gray-500 text-xs mt-1">
+                            <i class="fas fa-map-marker-alt mr-1"></i> Jakarta, Indonesia
+                        </p>
                     </div>
                 </div>
 
-                <div class="space-y-4 text-sm leading-relaxed text-gray-700">
-                    <!-- CV Summary -->
-                    <p class="font-medium text-gray-800">
-                        Visionary <strong>Digital Business Strategist</strong> and <strong>Creative
-                            Technologist</strong> redefining development through <strong>AI Automation</strong> and
-                        <strong>Vibe Coding</strong>. I leverage advanced AI agents to bypass traditional coding
-                        bottlenecks, rapidly architecting and deploying scalable digital solutions. As the founder of
-                        <strong>Cakra Labs</strong>, I fuse <strong>Brand Strategy</strong>, <strong>Digital
-                            Marketing</strong>, and <strong>Creative Tech</strong> to build high-impact products that
-                        drive business value—proving that innovation is about vision and orchestration, not just syntax.
-                    </p>
+                <div class="flex flex-wrap gap-x-5 gap-y-1 mb-5">
+                    <a href="https://drive.google.com/file/d/1sSdM1iGMYrdMkZ7Ih7baob9H2BcVGsQ7/view" target="_blank"
+                        rel="noopener"
+                        class="text-blue-600 hover:text-blue-800 text-xs font-semibold flex items-center">
+                        <i class="fas fa-file-pdf mr-2"></i> View my CV
+                    </a>
+                    <a href="https://drive.google.com/file/d/1koQ3Tf-AcQ2OCqW92afu2XCMUfJ3-yYd/view" target="_blank"
+                        rel="noopener"
+                        class="text-blue-600 hover:text-blue-800 text-xs font-semibold flex items-center">
+                        <i class="fas fa-file-lines mr-2"></i> Paper portfolio
+                    </a>
+                </div>
 
-                    <!-- Resume Link -->
-                    <div class="mt-2 mb-4 space-y-2">
-                        <a href="https://drive.google.com/file/d/1TyZ5PUP0XaXGO4balonvOYFpZkGrAXTf/view?usp=sharing"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center">
-                            <i class="fas fa-file-pdf mr-2"></i> See my resume here
-                        </a>
-                        <a href="https://drive.google.com/file/d/1koQ3Tf-AcQ2OCqW92afu2XCMUfJ3-yYd/view?usp=sharing"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center">
-                            <i class="fas fa-file-alt mr-2"></i> My Paper Portfolio
-                        </a>
-                    </div>
-
-                    <!-- Space for Image (Moved here between 1st and 2nd paragraph) -->
-                    <div class="w-full bg-gray-200 rounded-lg overflow-hidden my-4 relative group">
-                        <img src="images/profile_showcase.png" class="w-full h-auto object-cover block"
-                            alt="Showcase Image">
-                    </div>
-
-                    <!-- Interest / Origin Story -->
+                <div class="space-y-4 text-[13px] leading-relaxed text-gray-700">
                     <p>
-                        My journey into technology began during my Vocational High School years, specializing in
-                        Software Engineering (Java, SQL). This technical foundation sparked a curiosity that evolved
-                        into a passion for bridging the gap between creativity and automation. Today, as a founder of
-                        Cakra Labs, I leverage cutting-edge AI tools to redefine digital workflows.
+                        A professional with extensive experience in product development, branding, and
+                        visual content, supported by expertise in AI technology. Accustomed to handling
+                        work from upstream to downstream: researching and improving product quality,
+                        selecting raw materials, designing packaging, through to preparing launch
+                        campaigns. On the technology side, capable of designing and building AI-based
+                        solutions — from games, video, and visuals to websites and business systems — as
+                        well as mastering a wide range of current AI platforms to speed up work processes
+                        without compromising quality. Founder of <strong>Cakra Labs</strong> (AI-based
+                        creative agency) and <strong>Bifidum.co</strong> (automotive fashion brand).
                     </p>
 
-                    <!-- Core Skills -->
-                    <div class="bg-blue-50/50 p-5 rounded-xl border border-blue-100 mt-6">
-                        <h3 class="font-bold text-blue-600 mb-4 flex items-center gap-2">
-                            <i class="fas fa-rocket"></i> Expertise & Competencies
+                    <div class="w-full rounded-lg overflow-hidden my-4 border border-gray-200">
+                        <img src="images/profile_showcase.png" class="w-full h-auto block" alt="Selected work">
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-gray-200">
+                        <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2 text-[13px]">
+                            <i class="fas fa-briefcase text-gray-500"></i> Main Projects
                         </h3>
 
-                        <!-- Group 1: Strategic Business & Product (High Value) -->
-                        <div class="mb-4">
-                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Digital Strategy &
-                                Governance</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1 bg-white border border-emerald-500 text-emerald-700 rounded-lg text-xs font-medium shadow-sm">Digital
-                                    Transformation</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-blue-800 text-blue-800 rounded-lg text-xs font-medium shadow-sm">Product
-                                    Management</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-purple-600 text-purple-700 rounded-lg text-xs font-medium shadow-sm">Brand
-                                    Identity & Strategy</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-orange-500 text-orange-700 rounded-lg text-xs font-medium shadow-sm">Growth
-                                    Marketing</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-gray-600 text-gray-700 rounded-lg text-xs font-medium shadow-sm">Business
-                                    Model Innovation</span>
+                        <div class="space-y-3 text-[13px] leading-relaxed text-gray-700">
+                            <p>
+                                <strong>Bifidum.co</strong> (instagram.com/bifidum.co): Led the rebranding
+                                from Kalemia.co into an automotive fashion brand, starting from forming the
+                                brand identity, designing vector art and vehicle decals, managing vendors,
+                                through to the digital store, promotional content, and sales to the
+                                automotive community.
+                            </p>
+                            <p>
+                                <strong>Cakra Labs</strong>: Designed the agency website and the “Digital
+                                Alchemy” workflow that combines AI with manual design, created client
+                                prototypes (FinShield and Cerahi Usaha), handled digital strategy and B2B
+                                documentation, and ran the NURTURE FOR GROWTH psychology clinic marketing
+                                project covering promotional videos, content plan, editing, and website
+                                development.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50/60 p-5 rounded-xl border border-blue-100 mt-2">
+                        <h3 class="font-bold text-blue-700 mb-4 flex items-center gap-2 text-[13px]">
+                            <i class="fas fa-layer-group"></i> Expertise &amp; Competencies
+                        </h3>
+
+                        <div class="skill-group">
+                            <h4>Product Research &amp; Development</h4>
+                            <div class="skill-group__list">
+                                <span class="chip" style="border-color:#10b981;color:#047857">New product development</span>
+                                <span class="chip" style="border-color:#10b981;color:#047857">Customer complaint analysis</span>
+                                <span class="chip" style="border-color:#10b981;color:#047857">Raw material selection</span>
+                                <span class="chip" style="border-color:#10b981;color:#047857">Packaging strategy</span>
+                                <span class="chip" style="border-color:#10b981;color:#047857">Market trend analysis</span>
                             </div>
                         </div>
 
-                        <!-- Group 2: AI Engineering & Automation (The USP) -->
-                        <div class="mb-4">
-                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">AI Engineering &
-                                Automation</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1 bg-white border border-indigo-500 text-indigo-700 rounded-lg text-xs font-medium shadow-sm">AI-Accelerated
-                                    Development (Vibe Coding)</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-blue-600 text-blue-700 rounded-lg text-xs font-medium shadow-sm">LLM
-                                    Integration & Agents</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-pink-500 text-pink-700 rounded-lg text-xs font-medium shadow-sm">Enterprise
-                                    Workflow Automation</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-teal-500 text-teal-700 rounded-lg text-xs font-medium shadow-sm">Prompt
-                                    Engineering</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-cyan-600 text-cyan-700 rounded-lg text-xs font-medium shadow-sm">Rapid
-                                    Prototyping</span>
+                        <div class="skill-group">
+                            <h4>Business &amp; Digital Marketing</h4>
+                            <div class="skill-group__list">
+                                <span class="chip" style="border-color:#2563eb;color:#1d4ed8">Brand identity</span>
+                                <span class="chip" style="border-color:#2563eb;color:#1d4ed8">Growth marketing</span>
+                                <span class="chip" style="border-color:#2563eb;color:#1d4ed8">Content planning</span>
+                                <span class="chip" style="border-color:#2563eb;color:#1d4ed8">Project management</span>
+                                <span class="chip" style="border-color:#2563eb;color:#1d4ed8">Product management</span>
+                                <span class="chip" style="border-color:#2563eb;color:#1d4ed8">Business analytics</span>
                             </div>
                         </div>
 
-                        <!-- Group 3: Creative Technology -->
-                        <div class="mb-4">
-                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Creative
-                                Technology & Frontend</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1 bg-white border border-gray-800 text-gray-800 rounded-lg text-xs font-medium shadow-sm">Next.js
-                                    & React Ecosystem</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-red-500 text-red-600 rounded-lg text-xs font-medium shadow-sm">Immersive
-                                    Web (Three.js/WebGL)</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-fuchsia-500 text-fuchsia-700 rounded-lg text-xs font-medium shadow-sm">Generative
-                                    Design Integration</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-cyan-500 text-cyan-700 rounded-lg text-xs font-medium shadow-sm">Modern
-                                    UI/UX (TailwindCSS)</span>
+                        <div class="skill-group">
+                            <h4>Design &amp; Content Production</h4>
+                            <div class="skill-group__list">
+                                <span class="chip" style="border-color:#a855f7;color:#7e22ce">Graphic design</span>
+                                <span class="chip" style="border-color:#a855f7;color:#7e22ce">Vector illustration</span>
+                                <span class="chip" style="border-color:#a855f7;color:#7e22ce">Video editing</span>
+                                <span class="chip" style="border-color:#a855f7;color:#7e22ce">Motion graphics</span>
+                                <span class="chip" style="border-color:#a855f7;color:#7e22ce">UI/UX</span>
                             </div>
                         </div>
 
-                        <!-- Group 4: Tools -->
-                        <div>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Professional Tools
-                            </h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1 bg-white border border-purple-500 text-purple-600 rounded-lg text-xs font-medium shadow-sm">Figma</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-orange-600 text-orange-700 rounded-lg text-xs font-medium shadow-sm">Adobe
-                                    Illustrator</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-gray-800 text-gray-800 rounded-lg text-xs font-medium shadow-sm">Git
-                                    & CI/CD Concepts</span>
-                                <span
-                                    class="px-3 py-1 bg-white border border-blue-600 text-blue-600 rounded-lg text-xs font-medium shadow-sm">AI-Powered
-                                    VS Code</span>
+                        <div class="skill-group">
+                            <h4>Technology &amp; Automation</h4>
+                            <div class="skill-group__list">
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">AI-assisted development</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Multi-model LLM</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">AI agents</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">MCP integration</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Prompt engineering</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Workflow automation</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Web game development</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">3D asset creation</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Business web systems</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Next.js</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">React</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">TailwindCSS</span>
+                                <span class="chip" style="border-color:#6366f1;color:#4338ca">Three.js / WebGL</span>
                             </div>
                         </div>
 
+                        <div class="skill-group">
+                            <h4>Tools</h4>
+                            <div class="skill-group__list">
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">OpenCode</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Blender (MCP)</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">DaVinci Resolve</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Illustrator</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Photoshop</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">CorelDRAW</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Affinity</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Canva</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Figma</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">Git</span>
+                                <span class="chip" style="border-color:#0ea5e9;color:#0369a1">VS Code</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-group">
+                            <h4>Languages</h4>
+                            <div class="skill-group__list">
+                                <span class="chip" style="border-color:#71717a;color:#3f3f46">Indonesian — native</span>
+                                <span class="chip" style="border-color:#71717a;color:#3f3f46">English — professional</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Resize Handles (4 Corners) -->
-            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-about', 'nw')"></div>
-            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-about', 'ne')"></div>
-            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-about', 'sw')"></div>
-            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-about', 'se')"></div>
-        </div>
 
-        <!-- Experience Window -->
-        <div id="window-experience" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
-            style="width: 600px; height: 650px; top: 15%; left: 35%; z-index: 10;">
-            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
-                onmousedown="startDrag(event, 'window-experience')">
-                <div class="flex items-center text-sm pl-2">
-                    <span class="mr-2 text-gray-500"><i class="fas fa-briefcase"></i></span>
-                    Experience.txt
-                </div>
-                <div class="flex h-full">
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
-                        onclick="minimizeWindow('window-experience')"><i class="fas fa-minus text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
-                        onclick="toggleMaximize('window-experience')"><i class="far fa-square text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center"
-                        onclick="closeWindow('window-experience')"><i class="fas fa-times text-sm"></i></button>
-                </div>
-            </div>
-            <div class="content flex-1 overflow-auto p-0 font-mono text-sm bg-white">
-                <div class="p-6 space-y-8">
+            <div class="resizer" data-resize="about" data-dir="nw"></div>
+            <div class="resizer" data-resize="about" data-dir="ne"></div>
+            <div class="resizer" data-resize="about" data-dir="sw"></div>
+            <div class="resizer" data-resize="about" data-dir="se"></div>
+        </section>
 
-                    <!-- Item 1 -->
-                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
-                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-blue-500 border-2 border-white">
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800">Founder & Lead Creative</h3>
-                        <p class="text-blue-600 font-semibold mb-1">Cakra Labs (Creative AI Automation Agency)</p>
-                        <p class="text-gray-400 text-xs mb-3">2024 - Present</p>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1">
-                            <li>Founded agency combining manual design with AI tools.</li>
-                            <li>Built agency website and client prototypes using HTML/CSS.</li>
-                            <li>Managed digital strategy for B2B clients.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
-                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white">
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800">Project Manager & MarComm</h3>
-                        <p class="text-blue-600 font-semibold mb-1">PT. Syauqia Berkah Makmur (SBM Group)</p>
-                        <p class="text-gray-400 text-xs mb-3">2024 - 2025</p>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1">
-                            <li>Managed marketing across Laundry, Property, Banking, and Education units.</li>
-                            <li>Designed corporate website (ptsbmgroup.github.io).</li>
-                            <li>Handled visual communication and copywriting.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
-                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white">
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800">Founder & Owner</h3>
-                        <p class="text-blue-600 font-semibold mb-1">Bifidum.co (formerly Kalemia.co)</p>
-                        <p class="text-gray-400 text-xs mb-3">2021 - Present</p>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1">
-                            <li>Automotive fashion brand.</li>
-                            <li>Produced high-precision vector art and vehicle decals.</li>
-                            <li>Managed end-to-end operations from design to sales.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Item 4 -->
-                    <div class="relative border-l-2 border-gray-200 pl-6 pb-2">
-                        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-gray-300 border-2 border-white">
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800">Communication Department</h3>
-                        <p class="text-blue-600 font-semibold mb-1">BEM Cyber University</p>
-                        <p class="text-gray-400 text-xs mb-3">2024 - 2025</p>
-                        <p class="text-gray-600">Designer for Student Executive Board, creating posters and social media
-                            assets.</p>
-                    </div>
-
-                </div>
-            </div>
-            <!-- Resize Handles (4 Corners) -->
-            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-experience', 'nw')"></div>
-            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-experience', 'ne')"></div>
-            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-experience', 'sw')"></div>
-            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-experience', 'se')"></div>
-        </div>
-
-        <!-- Projects Window (File Explorer Style) -->
-        <div id="window-projects" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
-            style="width: 800px; height: 500px; top: 12%; left: 20%; z-index: 10;">
-
-            <!-- Explorer Ribbon/Top Bar -->
-            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
-                onmousedown="startDrag(event, 'window-projects')">
-                <div class="flex items-center text-sm pl-2">
-                    <span class="mr-2 text-yellow-500"><i class="fas fa-folder-open"></i></span>
-                    File Explorer
-                </div>
-                <div class="flex h-full">
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
-                        onclick="minimizeWindow('window-projects')"><i class="fas fa-minus text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
-                        onclick="toggleMaximize('window-projects')"><i class="far fa-square text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center"
-                        onclick="closeWindow('window-projects')"><i class="fas fa-times text-sm"></i></button>
+        <!-- ======================= EXPERIENCE ======================= -->
+        <section id="window-experience" class="window" style="width: 640px; height: 660px; top: 90px; left: 400px; z-index: 10;">
+            <div class="title-bar" data-drag="experience">
+                <span class="title-bar__label"><i class="fas fa-briefcase text-amber-500"></i> Experience.txt</span>
+                <div class="title-bar__buttons">
+                    <button data-minimize="experience" title="Minimize"><i class="fas fa-minus"></i></button>
+                    <button data-maximize="experience" title="Maximize"><i class="far fa-square"></i></button>
+                    <button data-close="experience" title="Close"><i class="fas fa-times"></i></button>
                 </div>
             </div>
 
-            <!-- Address Bar -->
-            <div class="bg-white border-b border-gray-200 p-2 flex items-center space-x-2">
-                <div class="flex space-x-2 text-gray-400">
-                    <button class="hover:bg-gray-100 p-1 rounded" onclick="navigateProjects('root')"><i
-                            class="fas fa-arrow-left"></i></button>
-                    <button class="hover:bg-gray-100 p-1 rounded"><i class="fas fa-arrow-up"></i></button>
+            <div class="window__content p-6">
+                <h2 class="section-label"><i class="fas fa-briefcase text-gray-400"></i> Work Experience</h2>
+
+                <div class="timeline-item is-current">
+                    <h3>Marketing Project Lead</h3>
+                    <p class="timeline-item__org">Cakra Labs for NURTURE FOR GROWTH</p>
+                    <p class="timeline-item__date">Sep 2026 — Present · Project-based</p>
+                    <ul>
+                        <li>Holds the overall marketing project for the NURTURE FOR GROWTH psychology clinic under
+                            Cakra Labs.</li>
+                        <li>Produces promotional videos and handles the entire editing process for the clinic's
+                            publication needs.</li>
+                        <li>Prepares content plans as direction and schedule for social media content.</li>
+                        <li>Develops the clinic's website as a means of information and service for prospective
+                            clients.</li>
+                        <li>Designs and develops marketing strategies to strengthen the clinic's image and reach.</li>
+                    </ul>
                 </div>
-                <div
-                    class="flex-1 border border-gray-300 rounded px-2 py-1 text-sm flex items-center bg-white hover:border-gray-400">
-                    <i class="fas fa-laptop text-gray-500 mr-2"></i>
-                    <span id="project-breadcrumb" class="text-gray-700">This PC > Projects</span>
+
+                <div class="timeline-item">
+                    <h3>Promo Video Editor</h3>
+                    <p class="timeline-item__org">Langit Pictures Indonesia</p>
+                    <p class="timeline-item__date">Jul 2026 — Aug 2026 · Project-based</p>
+                    <ul>
+                        <li>Edits promotional material for the film <em>Takkan Kubiarkan Kau Menangis</em> for
+                            publication and social media needs.</li>
+                        <li>Works with the film's production deadline until the promotional project is completed
+                            in August 2026.</li>
+                    </ul>
                 </div>
-                <div class="border border-gray-300 rounded px-2 py-1 text-sm w-48 text-gray-400 bg-white">
-                    Search Projects
+
+                <div class="timeline-item">
+                    <h3>Research &amp; Development (R&amp;D) Lead</h3>
+                    <p class="timeline-item__org">PT Shalee Berkah Jaya (Ranuna)</p>
+                    <p class="timeline-item__date">Apr 2026 — Jul 2026</p>
+                    <ul>
+                        <li>Appointed as R&amp;D Lead after two months working as a Graphic Designer, then
+                            transferred to become a direct employee of PT Shalee Berkah Jaya.</li>
+                        <li>Researches Ranuna products (dates, Middle Eastern nuts, and other healthy food
+                            products): analyzing customer complaints, formulating product improvements, and
+                            proposing changes to storage methods and processes for perishable products.</li>
+                        <li>Identifies new product opportunities and participates in developing them, covering
+                            raw material selection, packaging design, and promotional campaign concepts.</li>
+                        <li>Directly handles the design and editing of promotional material for the products I
+                            develop, thus carrying out both R&amp;D and marketing roles.</li>
+                        <li>Builds an internal web system to record the in and out of raw materials and sales,
+                            which also becomes the data basis for product research.</li>
+                        <li>Also supports raw material delivery and sales operations.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Graphic Designer &amp; Video Editor</h3>
+                    <p class="timeline-item__org">PT Shalee Berkah Jaya (Ranuna)</p>
+                    <p class="timeline-item__date">Feb 2026 — Apr 2026</p>
+                    <ul>
+                        <li>Creates graphic designs and edits brand and product promotional videos for social
+                            media, including motion graphics and company profile videos.</li>
+                        <li>Takes initiative beyond the main duties by building a web system for recording raw
+                            materials and sales, as well as helping with delivery and sales. This contribution
+                            underlies my promotion.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Founder &amp; Lead Creative</h3>
+                    <p class="timeline-item__org">Cakra Labs — AI-native creative agency</p>
+                    <p class="timeline-item__date">2024 — Present</p>
+                    <ul>
+                        <li>Founded an agency that combines manual design with AI tools so production is faster
+                            and still precise.</li>
+                        <li>Built the agency website as well as prototypes for clients (FinShield and Cerahi Usaha)
+                            using HTML/CSS.</li>
+                        <li>Handles digital strategy and documentation for B2B clients.</li>
+                        <li>Created the “Digital Alchemy” workflow to shorten visual asset production time.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Founder &amp; Owner</h3>
+                    <p class="timeline-item__org">Bifidum.co (formerly Kalemia.co)</p>
+                    <p class="timeline-item__date">2021 — Present</p>
+                    <ul>
+                        <li>Rebranded Kalemia.co into Bifidum.co, expanding the business from digital art to an
+                            automotive fashion brand.</li>
+                        <li>Produces vector art and vehicle decals for the automotive enthusiast community.</li>
+                        <li>Manages all operations: product design, vendor sourcing, social media marketing,
+                            through to sales.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Project Manager &amp; Marketing Communication</h3>
+                    <p class="timeline-item__org">PT Syauqia Berkah Makmur (SBM Group)</p>
+                    <p class="timeline-item__date">2024 — 2025</p>
+                    <ul>
+                        <li>Managed marketing projects for four business units: Laundry, Property, Banking
+                            Agent (BRILink), and Education.</li>
+                        <li>Designed and maintained the company website (ptsbmgroup.github.io) as an information
+                            center for investors and customers.</li>
+                        <li>Handled visual communication, covering copywriting, editing, and promotional material
+                            design.</li>
+                        <li>Coordinated with the operational team so campaigns stayed in line with business
+                            targets.</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-label mt-8"><i class="fas fa-people-group text-gray-400"></i> Organization &amp; Volunteering</h2>
+
+                <div class="timeline-item">
+                    <h3>Communication &amp; Information Department Staff</h3>
+                    <p class="timeline-item__org">BEM Cyber University</p>
+                    <p class="timeline-item__date">2024 — 2025</p>
+                    <ul>
+                        <li>Creates posters, banners, certificates, and routine Instagram content for
+                            organizational needs.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Graphic Designer (Volunteer)</h3>
+                    <p class="timeline-item__org">Lentera Cakrawala Nusantara</p>
+                    <p class="timeline-item__date">2024 — 2025</p>
+                    <ul>
+                        <li>Creates visual assets for social programs and maintains visual identity consistency
+                            on social media and at events.</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-label mt-8"><i class="fas fa-graduation-cap text-gray-400"></i> Education</h2>
+
+                <div class="timeline-item">
+                    <h3>Bachelor of Digital Business</h3>
+                    <p class="timeline-item__org">Cyber University, Jakarta</p>
+                    <p class="timeline-item__date">2023 — Present</p>
+                    <ul>
+                        <li>Recipient of the “Cakap Digital” scholarship for digital talent and academic potential.</li>
+                        <li>Relevant coursework: E-Commerce, Financial Technology, Digital Marketing, Business
+                            Analytics.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Student Exchange &amp; Fintech Immersion</h3>
+                    <p class="timeline-item__org">Universiti Teknologi PETRONAS, Malaysia</p>
+                    <p class="timeline-item__date">2025</p>
+                    <ul>
+                        <li>Selected participant of the Fintech Immersion program; studied regional financial
+                            technology trends and cross-cultural design systems.</li>
+                        <li>Initially invited as a UI/UX tools trainer before joining the program in full.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Software Engineering</h3>
+                    <p class="timeline-item__org">SMK Citra Negara, Depok</p>
+                    <p class="timeline-item__date">2020 — 2023</p>
+                    <ul>
+                        <li>Software Engineering major: Java, SQL, web development basics (HTML/CSS/PHP).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resizer" data-resize="experience" data-dir="nw"></div>
+            <div class="resizer" data-resize="experience" data-dir="ne"></div>
+            <div class="resizer" data-resize="experience" data-dir="sw"></div>
+            <div class="resizer" data-resize="experience" data-dir="se"></div>
+        </section>
+
+        <!-- ======================= PROJECTS ======================= -->
+        <section id="window-projects" class="window" style="width: 820px; height: 520px; top: 80px; left: 360px; z-index: 10;">
+            <div class="title-bar" data-drag="projects">
+                <span class="title-bar__label"><i class="fas fa-folder-open text-yellow-500"></i> Projects — File Explorer</span>
+                <div class="title-bar__buttons">
+                    <button data-minimize="projects" title="Minimize"><i class="fas fa-minus"></i></button>
+                    <button data-maximize="projects" title="Maximize"><i class="far fa-square"></i></button>
+                    <button data-close="projects" title="Close"><i class="fas fa-times"></i></button>
                 </div>
             </div>
 
-            <!-- Content Area -->
-            <div class="flex flex-1 overflow-hidden bg-white">
-                <!-- Sidebar -->
-                <div class="w-48 border-r border-gray-200 p-2 text-sm hidden md:block overflow-y-auto">
-                    <div class="text-gray-500 text-xs font-bold mb-2 uppercase tracking-wide">Quick Access</div>
-                    <div class="pl-2 py-1 hover:bg-blue-50 rounded cursor-pointer text-gray-700 flex items-center"
-                        onclick="navigateProjects('root')"><i class="fas fa-star text-yellow-400 mr-2"></i> Quick access
-                    </div>
-                    <div class="pl-2 py-1 hover:bg-blue-50 rounded cursor-pointer text-gray-700 flex items-center"><i
-                            class="fas fa-desktop text-blue-400 mr-2"></i> Desktop</div>
-                    <div class="pl-2 py-1 hover:bg-blue-50 rounded cursor-pointer text-gray-700 flex items-center"><i
-                            class="fas fa-download text-blue-400 mr-2"></i> Downloads</div>
-
-                    <div class="text-gray-500 text-xs font-bold mt-4 mb-2 uppercase tracking-wide">This PC</div>
-                    <div class="pl-2 py-1 bg-blue-100 rounded cursor-pointer text-gray-800 flex items-center"
-                        onclick="navigateProjects('root')"><i class="fas fa-folder text-yellow-500 mr-2"></i> Projects
-                    </div>
-                    <div class="pl-6 py-1 hover:bg-gray-100 rounded cursor-pointer text-gray-700 flex items-center"
-                        onclick="navigateProjects('websites')"><i class="fas fa-globe text-blue-500 mr-2"></i> Websites
-                    </div>
-                    <div class="pl-6 py-1 hover:bg-gray-100 rounded cursor-pointer text-gray-700 flex items-center"
-                        onclick="navigateProjects('graphic')"><i class="fas fa-image text-purple-500 mr-2"></i> Graphic
-                        Design</div>
+            <div class="explorer-toolbar">
+                <div class="explorer-toolbar__nav">
+                    <button id="explorer-back" title="Back"><i class="fas fa-arrow-left"></i></button>
+                    <button id="explorer-up" title="Up"><i class="fas fa-arrow-up"></i></button>
                 </div>
-
-                <!-- Main View -->
-                <div id="project-view-root" class="flex-1 p-4 overflow-y-auto">
-                    <div class="text-gray-500 text-xs mb-2 border-b border-gray-200 pb-1">Folders (2)</div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <!-- Folder 1 -->
-                        <div class="group flex flex-col items-center p-4 hover:bg-blue-50 border border-transparent hover:border-blue-100 rounded cursor-pointer"
-                            onclick="navigateProjects('websites')">
-                            <img src="images/web.png" class="w-16 h-16 mb-2 group-hover:opacity-90">
-                            <span class="text-sm text-center text-gray-700 group-hover:text-blue-600">Websites</span>
-                            <span class="text-xs text-gray-400">4 items</span>
-                        </div>
-                        <!-- Folder 2 -->
-                        <div class="group flex flex-col items-center p-4 hover:bg-blue-50 border border-transparent hover:border-blue-100 rounded cursor-pointer"
-                            onclick="navigateProjects('graphic')">
-                            <img src="https://img.icons8.com/fluency/96/000000/image.png"
-                                class="w-16 h-16 mb-2 group-hover:opacity-90">
-                            <span class="text-sm text-center text-gray-700 group-hover:text-blue-600">Graphic
-                                Design</span>
-                            <span class="text-xs text-gray-400">Gallery</span>
-                        </div>
-                    </div>
+                <div class="explorer-address">
+                    <i class="fas fa-laptop text-gray-400"></i>
+                    <span id="explorer-breadcrumb">This PC &gt; Projects</span>
                 </div>
-
-                <!-- Websites View (Hidden by default) -->
-                <div id="project-view-websites" class="flex-1 p-4 overflow-y-auto hidden">
-                    <div class="text-gray-500 text-xs mb-2 border-b border-gray-200 pb-1">HTML Documents (4)</div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-
-                        <!-- Link Card 1 -->
-                        <a href="https://myuang.vercel.app" target="_blank"
-                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
-                            <div
-                                class="w-12 h-12 bg-blue-600 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
-                                <i class="fas fa-wallet"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-800">myuang.vercel.app</h4>
-                                <p class="text-xs text-gray-500 mt-1">Financial tracking web application.</p>
-                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
-                                        class="fas fa-external-link-alt ml-1"></i></p>
-                            </div>
-                        </a>
-
-                        <!-- Link Card 2 -->
-                        <a href="https://cakralabs.me" target="_blank"
-                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
-                            <div
-                                class="w-12 h-12 bg-gray-900 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-800">Cakralabs.me</h4>
-                                <p class="text-xs text-gray-500 mt-1">Creative AI Automation Agency portfolio.</p>
-                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
-                                        class="fas fa-external-link-alt ml-1"></i></p>
-                            </div>
-                        </a>
-
-                        <!-- Link Card 3 -->
-                        <a href="https://evpowering.vercel.app" target="_blank"
-                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
-                            <div
-                                class="w-12 h-12 bg-green-500 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
-                                <i class="fas fa-charging-station"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-800">evpowering.vercel.app</h4>
-                                <p class="text-xs text-gray-500 mt-1">EV charging solutions landing page.</p>
-                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
-                                        class="fas fa-external-link-alt ml-1"></i></p>
-                            </div>
-                        </a>
-
-                        <!-- Link Card 4 -->
-                        <a href="https://rotiklasik.vercel.app" target="_blank"
-                            class="flex items-start p-3 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded cursor-pointer transition-colors">
-                            <div
-                                class="w-12 h-12 bg-yellow-600 rounded flex items-center justify-center text-white text-xl mr-3 shrink-0">
-                                <i class="fas fa-bread-slice"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-800">rotiklasik.vercel.app</h4>
-                                <p class="text-xs text-gray-500 mt-1">Bakery brand showcase website.</p>
-                                <p class="text-xs text-blue-500 mt-1 hover:underline">Open Link <i
-                                        class="fas fa-external-link-alt ml-1"></i></p>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
-
-                <!-- Graphic Design View (Hidden by default) -->
-                <div id="project-view-graphic" class="flex-1 p-4 overflow-y-auto hidden">
-                    <div class="text-gray-500 text-xs mb-2 border-b border-gray-200 pb-1">Image Gallery (10 items)</div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <!-- Item 1 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/cakralabs pembukaan slide 4.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Cakra Labs Slide 1">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 1</div>
-                        </div>
-                        <!-- Item 2 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/cakra labs pembukaan slide 2.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Cakra Labs Slide 2">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 2</div>
-                        </div>
-                        <!-- Item 3 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/cakra labs slide pembukaan 3.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Cakra Labs Slide 3">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 3</div>
-                        </div>
-                        <!-- Item 4 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/cakralabs pembukaan slide 4.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Cakra Labs Slide 4">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 4</div>
-                        </div>
-                        <!-- Item 5 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/cakra lab pembukaan slide 5.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Cakra Labs Slide 5">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Cakra Labs Intro 5</div>
-                        </div>
-                        <!-- Item 6 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/Biyan Final.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Biyan Final">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Biyan Final</div>
-                        </div>
-                        <!-- Item 7 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/DTM Merc 190E Klasse 1 - Feed 1 Promotion.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="DTM Merc Promotion">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">DTM Merc Promotion</div>
-                        </div>
-                        <!-- Item 8 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/ON TSHIRT BASTOS Back.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Bastos Tshirt Back">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Bastos Tshirt</div>
-                        </div>
-                        <!-- Item 9 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/Starlet bagas final with kalemia ng.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Starlet Bagas">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Starlet Design</div>
-                        </div>
-                        <!-- Item 10 -->
-                        <div
-                            class="bg-gray-100 border border-gray-200 rounded p-2 hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition-colors group">
-                            <div
-                                class="bg-gray-300 h-32 w-full rounded mb-2 overflow-hidden flex items-center justify-center">
-                                <img src="images/project decal mas haikal rocky final.png"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    alt="Rocky Decal">
-                            </div>
-                            <div class="text-xs text-center text-gray-600 truncate">Rocky Decal</div>
-                        </div>
-                    </div>
-                </div>
-
+                <label class="explorer-search">
+                    <i class="fas fa-search"></i>
+                    <input id="explorer-search" type="search" placeholder="Search works" autocomplete="off">
+                </label>
             </div>
-            <!-- Resize Handles (4 Corners) -->
-            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-projects', 'nw')"></div>
-            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-projects', 'ne')"></div>
-            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-projects', 'sw')"></div>
-            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-projects', 'se')"></div>
-        </div>
 
-        <!-- Contact Window -->
-        <div id="window-contact" class="window absolute bg-white text-gray-800 rounded shadow-2xl hidden flex-col"
-            style="width: 400px; height: 500px; top: 15%; left: 40%; z-index: 10;">
-            <div class="title-bar bg-white border-b border-gray-200 h-8 flex justify-between items-center px-2 cursor-default select-none"
-                onmousedown="startDrag(event, 'window-contact')">
-                <div class="flex items-center text-sm pl-2">
-                    <span class="mr-2 text-blue-500"><i class="fas fa-envelope"></i></span>
-                    Contact Me
-                </div>
-                <div class="flex h-full">
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
-                        onclick="minimizeWindow('window-contact')"><i class="fas fa-minus text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-gray-200 flex items-center justify-center"
-                        onclick="toggleMaximize('window-contact')"><i class="far fa-square text-xs"></i></button>
-                    <button class="w-10 h-full hover:bg-red-500 hover:text-white flex items-center justify-center"
-                        onclick="closeWindow('window-contact')"><i class="fas fa-times text-sm"></i></button>
+            <div class="explorer-body">
+                <aside class="explorer-sidebar">
+                    <div class="explorer-sidebar__title">Quick access</div>
+                    <div class="explorer-sidebar__item" data-explorer="root">
+                        <i class="fas fa-star text-yellow-400"></i> Collections
+                    </div>
+
+                    <div class="explorer-sidebar__title">This PC</div>
+                    <div class="explorer-sidebar__item" data-explorer="root">
+                        <i class="fas fa-folder text-yellow-500"></i> Projects
+                    </div>
+                    <div class="explorer-sidebar__item is-child" data-folder="bifidum">
+                        <i class="fas fa-shirt" style="color:#6366f1"></i> Bifidum.co
+                    </div>
+                    <div class="explorer-sidebar__item is-child" data-folder="cakralabs">
+                        <i class="fas fa-robot" style="color:#334155"></i> Cakra Labs
+                    </div>
+                    <div class="explorer-sidebar__item is-child" data-folder="ranuna">
+                        <i class="fas fa-box-open" style="color:#16a34a"></i> Ranuna
+                    </div>
+                    <div class="explorer-sidebar__item is-child" data-folder="nfg">
+                        <i class="fas fa-brain" style="color:#a855f7"></i> Nurture For Growth
+                    </div>
+                    <div class="explorer-sidebar__item is-child" data-folder="langit">
+                        <i class="fas fa-film" style="color:#dc2626"></i> Langit Pictures
+                    </div>
+                    <div class="explorer-sidebar__item is-child" data-folder="sbm">
+                        <i class="fas fa-building" style="color:#0891b2"></i> SBM Group
+                    </div>
+                    <div class="explorer-sidebar__item" data-explorer="websites">
+                        <i class="fas fa-globe text-blue-500"></i> Websites
+                    </div>
+                </aside>
+
+                <div class="explorer-main" id="explorer-main"></div>
+            </div>
+
+            <div class="resizer" data-resize="projects" data-dir="nw"></div>
+            <div class="resizer" data-resize="projects" data-dir="ne"></div>
+            <div class="resizer" data-resize="projects" data-dir="sw"></div>
+            <div class="resizer" data-resize="projects" data-dir="se"></div>
+        </section>
+
+        <!-- ======================= CONTACT ======================= -->
+        <section id="window-contact" class="window" style="width: 420px; height: 520px; top: 110px; left: 470px; z-index: 10;">
+            <div class="title-bar" data-drag="contact">
+                <span class="title-bar__label"><i class="fas fa-envelope text-emerald-500"></i> Contact Me</span>
+                <div class="title-bar__buttons">
+                    <button data-minimize="contact" title="Minimize"><i class="fas fa-minus"></i></button>
+                    <button data-maximize="contact" title="Maximize"><i class="far fa-square"></i></button>
+                    <button data-close="contact" title="Close"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-            <div class="content flex-1 p-6 bg-gray-50 flex flex-col justify-center items-center text-center">
-                <img src="https://img.icons8.com/fluency/96/000000/address-book.png" class="w-16 h-16 mb-4">
-                <h2 class="text-xl font-bold text-gray-800 mb-6">Let's Connect</h2>
 
-                <div class="w-full space-y-3">
+            <div class="window__content p-6 flex flex-col justify-center">
+                <div class="text-center mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 text-xl">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h2 class="text-lg font-bold text-gray-900">Let's connect</h2>
+                    <p class="text-xs text-gray-500 mt-1">Open to product, branding, and creative-tech work.</p>
+                </div>
+
+                <div class="space-y-2.5">
                     <a href="mailto:adityawealthyopt2281@gmail.com"
-                        class="block w-full bg-white border border-gray-200 p-3 rounded shadow-sm hover:border-blue-400 transition-colors flex items-center">
-                        <i class="fas fa-envelope text-red-500 mr-3 text-lg"></i>
-                        <span class="text-sm font-medium truncate">adityawealthyopt2281@gmail.com</span>
+                        class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
+                        <i class="fas fa-envelope text-red-500"></i>
+                        <span class="text-[13px] font-medium text-gray-700 truncate">adityawealthyopt2281@gmail.com</span>
                     </a>
 
-                    <a href="https://wa.me/6285880574423" target="_blank"
-                        class="block w-full bg-white border border-gray-200 p-3 rounded shadow-sm hover:border-green-400 transition-colors flex items-center">
-                        <i class="fab fa-whatsapp text-green-500 mr-3 text-lg"></i>
-                        <span class="text-sm font-medium">Chat on WhatsApp</span>
+                    <a href="https://wa.me/6288973924636" target="_blank" rel="noopener"
+                        class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:border-green-400 transition-colors">
+                        <i class="fab fa-whatsapp text-green-500"></i>
+                        <span class="text-[13px] font-medium text-gray-700">+62 889-7392-4636</span>
                     </a>
 
-                    <a href="https://www.instagram.com/bifidum.co?igsh=aGwzZGE1NzhwejY0" target="_blank"
-                        class="block w-full bg-white border border-gray-200 p-3 rounded shadow-sm hover:border-pink-500 transition-colors flex items-center">
-                        <i class="fab fa-instagram text-pink-500 mr-3 text-lg"></i>
-                        <span class="text-sm font-medium">bifidum.co</span>
+                    <a href="https://www.instagram.com/bifidum.co?igsh=aGwzZGE1NzhwejY0" target="_blank" rel="noopener"
+                        class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:border-pink-500 transition-colors">
+                        <i class="fab fa-instagram text-pink-500"></i>
+                        <span class="text-[13px] font-medium text-gray-700">@bifidum.co</span>
                     </a>
 
-                    <a href="https://www.linkedin.com/in/adityaptranamta" target="_blank"
-                        class="block w-full bg-white border border-gray-200 p-3 rounded shadow-sm hover:border-blue-700 transition-colors flex items-center">
-                        <i class="fab fa-linkedin text-blue-700 mr-3 text-lg"></i>
-                        <span class="text-sm font-medium">LinkedIn</span>
+                    <a href="https://www.linkedin.com/in/adityaptranamta" target="_blank" rel="noopener"
+                        class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:border-blue-700 transition-colors">
+                        <i class="fab fa-linkedin text-blue-700"></i>
+                        <span class="text-[13px] font-medium text-gray-700">LinkedIn</span>
+                    </a>
+
+                    <a href="https://drive.google.com/file/d/1sSdM1iGMYrdMkZ7Ih7baob9H2BcVGsQ7/view" target="_blank"
+                        rel="noopener"
+                        class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:border-gray-400 transition-colors">
+                        <i class="fas fa-file-pdf text-gray-700"></i>
+                        <span class="text-[13px] font-medium text-gray-700">Download my CV</span>
                     </a>
                 </div>
             </div>
-            <!-- Resize Handles (4 Corners) -->
-            <div class="resizer-handle resizer-tl" onmousedown="startResize(event, 'window-contact', 'nw')"></div>
-            <div class="resizer-handle resizer-tr" onmousedown="startResize(event, 'window-contact', 'ne')"></div>
-            <div class="resizer-handle resizer-bl" onmousedown="startResize(event, 'window-contact', 'sw')"></div>
-            <div class="resizer-handle resizer-br" onmousedown="startResize(event, 'window-contact', 'se')"></div>
-        </div>
 
+            <div class="resizer" data-resize="contact" data-dir="nw"></div>
+            <div class="resizer" data-resize="contact" data-dir="ne"></div>
+            <div class="resizer" data-resize="contact" data-dir="sw"></div>
+            <div class="resizer" data-resize="contact" data-dir="se"></div>
+        </section>
+
+        <!-- ======================= MEDIA VIEWER ======================= -->
+        <section id="window-viewer" class="window"
+            style="width: 900px; height: 640px; top: 90px; left: 330px; z-index: 10;">
+            <div class="title-bar" data-drag="viewer">
+                <span class="title-bar__label">
+                    <i class="fas fa-image text-blue-500" id="viewer-icon"></i>
+                    <span id="viewer-title">Preview</span>
+                </span>
+                <div class="title-bar__buttons">
+                    <button id="viewer-prev" title="Previous"><i class="fas fa-chevron-left"></i></button>
+                    <button id="viewer-next" title="Next"><i class="fas fa-chevron-right"></i></button>
+                    <button data-minimize="viewer" title="Minimize"><i class="fas fa-minus"></i></button>
+                    <button data-maximize="viewer" title="Maximize"><i class="far fa-square"></i></button>
+                    <button data-close="viewer" title="Close"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+
+            <div class="window__content viewer" id="viewer-content"></div>
+
+            <div class="resizer" data-resize="viewer" data-dir="nw"></div>
+            <div class="resizer" data-resize="viewer" data-dir="ne"></div>
+            <div class="resizer" data-resize="viewer" data-dir="sw"></div>
+            <div class="resizer" data-resize="viewer" data-dir="se"></div>
+        </section>
     </div>
 
-    <!-- Start Menu (Hidden) -->
-    <div id="start-menu"
-        class="fixed bottom-12 left-0 w-80 h-96 glass-dark text-white rounded-tr-lg hidden flex-col z-50 border-t border-r border-gray-700 shadow-2xl transform transition-transform duration-100 origin-bottom-left scale-95 opacity-0">
-        <!-- Sidebar -->
-        <div class="flex h-full">
-            <div class="w-12 flex flex-col items-center justify-end pb-4 space-y-4 text-gray-400">
-                <button class="hover:text-white"><i class="fas fa-cog"></i></button>
-                <button class="hover:text-white"><i class="fas fa-power-off"></i></button>
-            </div>
-            <!-- Apps List -->
-            <div class="flex-1 p-4 overflow-y-auto">
-                <div class="text-xs text-gray-400 mb-2 font-bold">Pinned</div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
-                        onclick="openWindow('about'); toggleStartMenu()">
-                        <i class="fas fa-user-circle text-2xl mb-1 text-blue-400"></i>
-                        <div class="text-xs">About</div>
-                    </div>
-                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
-                        onclick="openWindow('projects'); toggleStartMenu()">
-                        <i class="fas fa-folder-open text-2xl mb-1 text-yellow-400"></i>
-                        <div class="text-xs">Projects</div>
-                    </div>
-                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
-                        onclick="window.open('https://github.com', '_blank')">
-                        <i class="fab fa-github text-2xl mb-1 text-white"></i>
-                        <div class="text-xs">GitHub</div>
-                    </div>
-                    <div class="bg-gray-700 bg-opacity-50 p-2 text-center rounded hover:bg-opacity-70 cursor-pointer"
-                        onclick="openWindow('contact'); toggleStartMenu()">
-                        <i class="fas fa-envelope text-2xl mb-1 text-blue-300"></i>
-                        <div class="text-xs">Mail</div>
-                    </div>
-                </div>
+    <!-- ============================ START MENU ============================ -->
+    <div id="start-menu" class="glass-dark text-white"></div>
 
-                <div class="text-xs text-gray-400 mt-4 mb-2 font-bold">Recent</div>
-                <div class="space-y-1">
-                    <div class="flex items-center p-2 hover:bg-white hover:bg-opacity-10 rounded cursor-pointer"
-                        onclick="openWindow('experience'); toggleStartMenu()">
-                        <i class="fas fa-file-alt text-blue-400 mr-3"></i>
-                        <span class="text-sm">Experience.txt</span>
-                    </div>
-                    <div class="flex items-center p-2 hover:bg-white hover:bg-opacity-10 rounded cursor-pointer"
-                        onclick="openWindow('projects'); toggleStartMenu()">
-                        <i class="fas fa-image text-purple-400 mr-3"></i>
-                        <span class="text-sm">Graphic Design</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Taskbar -->
-    <div id="taskbar"
-        class="fixed bottom-0 left-0 w-full h-12 glass-dark flex items-center justify-between px-0 z-50 border-t border-gray-700">
-
-        <div class="flex items-center h-full">
-            <!-- Start Button -->
-            <button
-                class="h-full w-12 hover:bg-white hover:bg-opacity-10 flex items-center justify-center transition-colors"
-                onclick="toggleStartMenu()">
-                <i class="fab fa-windows text-white text-xl"></i>
+    <!-- ============================== TASKBAR ============================== -->
+    <div id="taskbar" class="glass-dark">
+        <div class="taskbar-left">
+            <button class="taskbar-btn" id="start-button" data-start title="Start">
+                <i class="fab fa-windows"></i>
             </button>
 
-            <!-- Search Placeholder -->
-            <div
-                class="h-8 ml-2 w-64 bg-white bg-opacity-10 rounded-sm flex items-center px-3 text-gray-400 text-sm hidden md:flex hover:bg-opacity-20 transition-colors">
-                <i class="fas fa-search mr-3"></i>
+            <div class="taskbar-search">
+                <i class="fas fa-search"></i>
                 <span>Type here to search</span>
             </div>
 
-            <!-- Task View Icon -->
-            <button
-                class="h-full w-12 ml-1 hover:bg-white hover:bg-opacity-10 flex items-center justify-center transition-colors hidden sm:flex">
-                <i class="fas fa-tasks text-white text-sm"></i>
+            <button class="taskbar-btn" title="Task view">
+                <i class="fas fa-table-columns"></i>
             </button>
 
-            <!-- Active Apps Section -->
-            <div class="flex items-center ml-2 h-full" id="taskbar-apps">
-                <!-- App items will be injected here by JS -->
-            </div>
+            <div id="taskbar-apps"></div>
         </div>
 
-        <!-- System Tray -->
-        <div class="flex items-center h-full pr-4 text-xs text-white space-x-4">
-            <div class="hidden sm:flex space-x-2">
-                <i class="fas fa-chevron-up hover:bg-white hover:bg-opacity-10 p-1 rounded"></i>
-                <i class="fas fa-wifi hover:bg-white hover:bg-opacity-10 p-1 rounded"></i>
-                <i class="fas fa-volume-up hover:bg-white hover:bg-opacity-10 p-1 rounded"></i>
+        <div class="taskbar-tray">
+            <div class="taskbar-tray__icons">
+                <i class="fas fa-chevron-up"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-volume-high"></i>
+                <i class="fas fa-battery-three-quarters"></i>
             </div>
-            <div
-                class="text-right cursor-default hover:bg-white hover:bg-opacity-10 px-2 py-1 rounded transition-colors">
-                <div id="clock-time" class="font-medium">12:00 PM</div>
-                <div id="clock-date" class="text-gray-300">10/24/2025</div>
+            <div class="taskbar-clock">
+                <span id="clock-time">12:00 PM</span>
+                <small id="clock-date">--/--/----</small>
             </div>
-            <div class="w-1 h-full border-l border-gray-600 ml-2"></div>
         </div>
     </div>
 
-    <script>
-        // === CLOCK ===
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const dateString = now.toLocaleDateString([], { month: '2-digit', day: '2-digit', year: 'numeric' });
-            document.getElementById('clock-time').textContent = timeString;
-            document.getElementById('clock-date').textContent = dateString;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // === WINDOW MANAGEMENT ===
-        let maxZIndex = 20;
-        const openWindows = new Set(); // Track open windows
-
-        function bringToFront(windowId) {
-            const win = document.getElementById(windowId);
-            maxZIndex++;
-            win.style.zIndex = maxZIndex;
-            updateTaskbarActive(windowId);
-        }
-
-        function openWindow(appId) {
-            const windowId = 'window-' + appId;
-            const win = document.getElementById(windowId);
-
-            if (win.classList.contains('hidden')) {
-                // Open new
-                win.classList.remove('hidden');
-                win.classList.add('flex'); // Ensure flex display
-
-                // Center slightly random
-                if (!openWindows.has(appId)) {
-                    const offset = openWindows.size * 20;
-                    win.style.top = (10 + Math.random() * 5) + '%';
-                    win.style.left = (20 + Math.random() * 5) + '%';
-                }
-
-                openWindows.add(appId);
-                renderTaskbar();
-            }
-
-            bringToFront(windowId);
-
-            // Special reset for projects to show root
-            if (appId === 'projects') {
-                // Optional: reset view? navigateProjects('root');
-            }
-        }
-
-        function closeWindow(windowId) {
-            const win = document.getElementById(windowId);
-            win.classList.add('hidden');
-            win.classList.remove('flex');
-
-            const appId = windowId.replace('window-', '');
-            openWindows.delete(appId);
-            renderTaskbar();
-        }
-
-        function minimizeWindow(windowId) {
-            const win = document.getElementById(windowId);
-            win.classList.add('hidden');
-            win.classList.remove('flex');
-            // Don't remove from openWindows set, just hide
-            // Taskbar entry remains, clicking it will restore
-            updateTaskbarActive(null); // No active window
-        }
-
-        function toggleMaximize(windowId) {
-            const win = document.getElementById(windowId);
-            win.classList.toggle('maximized');
-        }
-
-        // === TASKBAR ===
-        function renderTaskbar() {
-            const container = document.getElementById('taskbar-apps');
-            container.innerHTML = '';
-
-            openWindows.forEach(appId => {
-                const iconMap = {
-                    'about': 'user-male-circle--v1.png',
-                    'experience': 'briefcase.png',
-                    'projects': 'folder-invoices--v1.png',
-                    'contact': 'mail.png'
-                };
-
-                const item = document.createElement('div');
-                item.className = 'taskbar-item h-full w-12 flex items-center justify-center cursor-pointer transition-colors';
-                item.onclick = () => {
-                    const winId = 'window-' + appId;
-                    const win = document.getElementById(winId);
-                    if (win.classList.contains('hidden')) {
-                        win.classList.remove('hidden');
-                        win.classList.add('flex');
-                        bringToFront(winId);
-                    } else {
-                        // If visible and on top, minimize. If not on top, bring to front.
-                        if (win.style.zIndex == maxZIndex) {
-                            minimizeWindow(winId);
-                        } else {
-                            bringToFront(winId);
-                        }
-                    }
-                };
-
-                // Simple icon lookup (simplified)
-                const iconSrc = `https://img.icons8.com/fluency/48/000000/${iconMap[appId] || 'application.png'}`;
-
-                item.innerHTML = `<img src="${iconSrc}" class="w-6 h-6">`;
-                container.appendChild(item);
-            });
-        }
-
-        function updateTaskbarActive(activeWindowId) {
-            const items = document.querySelectorAll('.taskbar-item');
-            items.forEach(item => item.classList.remove('active'));
-
-            if (!activeWindowId) return;
-
-            const appId = activeWindowId.replace('window-', '');
-            // Find index logic or re-render (Simplified: just visual feedback needed)
-            // For this lightweight version, re-rendering might be overkill for active state highlighting
-            // We'll rely on the visual toggle of the window itself
-        }
-
-        // === START MENU ===
-        function toggleStartMenu() {
-            const menu = document.getElementById('start-menu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                menu.classList.add('flex');
-                setTimeout(() => {
-                    menu.classList.remove('opacity-0', 'scale-95');
-                }, 10);
-            } else {
-                menu.classList.add('opacity-0', 'scale-95');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                    menu.classList.remove('flex');
-                }, 100);
-            }
-        }
-
-        // Close start menu when clicking desktop
-        document.getElementById('desktop').addEventListener('click', (e) => {
-            if (e.target.id === 'desktop') {
-                const menu = document.getElementById('start-menu');
-                if (!menu.classList.contains('hidden')) toggleStartMenu();
-            }
-        });
-
-        // === PROJECT NAV (FILE EXPLORER LOGIC) ===
-        function navigateProjects(view) {
-            // Hide all views
-            document.getElementById('project-view-root').classList.add('hidden');
-            document.getElementById('project-view-websites').classList.add('hidden');
-            document.getElementById('project-view-graphic').classList.add('hidden');
-
-            // Show requested view
-            const viewId = 'project-view-' + view;
-            const el = document.getElementById(viewId);
-            if (el) el.classList.remove('hidden');
-
-            // Update breadcrumb
-            const breadcrumb = document.getElementById('project-breadcrumb');
-            if (view === 'root') breadcrumb.textContent = 'This PC > Projects';
-            else if (view === 'websites') breadcrumb.textContent = 'This PC > Projects > Websites';
-            else if (view === 'graphic') breadcrumb.textContent = 'This PC > Projects > Graphic Design';
-        }
-
-        // === DRAG & RESIZE LOGIC ===
-        let isDragging = false;
-        let isResizing = false;
-
-        let currentWindow = null;
-        let resizeDirection = ''; // 'nw', 'ne', 'sw', 'se'
-
-        let dragOffsetX = 0;
-        let dragOffsetY = 0;
-
-        let initialLeft = 0;
-        let initialTop = 0;
-        let initialWidth = 0;
-        let initialHeight = 0;
-        let initialMouseX = 0;
-        let initialMouseY = 0;
-
-        // --- Dragging ---
-        function startDrag(e, windowId) {
-            if (e.target.closest('button')) return; // Don't drag if clicking buttons
-
-            const win = document.getElementById(windowId);
-            if (win.classList.contains('maximized')) return; // Can't drag maximized
-
-            isDragging = true;
-            currentWindow = win;
-
-            bringToFront(windowId);
-
-            const rect = win.getBoundingClientRect();
-            dragOffsetX = e.clientX - rect.left;
-            dragOffsetY = e.clientY - rect.top;
-
-            win.classList.add('dragging');
-        }
-
-        // --- Resizing ---
-        function startResize(e, windowId, direction) {
-            e.stopPropagation(); // Stop event bubbling to dragging
-            const win = document.getElementById(windowId);
-            if (win.classList.contains('maximized')) return;
-
-            isResizing = true;
-            currentWindow = win;
-            resizeDirection = direction;
-
-            bringToFront(windowId);
-
-            const rect = win.getBoundingClientRect();
-            initialLeft = rect.left;
-            initialTop = rect.top;
-            initialWidth = rect.width;
-            initialHeight = rect.height;
-            initialMouseX = e.clientX;
-            initialMouseY = e.clientY;
-
-            win.classList.add('resizing');
-        }
-
-        // --- Global Mouse Move ---
-        document.addEventListener('mousemove', (e) => {
-            if (!currentWindow) return;
-
-            const taskbarHeight = 48;
-
-            if (isDragging) {
-                e.preventDefault();
-                let x = e.clientX - dragOffsetX;
-                let y = e.clientY - dragOffsetY;
-
-                // === BOUNDARY CHECKS FOR DRAG ===
-                const winWidth = currentWindow.offsetWidth;
-
-                // 1. Top Boundary: Cannot go above 0
-                if (y < 0) y = 0;
-
-                // 2. Bottom Boundary: Keep 30px of titlebar visible
-                if (y > window.innerHeight - taskbarHeight - 30) {
-                    y = window.innerHeight - taskbarHeight - 30;
-                }
-
-                // 3. Left/Right Boundary
-                if (x + winWidth < 50) x = 50 - winWidth;
-                if (x > window.innerWidth - 50) x = window.innerWidth - 50;
-
-                currentWindow.style.left = x + 'px';
-                currentWindow.style.top = y + 'px';
-                currentWindow.style.transform = 'none';
-            }
-            else if (isResizing) {
-                e.preventDefault();
-                const deltaX = e.clientX - initialMouseX;
-                const deltaY = e.clientY - initialMouseY;
-
-                let newWidth = initialWidth;
-                let newHeight = initialHeight;
-                let newLeft = initialLeft;
-                let newTop = initialTop;
-
-                // --- Logic based on Corner ---
-
-                // East (Right) - Changing width
-                if (resizeDirection.includes('e')) {
-                    newWidth = initialWidth + deltaX;
-                }
-
-                // South (Bottom) - Changing height
-                if (resizeDirection.includes('s')) {
-                    newHeight = initialHeight + deltaY;
-                }
-
-                // West (Left) - Changing width & left position
-                if (resizeDirection.includes('w')) {
-                    newWidth = initialWidth - deltaX;
-                    newLeft = initialLeft + deltaX;
-                }
-
-                // North (Top) - Changing height & top position
-                if (resizeDirection.includes('n')) {
-                    newHeight = initialHeight - deltaY;
-                    newTop = initialTop + deltaY;
-                }
-
-                // --- Min Size Checks ---
-                if (newWidth < 300) {
-                    // Prevent moving left if we hit min width on West side
-                    if (resizeDirection.includes('w')) newLeft = initialLeft + (initialWidth - 300);
-                    newWidth = 300;
-                }
-                if (newHeight < 200) {
-                    // Prevent moving top if we hit min height on North side
-                    if (resizeDirection.includes('n')) newTop = initialTop + (initialHeight - 200);
-                    newHeight = 200;
-                }
-
-                // --- Boundary Checks for Resize ---
-                // Prevent Top from going off screen
-                if (newTop < 0) {
-                    newHeight = newHeight + newTop; // shrinking height instead of moving up
-                    newTop = 0;
-                }
-
-                currentWindow.style.width = newWidth + 'px';
-                currentWindow.style.height = newHeight + 'px';
-                currentWindow.style.left = newLeft + 'px';
-                currentWindow.style.top = newTop + 'px';
-                currentWindow.style.transform = 'none';
-            }
-        });
-
-        // --- Global Mouse Up ---
-        document.addEventListener('mouseup', () => {
-            if (currentWindow) {
-                currentWindow.classList.remove('dragging');
-                currentWindow.classList.remove('resizing');
-            }
-            isDragging = false;
-            isResizing = false;
-            currentWindow = null;
-        });
-
-    </script>
+    <script src="assets/gallery-data.js"></script>
+    <script src="assets/desktop.js"></script>
 </body>
 
 </html>

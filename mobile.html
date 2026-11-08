@@ -105,9 +105,13 @@
 
             <!-- ======================= NAVIGATION ======================= -->
             <div id="nav-buttons">
-                <button id="nav-menu" aria-label="Files"><i class="fas fa-bars"></i></button>
-                <button id="nav-home" aria-label="Home"><i class="far fa-circle"></i></button>
                 <button id="nav-back" aria-label="Back"><i class="fas fa-chevron-left"></i></button>
+                <button id="nav-home" aria-label="Home"><i class="far fa-circle"></i></button>
+                <button id="nav-recents" aria-label="Recent apps"><i class="far fa-square"></i></button>
+            </div>
+
+            <div id="gesture-bar" aria-hidden="true">
+                <span id="gesture-pill"></span>
             </div>
 
             <!-- ======================= ABOUT ======================= -->
@@ -486,6 +490,49 @@
                     <button class="media-viewer__button" id="viewer-next" aria-label="Next">
                         <i class="fas fa-chevron-right"></i>
                     </button>
+                </div>
+            </div>
+
+            <!-- ======================= RECENT APPS ======================= -->
+            <div id="recents" class="recents" aria-hidden="true">
+                <div class="recents__head">
+                    <span class="recents__title">Recent apps</span>
+                    <button id="recents-clear" class="recents__clear">Clear all</button>
+                </div>
+                <div class="recents__list" id="recents-list"></div>
+            </div>
+
+            <!-- ======================= QUICK SETTINGS ======================= -->
+            <div id="quick-settings" class="quick-settings" aria-hidden="true">
+                <div class="qs__sheet">
+                    <div class="qs__handle"></div>
+
+                    <div class="qs__clock">
+                        <span class="qs__time" id="qs-time">00.00</span>
+                        <span class="qs__date" id="qs-date">—</span>
+                    </div>
+
+                    <div class="qs__toggles">
+                        <button class="qs__toggle is-on" data-toggle="wifi">
+                            <i class="fas fa-wifi"></i><span>Wi-Fi</span>
+                        </button>
+                        <button class="qs__toggle is-on" data-toggle="bluetooth">
+                            <i class="fab fa-bluetooth-b"></i><span>Bluetooth</span>
+                        </button>
+                        <button class="qs__toggle" data-toggle="dnd">
+                            <i class="fas fa-moon"></i><span>Don't disturb</span>
+                        </button>
+                        <button class="qs__toggle" data-toggle="flashlight">
+                            <i class="fas fa-bolt"></i><span>Flashlight</span>
+                        </button>
+                    </div>
+
+                    <div class="qs__brightness">
+                        <i class="fas fa-sun"></i>
+                        <input type="range" id="qs-brightness" min="20" max="100" value="80"
+                            aria-label="Brightness">
+                        <span id="qs-brightness-value">80%</span>
+                    </div>
                 </div>
             </div>
 

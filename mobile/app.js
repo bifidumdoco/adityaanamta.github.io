@@ -45,9 +45,24 @@
         { name: "ptsbmgroup.github.io", url: "https://ptsbmgroup.github.io", icon: "fa-building-columns", color: "#0891b2", desc: "SBM Group corporate site" },
     ];
 
+    const APPS = {
+        "app-about": { name: "About", icon: "fa-user", color: "linear-gradient(135deg,#FF512F 0%,#DD2476 100%)" },
+        "app-experience": { name: "Work", icon: "fa-briefcase", color: "linear-gradient(135deg,#1D976C 0%,#93F9B9 100%)" },
+        "app-projects": { name: "Files", icon: "fa-folder-open", color: "linear-gradient(135deg,#8E2DE2 0%,#4A00E0 100%)" },
+        "app-contact": { name: "Contact", icon: "fa-paper-plane", color: "linear-gradient(135deg,#F7971E 0%,#FFD200 100%)" },
+    };
+
+    const HUB_APP = "app-projects";
+    const MAX_RECENTS = 6;
+
     const stack = [];
     const files = { folder: null, items: [] };
     let viewerIndex = -1;
+    let recentOrder = [];
+
+    /* History mirror: one entry per app / folder / viewer. */
+    let depth = 0;
+    let suppressPop = 0;
 
     function byId(id) {
         return document.getElementById(id);
@@ -66,6 +81,11 @@
         return COLLECTIONS.find(function (c) { return c.id === id; }) || null;
     }
 
+    function appIsOpen(appId) {
+        const app = byId(appId);
+        return !!app && app.classList.contains("open");
+    }
+
     /* ------------------------------------------------------------------ clock */
     function updateTime() {
         const now = new Date();
@@ -75,10 +95,72 @@
         const clock = byId("clock");
         const widgetTime = byId("widget-time");
         const widgetDate = byId("widget-date");
+        const qsTime = byId("qs-time");
+        const qsDate = byId("qs-date");
 
         if (clock) clock.textContent = time;
         if (widgetTime) widgetTime.textContent = time.replace(":", ".");
         if (widgetDate) widgetDate.textContent = date;
+        if (qsTime) qsTime.textContent = time.replace(":", ".");
+        if (qsDate) qsDate.textContent = date;
+    }
+
+    /* ------------------------------------------------------------- navigation */
+    function pushNav() {
+        depth += 1;
+        history.pushState({ nav: depth }, "");
+    }
+
+    function leaveToLanding() {
+        window.location.href = "index.html";
+    }
+
+    function requestBack() {
+        if (qsIsOpen()) {
+            closeQuickSettings();
+            return;
+        }
+        if (recentsIsOpen()) {
+            closeRecents();
+            return;
+        }
+        if (depth > 0) {
+            history.back();
+            return;
+        }
+        leaveToLanding();
+    }
+
+    function undoOne() {
+        if (qsIsOpen()) { closeQuickSettings(); return; }
+        if (recentsIsOpen()) { closeRecents(); return; }
+        if (viewerIsOpen()) { closeViewer(); return; }
+        if (files.folder && appIsOpen(HUB_APP)) { renderFilesRoot(); return; }
+        const top = stack[stack.length - 1];
+        if (top) { closeApp(top); return; }
+    }
+
+    window.addEventListener("popstate", function () {
+        if (suppressPop > 0) {
+            suppressPop -= 1;
+            return;
+        }
+        if (qsIsOpen() || recentsIsOpen()) {
+            closeQuickSettings();
+            closeRecents();
+            history.pushState({ nav: depth }, "");
+            return;
+        }
+        if (depth > 0) depth -= 1;
+        undoOne();
+    });
+
+    function resetHistory() {
+        const steps = depth;
+        if (steps <= 0) return;
+        suppressPop += steps;
+        depth = 0;
+        history.go(-steps);
     }
 
     /* ------------------------------------------------------------------- files */
@@ -118,11 +200,13 @@
         byId("files-content").scrollTop = 0;
     }
 
-    function renderFilesFolder(collectionId) {
+    function renderFilesFolder(collectionId, push) {
         const meta = collectionId === "all"
             ? { id: "all", name: "All Work", tagline: "Every collection" }
             : collectionById(collectionId);
         if (!meta) return;
+
+        if (push !== false) pushNav();
 
         files.folder = collectionId;
         files.items = collectionId === "all"
@@ -153,6 +237,7 @@
         if (index < 0) return;
         viewerIndex = index;
         renderViewer();
+        pushNav();
         byId("media-viewer").classList.add("open");
         byId("media-viewer").setAttribute("aria-hidden", "false");
     }
@@ -193,12 +278,30 @@
     }
 
     /* ------------------------------------------------------------ app routing */
+    function trackRecent(appId) {
+        recentOrder = recentOrder.filter(function (id) { return id !== appId; });
+        recentOrder.unshift(appId);
+        recentOrder = recentOrder.slice(0, MAX_RECENTS);
+    }
+
     function openApp(appId) {
         const app = byId(appId);
         if (!app) return;
-        if (appId === "app-projects") renderFilesRoot();
+
+        const alreadyOpen = appIsOpen(appId);
+
+        if (appId === HUB_APP) {
+            if (!alreadyOpen) {
+                renderFilesRoot();
+                pushNav();
+            }
+        } else if (!alreadyOpen) {
+            pushNav();
+        }
+
         app.classList.add("open");
         if (stack[stack.length - 1] !== appId) stack.push(appId);
+        trackRecent(appId);
     }
 
     function closeApp(appId) {
@@ -209,30 +312,76 @@
         if (index > -1) stack.splice(index, 1);
     }
 
+    function closeOverlays() {
+        closeQuickSettings();
+        closeRecents();
+    }
+
     function goHome() {
         document.querySelectorAll(".app-window.open").forEach(function (app) {
             app.classList.remove("open");
         });
         closeViewer();
+        closeOverlays();
         stack.length = 0;
+        files.folder = null;
+        resetHistory();
     }
 
-    function goBack() {
-        if (viewerIsOpen()) {
-            closeViewer();
+    /* ---------------------------------------------------------------- recents */
+    function recentsIsOpen() {
+        return byId("recents").classList.contains("open");
+    }
+
+    function renderRecents() {
+        const list = byId("recents-list");
+        if (!recentOrder.length) {
+            list.innerHTML = '<div class="recents__empty">No recent apps yet.</div>';
             return;
         }
-        if (files.folder && byId("app-projects").classList.contains("open")) {
-            renderFilesRoot();
-            return;
+        list.innerHTML = recentOrder.map(function (appId) {
+            const meta = APPS[appId] || { name: appId, icon: "fa-window-maximize", color: "#334155" };
+            return '<button class="recents__card" data-recent="' + esc(appId) + '">' +
+                '<span class="recents__preview" style="background:' + meta.color + '">' +
+                '<i class="fas ' + meta.icon + '"></i></span>' +
+                '<span class="recents__name">' + esc(meta.name) + "</span>" +
+                "</button>";
+        }).join("");
+    }
+
+    function openRecents() {
+        renderRecents();
+        byId("recents").classList.add("open");
+        byId("recents").setAttribute("aria-hidden", "false");
+    }
+
+    function closeRecents() {
+        byId("recents").classList.remove("open");
+        byId("recents").setAttribute("aria-hidden", "true");
+    }
+
+    function toggleRecents() {
+        if (recentsIsOpen()) closeRecents();
+        else {
+            closeQuickSettings();
+            openRecents();
         }
-        const last = stack.pop();
-        if (last) {
-            const app = byId(last);
-            if (app) app.classList.remove("open");
-            return;
-        }
-        goHome();
+    }
+
+    /* ---------------------------------------------------------- quick settings */
+    function qsIsOpen() {
+        return byId("quick-settings").classList.contains("open");
+    }
+
+    function openQuickSettings() {
+        closeRecents();
+        byId("quick-settings").classList.add("open");
+        byId("quick-settings").setAttribute("aria-hidden", "false");
+    }
+
+    function closeQuickSettings() {
+        byId("quick-settings").classList.remove("open");
+        byId("quick-settings").setAttribute("aria-hidden", "true");
     }
 
     /* ------------------------------------------------------------------ events */
@@ -245,7 +394,7 @@
 
         const closer = event.target.closest("[data-close]");
         if (closer) {
-            closeApp(closer.dataset.close);
+            requestBack();
             return;
         }
 
@@ -258,33 +407,66 @@
         const item = event.target.closest("[data-files-item]");
         if (item) {
             openItem(item.dataset.filesItem);
+            return;
+        }
+
+        const recent = event.target.closest("[data-recent]");
+        if (recent) {
+            closeRecents();
+            openApp(recent.dataset.recent);
+            return;
+        }
+
+        const toggle = event.target.closest("[data-toggle]");
+        if (toggle) {
+            toggle.classList.toggle("is-on");
         }
     });
 
-    const menuButton = byId("nav-menu");
-    const homeButton = byId("nav-home");
     const backButton = byId("nav-back");
+    const homeButton = byId("nav-home");
+    const recentsButton = byId("nav-recents");
     const filesBack = byId("files-back");
     const viewerClose = byId("viewer-close");
     const viewerPrev = byId("viewer-prev");
     const viewerNext = byId("viewer-next");
+    const recentsClear = byId("recents-clear");
 
-    if (menuButton) menuButton.addEventListener("click", function () { openApp("app-projects"); });
+    if (backButton) backButton.addEventListener("click", requestBack);
     if (homeButton) homeButton.addEventListener("click", goHome);
-    if (backButton) backButton.addEventListener("click", goBack);
-
-    if (filesBack) {
-        filesBack.addEventListener("click", function () {
-            if (files.folder) renderFilesRoot();
-            else closeApp("app-projects");
-        });
-    }
-
-    if (viewerClose) viewerClose.addEventListener("click", closeViewer);
+    if (recentsButton) recentsButton.addEventListener("click", toggleRecents);
+    if (filesBack) filesBack.addEventListener("click", requestBack);
+    if (viewerClose) viewerClose.addEventListener("click", requestBack);
     if (viewerPrev) viewerPrev.addEventListener("click", function () { stepViewer(-1); });
     if (viewerNext) viewerNext.addEventListener("click", function () { stepViewer(1); });
 
-    /* swipe between items */
+    if (recentsClear) {
+        recentsClear.addEventListener("click", function () {
+            recentOrder = [];
+            renderRecents();
+            goHome();
+        });
+    }
+
+    /* tap outside the quick-settings sheet closes it */
+    const qs = byId("quick-settings");
+    if (qs) {
+        qs.addEventListener("click", function (event) {
+            if (event.target === qs) closeQuickSettings();
+        });
+    }
+
+    const brightness = byId("qs-brightness");
+    const brightnessValue = byId("qs-brightness-value");
+    if (brightness) {
+        brightness.addEventListener("input", function () {
+            if (brightnessValue) brightnessValue.textContent = brightness.value + "%";
+            const surface = byId("screen");
+            if (surface) surface.style.filter = "brightness(" + (brightness.value / 100) + ")";
+        });
+    }
+
+    /* swipe between items in the viewer */
     let touchStartX = 0;
     const stage = byId("viewer-stage");
     if (stage) {
@@ -299,20 +481,95 @@
         }, { passive: true });
     }
 
+    /* ------------------------------------------------------------ edge gestures */
+    const screen = byId("screen");
+    const pill = byId("gesture-pill");
+    let gesture = null;
+
+    if (screen) {
+        screen.addEventListener("touchstart", function (event) {
+            if (event.touches.length !== 1) return;
+            const touch = event.touches[0];
+            const rect = screen.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+
+            let zone = null;
+            if (y < 36) zone = "top";
+            else if (y > rect.height - 100) zone = "bottom";
+            else if (x < 26) zone = "left";
+            else if (x > rect.width - 26) zone = "right";
+            if (!zone) return;
+
+            gesture = { zone: zone, x: x, y: y, start: Date.now() };
+        }, { passive: true });
+
+        screen.addEventListener("touchmove", function (event) {
+            if (!gesture || gesture.zone !== "bottom") return;
+            const touch = event.touches[0];
+            const dy = touch.clientY - screen.getBoundingClientRect().top - gesture.y;
+            if (dy < -12 && pill) {
+                pill.classList.add("is-dragging");
+                pill.style.width = Math.min(148, 110 + Math.abs(dy) * 0.35) + "px";
+            }
+        }, { passive: true });
+
+        screen.addEventListener("touchend", function (event) {
+            if (!gesture) return;
+            const touch = event.changedTouches[0];
+            const rect = screen.getBoundingClientRect();
+            const dx = touch.clientX - rect.left - gesture.x;
+            const dy = touch.clientY - rect.top - gesture.y;
+            const held = Date.now() - gesture.start;
+            const g = gesture;
+            gesture = null;
+
+            if (pill) {
+                pill.classList.remove("is-dragging");
+                pill.style.width = "";
+            }
+
+            const absX = Math.abs(dx);
+            const absY = Math.abs(dy);
+
+            if (g.zone === "bottom" && dy < -70 && absY > absX) {
+                if (held > 320) toggleRecents();
+                else goHome();
+                return;
+            }
+            if (g.zone === "top" && dy > 60 && absY > absX) {
+                openQuickSettings();
+                return;
+            }
+            if (g.zone === "left" && dx > 60 && absX > absY) {
+                requestBack();
+                return;
+            }
+            if (g.zone === "right" && dx < -60 && absX > absY) {
+                requestBack();
+            }
+        }, { passive: true });
+    }
+
+    /* ------------------------------------------------------------------ keys */
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
-            if (viewerIsOpen()) closeViewer();
+            if (qsIsOpen()) closeQuickSettings();
+            else if (recentsIsOpen()) closeRecents();
+            else if (viewerIsOpen()) requestBack();
             else goHome();
+            return;
         }
         if (viewerIsOpen() && event.key === "ArrowRight") stepViewer(1);
         if (viewerIsOpen() && event.key === "ArrowLeft") stepViewer(-1);
-        if (event.key === "Backspace" && !event.target.matches("input, textarea")) {
+        if (event.key === "Backspace" && !event.target.matches("input, textarea, input[type=range]")) {
             event.preventDefault();
-            goBack();
+            requestBack();
         }
     });
 
     /* -------------------------------------------------------------------- boot */
+    history.replaceState({ nav: 0 }, "");
     updateTime();
     window.setInterval(updateTime, 1000);
 

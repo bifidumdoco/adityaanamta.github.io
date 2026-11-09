@@ -204,6 +204,8 @@ class Game {
     }
 
     async startGame() {
+        if (this.isPlaying) return;
+
         // Show loading if assets aren't ready
         const loadingScreen = document.getElementById('loading-screen');
         if (this.loadingPromise) {
@@ -228,8 +230,7 @@ class Game {
         document.body.classList.add('in-game');
 
         // Pointer lock only makes sense with a mouse. Touch uses on-screen controls.
-        const isTouch = window.matchMedia('(pointer: coarse)').matches ||
-            navigator.maxTouchPoints > 0 ||
+        const isTouch = window.matchMedia('(pointer: coarse) and (hover: none)').matches ||
             window.location.search.indexOf('touch=1') > -1;
 
         if (!isTouch) {
@@ -243,6 +244,10 @@ class Game {
             });
         } else {
             document.body.classList.add('touch-mode');
+            window.__navyResetKeys = () => this.input.resetKeys();
+            if (typeof window.__tryLandscape === 'function') {
+                window.__tryLandscape();
+            }
         }
 
         // Create Ships (3v3)

@@ -100,6 +100,61 @@
         </div>
     </div>
 
+    <!-- Rotate hint (touch devices, portrait only) -->
+    <div id="rotate-overlay" aria-hidden="true">
+        <div class="rotate-phone"></div>
+        <h2>Rotate your device</h2>
+        <p>This game is played in landscape.</p>
+    </div>
+
+    <script>
+        (function () {
+            const isTouch = window.matchMedia('(pointer: coarse) and (hover: none)').matches ||
+                window.location.search.indexOf('touch=1') > -1;
+            if (!isTouch) return;
+
+            function updateOrientation() {
+                const portrait = window.innerHeight > window.innerWidth;
+                document.body.classList.toggle('rotate-needed', portrait);
+                if (portrait && typeof window.__navyResetKeys === 'function') {
+                    window.__navyResetKeys();
+                }
+            }
+
+            window.__tryLandscape = function () {
+                const root = document.documentElement;
+
+                const lock = function () {
+                    try {
+                        if (screen.orientation && typeof screen.orientation.lock === 'function') {
+                            const result = screen.orientation.lock('landscape');
+                            if (result && result.catch) result.catch(function () { });
+                        }
+                    } catch (err) { /* unsupported (iOS) */ }
+                };
+
+                try {
+                    if (root.requestFullscreen) {
+                        const request = root.requestFullscreen();
+                        if (request && request.then) request.then(lock).catch(function () { });
+                        else lock();
+                    } else if (root.webkitRequestFullscreen) {
+                        root.webkitRequestFullscreen();
+                        lock();
+                    } else {
+                        lock();
+                    }
+                } catch (err) {
+                    lock();
+                }
+            };
+
+            window.addEventListener('resize', updateOrientation);
+            window.addEventListener('orientationchange', updateOrientation);
+            updateOrientation();
+        })();
+    </script>
+
     <script type="module" src="js/main.js"></script>
 </body>
 

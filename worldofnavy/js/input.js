@@ -13,8 +13,7 @@ export class InputController {
         this.mouseDeltaY = 0;
         this.scrollDelta = 0;
 
-        this.isTouch = window.matchMedia('(pointer: coarse)').matches ||
-            navigator.maxTouchPoints > 0 ||
+        this.isTouch = window.matchMedia('(pointer: coarse) and (hover: none)').matches ||
             window.location.search.indexOf('touch=1') > -1;
 
         this._initListeners();
@@ -200,5 +199,18 @@ export class InputController {
         this.mouseDeltaX = 0;
         this.mouseDeltaY = 0;
         this.scrollDelta = 0;
+    }
+
+    resetKeys() {
+        this.keys.forward = false;
+        this.keys.backward = false;
+        this.keys.left = false;
+        this.keys.right = false;
+        this.keys.fire = false;
+
+        const knob = document.getElementById('touch-knob');
+        if (knob) knob.style.transform = 'translate(-50%, -50%)';
+        const fire = document.getElementById('touch-fire');
+        if (fire) fire.classList.remove('active');
     }
 }

@@ -368,6 +368,66 @@
             background: rgba(210, 180, 140, .75);
             color: #3e1f08;
         }
+
+        /* ------------------------------------------------- rotate to landscape */
+        #rotate-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            padding: 24px;
+            background: rgba(6, 8, 12, .94);
+            color: #ffe4b5;
+            text-align: center;
+            backdrop-filter: blur(6px);
+        }
+
+        body.rotate-needed #rotate-overlay {
+            display: flex;
+        }
+
+        #rotate-overlay h2 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: .04em;
+        }
+
+        #rotate-overlay p {
+            margin: 0;
+            font-size: 14px;
+            color: #c9a97a;
+        }
+
+        .rotate-phone {
+            position: relative;
+            width: 66px;
+            height: 106px;
+            border: 3px solid #ffe4b5;
+            border-radius: 12px;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, .5);
+            animation: rotateHint 2s ease-in-out infinite;
+        }
+
+        .rotate-phone::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 7px;
+            width: 20px;
+            height: 3px;
+            border-radius: 3px;
+            background: #ffe4b5;
+            transform: translateX(-50%);
+        }
+
+        @keyframes rotateHint {
+            0%, 25% { transform: rotate(0deg); }
+            60%, 100% { transform: rotate(90deg); }
+        }
     </style>
 </head>
 
@@ -406,6 +466,13 @@
             <div id="modal-content">Content...</div>
             <button id="next-action-btn">NEXT</button>
         </div>
+    </div>
+
+    <!-- Rotate hint (touch devices, portrait only) -->
+    <div id="rotate-overlay" aria-hidden="true">
+        <div class="rotate-phone"></div>
+        <h2>Rotate your device</h2>
+        <p>This game is played in landscape.</p>
     </div>
 
     <!-- Touch controls (only visible on touch devices) -->
@@ -660,8 +727,7 @@
         let isGameStarted = false;
         let currentStage = 1;
 
-        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches ||
-            navigator.maxTouchPoints > 0 ||
+        const isTouchDevice = window.matchMedia('(pointer: coarse) and (hover: none)').matches ||
             window.location.search.indexOf('touch=1') > -1;
         let touchMode = false;
         if (isTouchDevice) document.body.classList.add('touch-mode');
@@ -698,6 +764,7 @@
 
             // UI Listeners
             document.getElementById('start-btn').addEventListener('click', () => {
+                if (isGameStarted) return;
                 document.getElementById('start-screen').style.display = 'none';
                 isGameStarted = true;
                 audioManager.init();
@@ -705,6 +772,7 @@
                 if (isTouchDevice) {
                     touchMode = true;
                     document.body.classList.add('game-active');
+                    tryLockLandscape();
                 } else {
                     controls.lock();
                 }
@@ -1444,6 +1512,53 @@
         }
         function onMouseDown() { if (controls.isLocked) checkInteraction(); }
 
+        // --- ORIENTATION ---
+        function resetTouchInput() {
+            moveForward = false;
+            moveBackward = false;
+            moveLeft = false;
+            moveRight = false;
+            isRunning = false;
+            const knob = document.getElementById('touch-knob');
+            if (knob) knob.style.transform = 'translate(-50%, -50%)';
+        }
+
+        function updateOrientation() {
+            if (!isTouchDevice) return;
+            const portrait = window.innerHeight > window.innerWidth;
+            document.body.classList.toggle('rotate-needed', portrait);
+            if (portrait) resetTouchInput();
+        }
+
+        function tryLockLandscape() {
+            if (!isTouchDevice) return;
+            const root = document.documentElement;
+
+            const lock = () => {
+                try {
+                    if (screen.orientation && typeof screen.orientation.lock === 'function') {
+                        const result = screen.orientation.lock('landscape');
+                        if (result && result.catch) result.catch(() => {});
+                    }
+                } catch (err) { /* unsupported (iOS) */ }
+            };
+
+            try {
+                if (root.requestFullscreen) {
+                    const request = root.requestFullscreen();
+                    if (request && request.then) request.then(lock).catch(() => {});
+                    else lock();
+                } else if (root.webkitRequestFullscreen) {
+                    root.webkitRequestFullscreen();
+                    lock();
+                } else {
+                    lock();
+                }
+            } catch (err) {
+                lock();
+            }
+        }
+
         // --- TOUCH CONTROLS ---
         function initTouchControls() {
             if (!isTouchDevice) return;
@@ -1726,6 +1841,12 @@
 
             prevTime = time;
             renderer.render(scene, camera);
+        }
+
+        if (isTouchDevice) {
+            window.addEventListener('resize', updateOrientation);
+            window.addEventListener('orientationchange', updateOrientation);
+            updateOrientation();
         }
 
         init();

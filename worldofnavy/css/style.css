@@ -309,3 +309,66 @@ body.touch-mode #player-status .status-row {
     font-size: 14px;
     margin-bottom: 6px;
 }
+
+/* --------------------------------------------------------------------------
+   Rotate to landscape (touch devices)
+   -------------------------------------------------------------------------- */
+#rotate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 24px;
+    background: rgba(3, 12, 24, .95);
+    color: #d6ecff;
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+body.rotate-needed #rotate-overlay {
+    display: flex;
+}
+
+#rotate-overlay h2 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: .04em;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, .6);
+}
+
+#rotate-overlay p {
+    margin: 0;
+    font-size: 14px;
+    color: #8fb6d8;
+}
+
+.rotate-phone {
+    position: relative;
+    width: 66px;
+    height: 106px;
+    border: 3px solid #d6ecff;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, .5);
+    animation: rotateHint 2s ease-in-out infinite;
+}
+
+.rotate-phone::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 7px;
+    width: 20px;
+    height: 3px;
+    border-radius: 3px;
+    background: #d6ecff;
+    transform: translateX(-50%);
+}
+
+@keyframes rotateHint {
+    0%, 25% { transform: rotate(0deg); }
+    60%, 100% { transform: rotate(90deg); }
+}

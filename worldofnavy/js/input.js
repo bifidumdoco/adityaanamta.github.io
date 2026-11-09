@@ -84,10 +84,10 @@ export class InputController {
         const keys = this.keys;
         if (!stick || !knob || !fire) return;
 
-        const radius = 44;
         let stickId = null;
 
         const applyStick = (event) => {
+            const radius = Math.max(28, stick.offsetWidth * 0.33);
             const rect = stick.getBoundingClientRect();
             const cx = rect.left + rect.width / 2;
             const cy = rect.top + rect.height / 2;

@@ -16,7 +16,8 @@
         packaging: "Packaging",
         illustration: "Illustration",
         identity: "Identity",
-        motion: "Motion",
+        motion: "Commercial Video",
+        aiediting: "AI Editing",
     };
 
     const COLLECTION_STYLE = {
@@ -256,7 +257,7 @@
 
         byId("viewer-title").textContent = item.title;
         byId("viewer-sub").textContent =
-            (meta ? meta.name : item.collection) + " · " + (CATEGORY_LABELS[item.category] || item.category);
+            (meta ? meta.name : item.collection) + " · " + (item.categories || []).map(function (id) { return CATEGORY_LABELS[id] || id; }).join(" \u00B7 ");
         byId("viewer-count").textContent = (viewerIndex + 1) + " / " + files.items.length;
     }
 

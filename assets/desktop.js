@@ -17,7 +17,8 @@
         packaging: "Packaging",
         illustration: "Illustration",
         identity: "Identity",
-        motion: "Motion",
+        motion: "Commercial Video",
+        aiediting: "AI Editing",
     };
 
     const COLLECTION_STYLE = {
@@ -360,6 +361,12 @@
         return COLLECTIONS.find(function (c) { return c.id === id; }) || ALL_WORK;
     }
 
+    function categoryLabel(item) {
+        return (item.categories || []).map(function (id) {
+            return CATEGORY_LABELS[id] || id;
+        }).join(" \u00B7 ");
+    }
+
     function itemsIn(collectionId) {
         if (collectionId === "all") return ITEMS.slice();
         return ITEMS.filter(function (item) { return item.collection === collectionId; });
@@ -464,7 +471,9 @@
     function categorySummary(items) {
         const counts = {};
         items.forEach(function (item) {
-            counts[item.category] = (counts[item.category] || 0) + 1;
+            (item.categories || []).forEach(function (category) {
+                counts[category] = (counts[category] || 0) + 1;
+            });
         });
         return Object.keys(CATEGORY_LABELS)
             .filter(function (key) { return counts[key]; })
@@ -536,7 +545,7 @@
             '<div class="viewer-stage">' + stage + "</div>" +
             '<div class="viewer-caption">' +
             '<span class="viewer-caption__title">' + esc(meta.name) + " · " +
-            esc(CATEGORY_LABELS[item.category] || item.category) + "</span>" +
+            esc(categoryLabel(item)) + "</span>" +
             '<span class="viewer-caption__meta">' + (viewer.index + 1) + " / " + currentItems.length +
             " · ← → to browse</span>" +
             "</div>";

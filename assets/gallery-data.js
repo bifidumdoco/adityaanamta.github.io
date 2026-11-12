@@ -54,7 +54,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-hari-ini-mau-makan-kurma-apa",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Hari Ini Mau Makan Kurma Apa?",
       "w": 720,
@@ -66,7 +68,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-malu-malu-boy",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Malu-Malu Boy",
       "w": 720,
@@ -78,7 +82,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-marhaban-ramadan",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Marhaban Ramadan",
       "w": 960,
@@ -90,7 +96,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-marhaban-motion",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Marhaban Motion",
       "w": 960,
@@ -102,7 +110,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ranuna-brand-motion",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Ranuna Brand Motion",
       "w": 1280,
@@ -114,7 +124,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ramadan-motion-day-1",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Ramadan Motion — Day 1",
       "w": 720,
@@ -126,7 +138,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-pilihan-terbaik",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Pilihan Terbaik",
       "w": 720,
@@ -138,7 +152,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ramadan-marhaban",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Ramadan Marhaban",
       "w": 960,
@@ -150,7 +166,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-susun-urutan-abcd",
       "collection": "ranuna",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Susun Urutan A–B–C–D",
       "w": 720,
@@ -160,9 +178,131 @@ window.GALLERY_DATA = {
       "preview": "gallery/media/ranuna/susun-urutan-abcd-preview.mp4"
     },
     {
+      "id": "nfg-education-by-kak-debora",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Education by Kak Debora",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/education-by-kak-debora.mp4",
+      "thumb": "gallery/media/nfg/education-by-kak-debora-poster.webp",
+      "preview": "gallery/media/nfg/education-by-kak-debora-preview.mp4"
+    },
+    {
+      "id": "nfg-cemas",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Cemas",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/cemas.mp4",
+      "thumb": "gallery/media/nfg/cemas-poster.webp",
+      "preview": "gallery/media/nfg/cemas-preview.mp4"
+    },
+    {
+      "id": "nfg-hilang-arah",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Hilang Arah",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/hilang-arah.mp4",
+      "thumb": "gallery/media/nfg/hilang-arah-poster.webp",
+      "preview": "gallery/media/nfg/hilang-arah-preview.mp4"
+    },
+    {
+      "id": "nfg-laki-laki",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Laki-Laki",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/laki-laki.mp4",
+      "thumb": "gallery/media/nfg/laki-laki-poster.webp",
+      "preview": "gallery/media/nfg/laki-laki-preview.mp4"
+    },
+    {
+      "id": "nfg-ribut",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Ribut",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/ribut.mp4",
+      "thumb": "gallery/media/nfg/ribut-poster.webp",
+      "preview": "gallery/media/nfg/ribut-preview.mp4"
+    },
+    {
+      "id": "nfg-selingkuh",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Selingkuh",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/selingkuh.mp4",
+      "thumb": "gallery/media/nfg/selingkuh-poster.webp",
+      "preview": "gallery/media/nfg/selingkuh-preview.mp4"
+    },
+    {
+      "id": "nfg-seminar-bullying",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Seminar Bullying",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/seminar-bullying.mp4",
+      "thumb": "gallery/media/nfg/seminar-bullying-poster.webp",
+      "preview": "gallery/media/nfg/seminar-bullying-preview.mp4"
+    },
+    {
+      "id": "nfg-welcome-to-nfg",
+      "collection": "nfg",
+      "categories": [
+        "aiediting",
+        "motion"
+      ],
+      "type": "video",
+      "title": "Welcome to NFG",
+      "w": 720,
+      "h": 1280,
+      "src": "gallery/media/nfg/welcome-to-nfg.mp4",
+      "thumb": "gallery/media/nfg/welcome-to-nfg-poster.webp",
+      "preview": "gallery/media/nfg/welcome-to-nfg-preview.mp4"
+    },
+    {
       "id": "nfg-edukasi-kak-elaine-kak-debora-vol-2",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Elaine & Kak Debora, Vol. 2",
       "w": 480,
@@ -174,7 +314,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-edukasi-kak-debora-vol-1",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Debora, Vol. 1",
       "w": 720,
@@ -186,7 +328,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-edukasi-kak-debora-vol-2",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Debora, Vol. 2",
       "w": 720,
@@ -198,7 +342,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-edukasi-kak-debora-vol-3",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Debora, Vol. 3",
       "w": 720,
@@ -210,7 +356,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-edukasi-kak-elaine-kak-ola",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Elaine & Kak Ola",
       "w": 720,
@@ -222,7 +370,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-grand-opening",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Grand Opening",
       "w": 720,
@@ -234,7 +384,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-konten-kak-lulu-vol-1",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Konten Kak Lulu, Vol. 1",
       "w": 720,
@@ -246,7 +398,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counseling-kak-claire-vol-1",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Free Counseling Kak Claire, Vol. 1",
       "w": 720,
@@ -258,7 +412,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-konten-kak-lulu-vol-2",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Konten Kak Lulu, Vol. 2",
       "w": 720,
@@ -270,7 +426,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-konten-kak-lulu-vol-3",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Konten Kak Lulu, Vol. 3",
       "w": 720,
@@ -282,7 +440,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-edukasi-kak-iffah-vol-1",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Iffah, Vol. 1",
       "w": 720,
@@ -294,7 +454,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counseling-kak-claire-vol-2",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Free Counseling Kak Claire, Vol. 2",
       "w": 720,
@@ -306,7 +468,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-edukasi-kak-iffah-vol-2",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Edukasi Kak Iffah, Vol. 2",
       "w": 720,
@@ -318,7 +482,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-nurture-for-growth-introduction",
       "collection": "nfg",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Nurture For Growth — Introduction",
       "w": 720,
@@ -330,7 +496,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-bloopers-keisha-kaka",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Bloopers Keisha & Kaka",
       "w": 720,
@@ -342,7 +510,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-casting-kiki-at-smk-bina-karya",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Casting Kiki at SMK Bina Karya",
       "w": 720,
@@ -354,7 +524,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-every-keisha-moment-at-bekasi",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Every Keisha Moment at Bekasi",
       "w": 720,
@@ -366,7 +538,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-games-hitung-cepat",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Games Hitung Cepat",
       "w": 720,
@@ -378,7 +552,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-ibu-mentri",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Ibu Mentri",
       "w": 720,
@@ -390,7 +566,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-nobar-grab-untuk-bu-ferly",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Nobar Grab untuk Bu Ferly",
       "w": 720,
@@ -402,7 +580,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-pesan-ibu-agustina-from-semarang",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Pesan Ibu Agustina from Semarang",
       "w": 720,
@@ -414,7 +594,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-psikolog-sandy-pasband",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Psikolog Sandy Pasband",
       "w": 854,
@@ -426,7 +608,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-psikolog-teuku-rizky",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Psikolog Teuku Rizky",
       "w": 854,
@@ -438,7 +622,9 @@ window.GALLERY_DATA = {
     {
       "id": "langit-singkatan-gen-z-emil-ari",
       "collection": "langit",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Singkatan Gen Z — Emil Ari",
       "w": 720,
@@ -450,7 +636,9 @@ window.GALLERY_DATA = {
     {
       "id": "sbm-how-it-feels-to-be-a-businessman",
       "collection": "sbm",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "How It Feels to Be a Businessman",
       "w": 1024,
@@ -462,7 +650,9 @@ window.GALLERY_DATA = {
     {
       "id": "sbm-agen-bank-yang-berkembang",
       "collection": "sbm",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Agen Bank yang Berkembang",
       "w": 1024,
@@ -474,7 +664,9 @@ window.GALLERY_DATA = {
     {
       "id": "sbm-penghasilan-sehari",
       "collection": "sbm",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Penghasilan Sehari",
       "w": 576,
@@ -486,7 +678,9 @@ window.GALLERY_DATA = {
     {
       "id": "sbm-pembukuan-otomatis",
       "collection": "sbm",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Pembukuan Otomatis",
       "w": 1024,
@@ -498,7 +692,9 @@ window.GALLERY_DATA = {
     {
       "id": "sbm-double-agent-life",
       "collection": "sbm",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Double Agent Life",
       "w": 576,
@@ -510,7 +706,9 @@ window.GALLERY_DATA = {
     {
       "id": "sbm-ilmu-pendidikan",
       "collection": "sbm",
-      "category": "motion",
+      "categories": [
+        "motion"
+      ],
       "type": "video",
       "title": "Ilmu & Pendidikan",
       "w": 1024,
@@ -522,7 +720,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-becky-juns-speed-shop",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Becky Juns Speed Shop",
       "w": 1800,
@@ -533,7 +733,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-biyan",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Biyan",
       "w": 1443,
@@ -544,7 +746,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-cyber-bus",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Cyber Bus",
       "w": 1800,
@@ -555,7 +759,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-corolla-dx-ke70",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Corolla DX KE70",
       "w": 1800,
@@ -566,7 +772,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-corona-absolute",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Corona Absolute",
       "w": 1800,
@@ -577,7 +785,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-dtm-mercedes-190e",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "DTM Mercedes 190E",
       "w": 1440,
@@ -588,7 +798,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-bifidum-instagram-feed",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Bifidum Instagram Feed",
       "w": 1800,
@@ -599,7 +811,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-bifidum-flyer",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Bifidum Flyer",
       "w": 1193,
@@ -610,7 +824,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-fuel-tank-decal",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Fuel Tank Decal",
       "w": 1797,
@@ -621,7 +837,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-gemastik-mikat",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Gemastik MIKAT",
       "w": 1444,
@@ -632,7 +850,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-graphic-art-horse-medieval",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Graphic Art Horse Medieval",
       "w": 1800,
@@ -643,7 +863,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-everest-hoodie",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Everest Hoodie",
       "w": 1440,
@@ -654,7 +876,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-jimny-cst",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Jimny CST",
       "w": 1800,
@@ -665,7 +889,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-kalemia-agency-project-result",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Kalemia Agency Project — Result",
       "w": 1440,
@@ -676,7 +902,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-sambal-hotta-600ml-packaging",
       "collection": "bifidum",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Sambal Hotta 600ml Packaging",
       "w": 1800,
@@ -687,7 +915,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-digital-marketing-public-lecture",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Digital Marketing Public Lecture",
       "w": 1445,
@@ -698,7 +928,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-rocky-decal",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Rocky Decal",
       "w": 1799,
@@ -709,7 +941,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-zetvy-promo-feed",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Zetvy Promo Feed",
       "w": 1440,
@@ -720,7 +954,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-promo-feed",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Promo Feed",
       "w": 1440,
@@ -731,7 +967,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-rimba-raya",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Rimba Raya",
       "w": 1240,
@@ -742,7 +980,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-space-chill-guy",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Space Chill Guy",
       "w": 1440,
@@ -753,7 +993,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-starlet-bagas",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "Starlet Bagas",
       "w": 1800,
@@ -764,7 +1006,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-uss-atlanta",
       "collection": "bifidum",
-      "category": "illustration",
+      "categories": [
+        "illustration"
+      ],
       "type": "image",
       "title": "USS Atlanta",
       "w": 1440,
@@ -775,7 +1019,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-soc-x-banner",
       "collection": "bifidum",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "SOC X-Banner",
       "w": 672,
@@ -786,7 +1032,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-2slow",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "2Slow",
       "w": 1440,
@@ -797,7 +1045,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-cakra-labs-logo",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Cakra Labs Logo",
       "w": 1760,
@@ -808,7 +1058,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-bifidum-instagram-feed-pt-4",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Bifidum Instagram Feed Pt. 4",
       "w": 1800,
@@ -819,7 +1071,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-bem-logo",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "BEM Logo",
       "w": 1800,
@@ -830,7 +1084,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-dapur-mama",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Dapur Mama",
       "w": 1767,
@@ -841,7 +1097,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-mr-jim",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Mr. Jim",
       "w": 1453,
@@ -852,7 +1110,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-sambal-hotta",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Sambal Hotta",
       "w": 1692,
@@ -863,7 +1123,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-tokopakgendut",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Tokopakgendut",
       "w": 1424,
@@ -874,7 +1136,9 @@ window.GALLERY_DATA = {
     {
       "id": "bifidum-zetvy-2gd",
       "collection": "bifidum",
-      "category": "identity",
+      "categories": [
+        "identity"
+      ],
       "type": "image",
       "title": "Zetvy 2GD",
       "w": 1800,
@@ -885,7 +1149,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-launch-deck-slide-5",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Launch Deck — Slide 5",
       "w": 1440,
@@ -896,7 +1162,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-launch-deck-slide-1",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Launch Deck — Slide 1",
       "w": 1440,
@@ -907,7 +1175,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-launch-deck-slide-2",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Launch Deck — Slide 2",
       "w": 1440,
@@ -918,7 +1188,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-launch-deck-slide-3",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Launch Deck — Slide 3",
       "w": 1440,
@@ -929,7 +1201,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-launch-deck-closing",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Launch Deck — Closing",
       "w": 1440,
@@ -940,7 +1214,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-launch-deck-slide-4",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Launch Deck — Slide 4",
       "w": 1440,
@@ -951,7 +1227,9 @@ window.GALLERY_DATA = {
     {
       "id": "cakralabs-zetvy-instagram-feed",
       "collection": "cakralabs",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Zetvy Instagram Feed",
       "w": 1800,
@@ -962,7 +1240,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-kurma-mascot",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Kurma Mascot",
       "w": 1440,
@@ -973,7 +1253,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-halal-fair-flyer",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Halal Fair Flyer",
       "w": 1013,
@@ -984,7 +1266,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-halal-fair-price-list",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Halal Fair Price List",
       "w": 1800,
@@ -995,7 +1279,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-spin-wheel",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Spin Wheel",
       "w": 1800,
@@ -1006,7 +1292,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-7-keistimewaan-malam-lailatul-qodr-1",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "7 Keistimewaan Malam Lailatul Qodr 1",
       "w": 1440,
@@ -1017,7 +1305,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-7-keistimewaan-malam-lailatul-qodr-2",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "7 Keistimewaan Malam Lailatul Qodr 2",
       "w": 1440,
@@ -1028,7 +1318,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-jajan-takjil-bikin-begah-1",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Jajan Takjil Bikin Begah 1",
       "w": 1440,
@@ -1039,7 +1331,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-jajan-takjil-bikin-begah-2",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Jajan Takjil Bikin Begah 2",
       "w": 1440,
@@ -1050,7 +1344,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-jajan-takjil-bikin-begah-3",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Jajan Takjil Bikin Begah 3",
       "w": 1440,
@@ -1061,7 +1357,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-kurma-ranuna-soft-naturally-sweet",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Kurma Ranuna — Soft, Naturally Sweet",
       "w": 1440,
@@ -1072,7 +1370,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-manfaat-kurma",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Manfaat Kurma",
       "w": 1439,
@@ -1083,7 +1383,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-medjoul-reveal",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Medjoul Reveal",
       "w": 1442,
@@ -1094,7 +1396,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-menuju-hari-kemenangan",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Menuju Hari Kemenangan",
       "w": 1440,
@@ -1105,7 +1409,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-old-me-vs-new-me-1",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Old Me vs New Me 1",
       "w": 1440,
@@ -1116,7 +1422,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-old-me-vs-new-me-2",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Old Me vs New Me 2",
       "w": 1440,
@@ -1127,7 +1435,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-old-me-vs-new-me-3",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Old Me vs New Me 3",
       "w": 1440,
@@ -1138,7 +1448,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-old-me-vs-new-me-4",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Old Me vs New Me 4",
       "w": 1440,
@@ -1149,7 +1461,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-old-me-vs-new-me-5",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Old Me vs New Me 5",
       "w": 1440,
@@ -1160,7 +1474,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-selamat-mudik-lebaran",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Selamat Mudik Lebaran",
       "w": 1440,
@@ -1171,7 +1487,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-seputar-mudik-carousel-1",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Seputar Mudik — Carousel 1",
       "w": 1436,
@@ -1182,7 +1500,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-seputar-mudik-carousel-2",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Seputar Mudik — Carousel 2",
       "w": 1440,
@@ -1193,7 +1513,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-seputar-mudik-carousel-3",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Seputar Mudik — Carousel 3",
       "w": 1440,
@@ -1204,7 +1526,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-udah-siap-puasa-belum",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Udah Siap Puasa Belum?",
       "w": 1439,
@@ -1215,7 +1539,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-weekend",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Weekend",
       "w": 1011,
@@ -1226,7 +1552,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ajwa-signature",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Ajwa Signature",
       "w": 1012,
@@ -1237,7 +1565,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ajwa-signature-2",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Ajwa Signature (2)",
       "w": 1012,
@@ -1248,7 +1578,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-buah-langka",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Buah Langka",
       "w": 1012,
@@ -1259,7 +1591,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-hah-kosong",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Hah, Kosong?",
       "w": 1013,
@@ -1270,7 +1604,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-hampers-untuk-orang-tersayang",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Hampers Untuk Orang Tersayang",
       "w": 1013,
@@ -1281,7 +1617,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-sahur-story",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Sahur Story",
       "w": 1013,
@@ -1292,7 +1630,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-sekejap-lenyap",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Sekejap Lenyap",
       "w": 1012,
@@ -1303,7 +1643,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-big-ramdhan-sale",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "BIG Ramdhan SALE",
       "w": 1013,
@@ -1314,7 +1656,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-jumat-berkah",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Jumat Berkah",
       "w": 1013,
@@ -1325,7 +1669,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-halal-fair-h-1",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Halal Fair H-1",
       "w": 1013,
@@ -1336,7 +1682,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-manfaat-kurma-story",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Manfaat Kurma — Story",
       "w": 1013,
@@ -1347,7 +1695,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-payday-sale",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Payday Sale",
       "w": 1013,
@@ -1358,7 +1708,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-rabu-hemat",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Rabu Hemat",
       "w": 1012,
@@ -1369,7 +1721,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-berbuka-dengan-kurma",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Berbuka dengan Kurma",
       "w": 1012,
@@ -1380,7 +1734,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-jumat-terakhir",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Jumat Terakhir",
       "w": 1013,
@@ -1391,7 +1747,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-tips",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Tips",
       "w": 1012,
@@ -1402,7 +1760,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-weekend-product-poll",
       "collection": "ranuna",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Weekend — Product Poll",
       "w": 1011,
@@ -1413,7 +1773,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-almond-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Almond 5kg Mockup",
       "w": 1800,
@@ -1424,7 +1786,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-black-raisins-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Black Raisins 5kg Mockup",
       "w": 1800,
@@ -1435,7 +1799,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-chia-seed-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Chia Seed 5kg Mockup",
       "w": 1800,
@@ -1446,7 +1812,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-natural-branch",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Natural — Branch",
       "w": 1800,
@@ -1457,7 +1825,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-natural-250g",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Natural 250g",
       "w": 736,
@@ -1468,7 +1838,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-natural-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Natural 500g Mockup",
       "w": 1800,
@@ -1479,7 +1851,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-500g-signature-window",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour 500g Signature — Window",
       "w": 1800,
@@ -1490,7 +1864,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-500g-signature",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour 500g Signature",
       "w": 1800,
@@ -1501,7 +1877,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-branch-500g-window",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Branch 500g — Window",
       "w": 1800,
@@ -1512,7 +1890,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-branch-500g-signature",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Branch 500g Signature",
       "w": 1800,
@@ -1523,7 +1903,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-branch-5kg-dieline",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Branch 5kg — Dieline",
       "w": 1800,
@@ -1534,7 +1916,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-5kg-dieline",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour 5kg — Dieline",
       "w": 1800,
@@ -1545,7 +1929,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-mockup-v2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box Mockup v2",
       "w": 1800,
@@ -1556,7 +1942,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-mockup-v3",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box Mockup v3",
       "w": 1800,
@@ -1567,7 +1955,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-dus-master-mockup-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Dus Master Mockup 2",
       "w": 1800,
@@ -1578,7 +1968,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-mockup-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box Mockup 2",
       "w": 1800,
@@ -1589,7 +1981,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-dieline-01",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box — Dieline 01",
       "w": 1800,
@@ -1600,7 +1994,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-dieline-02",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box — Dieline 02",
       "w": 1800,
@@ -1611,7 +2007,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-dieline-03",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box — Dieline 03",
       "w": 1800,
@@ -1622,7 +2020,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-variant-01",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box — Variant 01",
       "w": 1800,
@@ -1633,7 +2033,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-variant-02",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box — Variant 02",
       "w": 1800,
@@ -1644,7 +2046,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box-variant-03",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box — Variant 03",
       "w": 1800,
@@ -1655,7 +2059,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-box",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Box",
       "w": 1800,
@@ -1666,7 +2072,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-product-concept-ai-exploration-1",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Product Concept — AI Exploration 1",
       "w": 1800,
@@ -1677,7 +2085,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-product-concept-ai-exploration-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Product Concept — AI Exploration 2",
       "w": 1800,
@@ -1688,7 +2098,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-golden-raisins-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Golden Raisins 5kg Mockup",
       "w": 1800,
@@ -1699,7 +2111,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-gula-singkong-tester-bottle",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Gula Singkong Tester Bottle",
       "w": 1800,
@@ -1710,7 +2124,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-macadamia-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Macadamia 5kg Mockup",
       "w": 1800,
@@ -1721,7 +2137,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-250g",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour 250g",
       "w": 1800,
@@ -1732,7 +2150,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-500g",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour 500g",
       "w": 1800,
@@ -1743,7 +2163,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-branch-500g",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour Branch 500g",
       "w": 1800,
@@ -1754,7 +2176,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-black-series-3kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Black Series 3kg Mockup",
       "w": 1800,
@@ -1765,7 +2189,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-black-raisins-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Black Raisins 250g Mockup",
       "w": 1800,
@@ -1776,7 +2202,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-black-raisins-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Black Raisins 500g Mockup",
       "w": 1800,
@@ -1787,7 +2215,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-chia-seed-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Chia Seed 250g Mockup",
       "w": 1800,
@@ -1798,7 +2228,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-chia-seed-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Chia Seed 500g Mockup",
       "w": 1800,
@@ -1809,7 +2241,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-libya-5kg-no-branch-branch",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Libya 5kg — No Branch / Branch",
       "w": 1800,
@@ -1820,7 +2254,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-libya-5kg-gold-brown",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Libya 5kg — Gold & Brown",
       "w": 1800,
@@ -1831,7 +2267,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-branch-500g-window-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Branch 500g — Window (2)",
       "w": 1800,
@@ -1842,7 +2280,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-madu-alger",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour Madu Alger",
       "w": 1800,
@@ -1853,7 +2293,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-500g-signature-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour 500g Signature — New",
       "w": 1800,
@@ -1864,7 +2306,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-500g-window",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour 500g — Window",
       "w": 1800,
@@ -1875,7 +2319,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-golden-raisins-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Golden Raisins Mockup",
       "w": 1800,
@@ -1886,7 +2332,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-golden-raisins-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Golden Raisins 250g Mockup",
       "w": 1800,
@@ -1897,7 +2345,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-macadamia-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Macadamia 250g Mockup",
       "w": 1800,
@@ -1908,7 +2358,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-macadamia-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Macadamia 500g Mockup",
       "w": 1800,
@@ -1919,7 +2371,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-250g-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour 250g — New",
       "w": 1800,
@@ -1930,7 +2384,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-250g-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour 250g (2)",
       "w": 1800,
@@ -1941,7 +2397,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-500g-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour 500g — New",
       "w": 1800,
@@ -1952,7 +2410,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-500g-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour 500g (2)",
       "w": 1800,
@@ -1963,7 +2423,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-branch-500g-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour Branch 500g — New",
       "w": 1800,
@@ -1974,7 +2436,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-deglet-nour-branch-500g-2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Deglet Nour Branch 500g (2)",
       "w": 1800,
@@ -1985,7 +2449,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-ruthob-libya-1kg-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Ruthob Libya 1kg — New",
       "w": 1800,
@@ -1996,7 +2462,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-ruthob-libya-1kg",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Ruthob Libya 1kg",
       "w": 1800,
@@ -2007,7 +2475,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-master-shoidi-grade-1-3kg",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Master Shoidi Grade 1 — 3kg",
       "w": 1800,
@@ -2018,7 +2488,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-muesli-mockup-v2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Muesli Mockup v2",
       "w": 1800,
@@ -2029,7 +2501,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-muesli-mockup-v3",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Muesli Mockup v3",
       "w": 1800,
@@ -2040,7 +2514,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-muesli-mockup-v4",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Muesli Mockup v4",
       "w": 1800,
@@ -2051,7 +2527,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-muesli-mockup-v5",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Muesli Mockup v5",
       "w": 1800,
@@ -2062,7 +2540,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-muesli-mockup-v6",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Muesli Mockup v6",
       "w": 1800,
@@ -2073,7 +2553,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-muesli-mockup-v7",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Muesli Mockup v7",
       "w": 1800,
@@ -2084,7 +2566,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-pistachio-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Pistachio 250g Mockup",
       "w": 1800,
@@ -2095,7 +2579,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-pistachio-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Pistachio 500g Mockup",
       "w": 1800,
@@ -2106,7 +2592,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ranuna-ruthob-libya-1kg-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Ranuna Ruthob Libya 1kg — New",
       "w": 1800,
@@ -2117,7 +2605,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ranuna-ruthob-libya-1kg",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Ranuna Ruthob Libya 1kg",
       "w": 1800,
@@ -2128,7 +2618,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ranuna-shoidi-grade-1-3kg",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Ranuna Shoidi Grade 1 — 3kg",
       "w": 1800,
@@ -2139,7 +2631,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ranuna-shoidi-grade-2-10kg-new",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Ranuna Shoidi Grade 2 — 10kg New",
       "w": 1800,
@@ -2150,7 +2644,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-ranuna-shoidi-grade-2-10kg",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Ranuna Shoidi Grade 2 — 10kg",
       "w": 1800,
@@ -2161,7 +2657,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-roasted-almonds-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Roasted Almonds 250g Mockup",
       "w": 1800,
@@ -2172,7 +2670,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-roasted-almonds-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Roasted Almonds 500g Mockup",
       "w": 1800,
@@ -2183,7 +2683,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-roasted-cashew-250g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Roasted Cashew 250g Mockup",
       "w": 1800,
@@ -2194,7 +2696,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-roasted-cashew-500g-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Roasted Cashew 500g Mockup",
       "w": 1800,
@@ -2205,7 +2709,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-trail-mix-mockup-v1",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Trail Mix Mockup v1",
       "w": 1800,
@@ -2216,7 +2722,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-trail-mix-mockup-v2",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Trail Mix Mockup v2",
       "w": 1800,
@@ -2227,7 +2735,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-trail-mix-mockup-v3",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Trail Mix Mockup v3",
       "w": 1800,
@@ -2238,7 +2748,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-trail-mix-mockup-v4",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Trail Mix Mockup v4",
       "w": 1800,
@@ -2249,7 +2761,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-trail-mix-mockup-v5",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Trail Mix Mockup v5",
       "w": 1800,
@@ -2260,7 +2774,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-trail-mix-mockup-v6",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Trail Mix Mockup v6",
       "w": 1800,
@@ -2271,7 +2787,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-deglet-nour-packaging-with-design",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Deglet Nour — Packaging with Design",
       "w": 1800,
@@ -2282,7 +2800,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-pistachios-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Pistachios 5kg Mockup",
       "w": 1800,
@@ -2293,7 +2813,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-roasted-cashew-5kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Roasted Cashew 5kg Mockup",
       "w": 1800,
@@ -2304,7 +2826,9 @@ window.GALLERY_DATA = {
     {
       "id": "ranuna-shoidi-dates-10kg-mockup",
       "collection": "ranuna",
-      "category": "packaging",
+      "categories": [
+        "packaging"
+      ],
       "type": "image",
       "title": "Shoidi Dates 10kg Mockup",
       "w": 1800,
@@ -2315,7 +2839,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-how-to-register-01",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "How to Register — 01",
       "w": 1440,
@@ -2326,7 +2852,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-how-to-register-02",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "How to Register — 02",
       "w": 1440,
@@ -2337,7 +2865,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-how-to-register-03",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "How to Register — 03",
       "w": 1440,
@@ -2348,7 +2878,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-how-to-register-04",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "How to Register — 04",
       "w": 1440,
@@ -2359,7 +2891,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-how-to-register-05",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "How to Register — 05",
       "w": 1440,
@@ -2370,7 +2904,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-how-to-register-06",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "How to Register — 06",
       "w": 1440,
@@ -2381,7 +2917,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-carousel-vol-2-01",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Carousel Vol. 2 — 01",
       "w": 1440,
@@ -2392,7 +2930,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-carousel-vol-2-02",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Carousel Vol. 2 — 02",
       "w": 1440,
@@ -2403,7 +2943,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-carousel-vol-2-03",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Carousel Vol. 2 — 03",
       "w": 1440,
@@ -2414,7 +2956,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-carousel-vol-2-04",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Carousel Vol. 2 — 04",
       "w": 1440,
@@ -2425,7 +2969,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counselling-kak-claire-01",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Free Counselling Kak Claire — 01",
       "w": 1440,
@@ -2436,7 +2982,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counselling-kak-claire-02",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Free Counselling Kak Claire — 02",
       "w": 1440,
@@ -2447,7 +2995,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counselling-kak-claire-03",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Free Counselling Kak Claire — 03",
       "w": 1440,
@@ -2458,7 +3008,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counselling-kak-claire-04",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Free Counselling Kak Claire — 04",
       "w": 1440,
@@ -2469,7 +3021,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-free-counselling-kak-claire-story",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Free Counselling Kak Claire — Story",
       "w": 1013,
@@ -2480,7 +3034,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-nfg-carousel-vol-1-01",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "NFG Carousel Vol. 1 — 01",
       "w": 1440,
@@ -2491,7 +3047,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-nfg-carousel-vol-1-02",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "NFG Carousel Vol. 1 — 02",
       "w": 1440,
@@ -2502,7 +3060,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-nfg-carousel-vol-1-03",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "NFG Carousel Vol. 1 — 03",
       "w": 1440,
@@ -2513,7 +3073,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-nfg-carousel-vol-1-04",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "NFG Carousel Vol. 1 — 04",
       "w": 1440,
@@ -2524,7 +3086,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-company-profile-01",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Company Profile — 01",
       "w": 1440,
@@ -2535,7 +3099,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-company-profile-02",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Company Profile — 02",
       "w": 1440,
@@ -2546,7 +3112,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-company-profile-03",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Company Profile — 03",
       "w": 1440,
@@ -2557,7 +3125,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-company-profile-04",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Company Profile — 04",
       "w": 1440,
@@ -2568,7 +3138,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-company-profile-05",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Company Profile — 05",
       "w": 1440,
@@ -2579,7 +3151,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-company-profile-06",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Company Profile — 06",
       "w": 1440,
@@ -2590,7 +3164,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-01",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 01",
       "w": 1013,
@@ -2601,7 +3177,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-02",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 02",
       "w": 1013,
@@ -2612,7 +3190,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-03",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 03",
       "w": 1013,
@@ -2623,7 +3203,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-04",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 04",
       "w": 1013,
@@ -2634,7 +3216,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-05",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 05",
       "w": 1013,
@@ -2645,7 +3229,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-06",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 06",
       "w": 1013,
@@ -2656,7 +3242,9 @@ window.GALLERY_DATA = {
     {
       "id": "nfg-psychologist-profile-07",
       "collection": "nfg",
-      "category": "commercial",
+      "categories": [
+        "commercial"
+      ],
       "type": "image",
       "title": "Psychologist Profile — 07",
       "w": 1013,

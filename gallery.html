@@ -206,7 +206,7 @@
             const meta = COLLECTION_INDEX[item.collection] || {};
             return {
                 id: item.id,
-                category: item.category,
+                categories: item.categories || [item.category],
                 title: item.title,
                 client: meta.name || item.collection,
                 role: meta.role || '',
@@ -224,7 +224,8 @@
             { id: 'packaging', label: 'Packaging & Form', desc: 'Shelf-ready structure: dielines, pouches, boxes, and mockups.' },
             { id: 'illustration', label: 'The Artist\'s Hand', desc: 'High-precision vector art and rebellious designs.' },
             { id: 'identity', label: 'Identity Systems', desc: 'Minimalist, memorable symbols carrying brand vision.' },
-            { id: 'motion', label: 'Motion & Cinema', desc: 'Stories in motion. Editing, pacing, and visual storytelling.' },
+            { id: 'motion', label: 'Commercial Video', desc: 'Stories in motion. Editing, pacing, and visual storytelling.' },
+            { id: 'aiediting', label: 'AI Editing', desc: 'AI-assisted edits: concept, voice, pacing, and motion built with the AI pipeline.' },
         ];
 
         // --- APP STATE ---
@@ -281,7 +282,7 @@
         function renderGallery() {
             let items = currentFilter === 'all'
                 ? portfolioItems
-                : portfolioItems.filter(item => item.category === currentFilter);
+                : portfolioItems.filter(item => (item.categories || []).includes(currentFilter));
 
             // SHUFFLE / RANDOMIZE ORDER (Abstract Feel)
             items = items.sort(() => Math.random() - 0.5);
@@ -308,7 +309,7 @@
                 const wrapperClass = `${randomMargin} ${randomWidth} ${randomAlign}`;
                 const delay = index * 50;
 
-                if (item.category === 'motion') {
+                if (item.type === 'video') {
                     return createVideoCardHTML(item, wrapperClass, delay);
                 } else {
                     return createImageCardHTML(item, wrapperClass, delay);
@@ -393,10 +394,13 @@
             const item = portfolioItems.find(i => i.id === id);
             if (!item) return;
 
-            const category = CATEGORIES.find(c => c.id === item.category);
+            const categoryLabels = (item.categories || []).map(function (id) {
+                const found = CATEGORIES.find(c => c.id === id);
+                return found ? found.label : id;
+            });
 
             // Name what the piece is, and who it was made for.
-            document.getElementById('lb-category').innerText = `Archive: ${category ? category.label : item.category}`;
+            document.getElementById('lb-category').innerText = 'Archive: ' + categoryLabels.join(' \u00B7 ');
             document.getElementById('lb-title').innerText = item.title;
             document.getElementById('lb-role').innerText = item.role ? `${item.client} \u00B7 ${item.role}` : item.client;
             document.getElementById('lb-context').innerText = item.context;
@@ -407,7 +411,7 @@
 
             // Update Media
             lightboxMedia.innerHTML = '';
-            if (item.category === 'motion') {
+            if (item.type === 'video') {
                 lightboxMedia.innerHTML = `
                     <div class="relative w-full aspect-video">
                         <video src="${item.src}" poster="${item.thumb}" controls autoplay playsinline class="w-full h-full object-contain"></video>

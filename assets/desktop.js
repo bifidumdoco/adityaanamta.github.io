@@ -7,7 +7,7 @@
 
     // Everything is served from one origin now, so media paths stay relative.
     const MEDIA_BASE = "";
-    const CV_URL = "https://drive.google.com/file/d/1sSdM1iGMYrdMkZ7Ih7baob9H2BcVGsQ7/view";
+    const CV_URL = "https://drive.google.com/file/d/1GgzrCTRLTujQzlf_l7OPGvL9WcdwKepP/view";
 
     const DATA = window.GALLERY_DATA || { collections: [], items: [] };
     const ITEMS = DATA.items;
